@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infos — Jérémy Rambaud</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="cursor"></div>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Jérémy Rambaud</a>
+      <ul class="nav-links">
+        <li><a href="travaux.html">Travaux</a></li>
+        <li><a href="photographie.html">Photographie</a></li>
+        <li><a href="infos.html" class="active">Informations</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="nav-mobile" aria-hidden="true">
+    <a href="travaux.html">Travaux</a>
+    <a href="photographie.html">Photographie</a>
+    <a href="infos.html">Informations</a>
+  </div>
+
+  <main class="infos-page">
+
+    <section class="infos-intro" data-scroll>
+      <h1 class="infos-title">Infos</h1>
+      <div class="infos-bio">
+        <p>
+          Jérémy Rambaud is a French art director based in Angers. Currently completing a Master's degree in Art Direction, he works at the intersection of editorial design, visual identity, and typographic research.
+        </p>
+        <p>
+          With a focus on the editorial and the typographic, his practice explores how images and text construct meaning together. He is currently looking for collaborations, internships, and opportunities to work on ambitious projects.
+        </p>
+        <p>
+          Jérémy is a <em>designer</em>, <em>typographer</em>, and <em>art director</em> with a particular interest in cultural institutions, independent publishing, and luxury brands.
+        </p>
+      </div>
+    </section>
+
+    <section class="infos-grid" data-scroll>
+      <div class="infos-col">
+        <h2 class="infos-col-title">Contact</h2>
+        <ul>
+          <li><a href="mailto:jeremy@jeremyrambaud.fr">jeremy@jeremyrambaud.fr</a></li>
+          <li><a href="tel:+33600000000">+33 6 00 00 00 00</a></li>
+        </ul>
+      </div>
+      <div class="infos-col">
+        <h2 class="infos-col-title">Address</h2>
+        <address>
+          Angers<br>
+          Pays de la Loire<br>
+          France, 49000
+        </address>
+      </div>
+      <div class="infos-col">
+        <h2 class="infos-col-title">Follow</h2>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+          <li><a href="#">Are.na</a></li>
+        </ul>
+      </div>
+      <div class="infos-col">
+        <h2 class="infos-col-title">Newsletter</h2>
+        <p>Sign up for occasional updates on new projects and other things of interest.</p>
+        <form class="newsletter-form" style="margin-top: 1rem;">
+          <input type="email" placeholder="Your email">
+          <button type="submit">→</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="infos-cv" data-scroll>
+      <h2 class="infos-section-title">Education</h2>
+      <ul class="cv-list">
+        <li>
+          <span class="cv-year">2024–2026</span>
+          <span class="cv-detail">Master 2 Direction Artistique — <em>ESAD, Angers</em></span>
+        </li>
+        <li>
+          <span class="cv-year">2021–2024</span>
+          <span class="cv-detail">Licence Design Graphique — <em>ESAD, Angers</em></span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="infos-cv" data-scroll>
+      <h2 class="infos-section-title">Selected Projects &amp; Collaborations</h2>
+      <ul class="cv-list cv-list--inline">
+        <li>Studio Lumière</li>
+        <li>Revue Noire</li>
+        <li>Maison Duval</li>
+        <li>Forme &amp; Fond</li>
+        <li>Typeset Workshop</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-label">Address</p>
+        <address>Angers, France<br>49000</address>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Contact</p>
+        <p><a href="mailto:jeremy@jeremyrambaud.fr">jeremy@jeremyrambaud.fr</a></p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Follow</p>
+        <ul class="footer-social">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Newsletter</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email">
+          <button type="submit">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>©2026 Jérémy Rambaud</span>
+      <span>Art Director, Angers</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

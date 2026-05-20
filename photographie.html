@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photographie — Jérémy Rambaud</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="cursor"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" aria-label="Fermer">×</button>
+    <button class="lightbox-prev" aria-label="Précédent">← Préc.</button>
+    <button class="lightbox-next" aria-label="Suivant">Suiv. →</button>
+    <div class="lightbox-img-wrap">
+      <img id="lightbox-img" src="" alt="">
+    </div>
+    <div class="lightbox-info">
+      <span id="lightbox-series"></span>
+      <span id="lightbox-year"></span>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Jérémy Rambaud</a>
+      <ul class="nav-links">
+        <li><a href="travaux.html">Travaux</a></li>
+        <li><a href="photographie.html" class="active">Photographie</a></li>
+        <li><a href="infos.html">Informations</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="nav-mobile" aria-hidden="true">
+    <a href="travaux.html">Travaux</a>
+    <a href="photographie.html">Photographie</a>
+    <a href="infos.html">Informations</a>
+  </div>
+
+  <main class="photo-page">
+
+    <section class="photo-intro" data-scroll>
+      <h1 class="photo-page-title">Photographie</h1>
+      <p class="photo-page-intro">Une sélection de mes travaux photographiques — mode, sport, nature, performance.</p>
+    </section>
+
+    <!-- Navigation par catégorie -->
+    <nav class="photo-cat-nav" aria-label="Catégories">
+      <a href="#section-mode">Mode</a>
+      <span class="photo-cat-sep">·</span>
+      <a href="#section-sport">Sport</a>
+      <span class="photo-cat-sep">·</span>
+      <a href="#section-anim">Animalière</a>
+      <span class="photo-cat-sep">·</span>
+      <a href="#section-autres">Autres</a>
+    </nav>
+
+    <!-- ======================================================
+         SECTION MODE
+    ====================================================== -->
+    <section class="photo-section" id="section-mode" data-scroll>
+      <div class="photo-section-header">
+        <h2 class="photo-section-title">Mode</h2>
+        <p class="photo-section-desc">Défilés, fashion shows, mise en scène vestimentaire.</p>
+      </div>
+
+      <div class="photo-grid">
+
+        <figure class="photo-item"
+                data-src="images/photo-mode-01.jpg"
+                data-series="Flash Mode"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 3/4; background-color: #D4A8B0;">
+            <img src="images/photo-mode-01.jpg" alt="Flash Mode — 1">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Flash Mode</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-mode-02.jpg"
+                data-series="Flash Mode"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 4/3; background-color: #C9A09C;">
+            <img src="images/photo-mode-02.jpg" alt="Flash Mode — 2">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Flash Mode</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-mode-03.jpg"
+                data-series="Flash Mode"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 2/3; background-color: #E0BDB8;">
+            <img src="images/photo-mode-03.jpg" alt="Flash Mode — 3">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Flash Mode</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-mode-04.jpg"
+                data-series="Flash Mode"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 1/1; background-color: #D8B4B0;">
+            <img src="images/photo-mode-04.jpg" alt="Flash Mode — 4">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Flash Mode</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SECTION SPORT
+    ====================================================== -->
+    <section class="photo-section" id="section-sport" data-scroll>
+      <div class="photo-section-header">
+        <h2 class="photo-section-title">Sport</h2>
+        <p class="photo-section-desc">Hockey sur glace, captation de l'action et de l'intensité du jeu.</p>
+      </div>
+
+      <div class="photo-grid">
+
+        <figure class="photo-item"
+                data-src="images/photo-sport-01.jpg"
+                data-series="Palet &amp; Glace"
+                data-year="2024">
+          <div class="photo-wrap" style="aspect-ratio: 4/3; background-color: #A8C4D4;">
+            <img src="images/photo-sport-01.jpg" alt="Palet &amp; Glace — 1">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Palet &amp; Glace</span>
+              <span class="caption-year">2024</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-sport-02.jpg"
+                data-series="Palet &amp; Glace"
+                data-year="2024">
+          <div class="photo-wrap" style="aspect-ratio: 3/4; background-color: #8BAFC2;">
+            <img src="images/photo-sport-02.jpg" alt="Palet &amp; Glace — 2">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Palet &amp; Glace</span>
+              <span class="caption-year">2024</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-sport-03.jpg"
+                data-series="Palet &amp; Glace"
+                data-year="2024">
+          <div class="photo-wrap" style="aspect-ratio: 3/4; background-color: #C4D8E4;">
+            <img src="images/photo-sport-03.jpg" alt="Palet &amp; Glace — 3">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Palet &amp; Glace</span>
+              <span class="caption-year">2024</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-sport-04.jpg"
+                data-series="Palet &amp; Glace"
+                data-year="2024">
+          <div class="photo-wrap" style="aspect-ratio: 16/9; background-color: #9FBFD0;">
+            <img src="images/photo-sport-04.jpg" alt="Palet &amp; Glace — 4">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Palet &amp; Glace</span>
+              <span class="caption-year">2024</span>
+            </figcaption>
+          </div>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SECTION ANIMALIÈRE
+    ====================================================== -->
+    <section class="photo-section" id="section-anim" data-scroll>
+      <div class="photo-section-header">
+        <h2 class="photo-section-title">Animalière</h2>
+        <p class="photo-section-desc">Faune sauvage, nature et observation à la longue focale.</p>
+      </div>
+
+      <div class="photo-grid">
+
+        <figure class="photo-item"
+                data-src="images/photo-anim-01.jpg"
+                data-series="Wilderness"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 3/4; background-color: #8A9A7C;">
+            <img src="images/photo-anim-01.jpg" alt="Wilderness — 1">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Wilderness</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-anim-02.jpg"
+                data-series="Wilderness"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 16/9; background-color: #A09B7A;">
+            <img src="images/photo-anim-02.jpg" alt="Wilderness — 2">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Wilderness</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-anim-03.jpg"
+                data-series="Wilderness"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 1/1; background-color: #B5C49A;">
+            <img src="images/photo-anim-03.jpg" alt="Wilderness — 3">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Wilderness</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-anim-04.jpg"
+                data-series="Wilderness"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 4/3; background-color: #9AAA88;">
+            <img src="images/photo-anim-04.jpg" alt="Wilderness — 4">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Wilderness</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SECTION AUTRES
+    ====================================================== -->
+    <section class="photo-section" id="section-autres" data-scroll>
+      <div class="photo-section-header">
+        <h2 class="photo-section-title">Autres</h2>
+        <p class="photo-section-desc">Explorations diverses — performance, paysage, portrait.</p>
+      </div>
+
+      <div class="photo-grid">
+
+        <figure class="photo-item"
+                data-src="images/photo-autres-01.jpg"
+                data-series="Corps &amp; Air"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 4/3; background-color: #B8B4AC;">
+            <img src="images/photo-autres-01.jpg" alt="Corps &amp; Air — 1">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Corps &amp; Air</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-autres-02.jpg"
+                data-series="Corps &amp; Air"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 3/4; background-color: #C8C4BC;">
+            <img src="images/photo-autres-02.jpg" alt="Corps &amp; Air — 2">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Corps &amp; Air</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-autres-03.jpg"
+                data-series="Corps &amp; Air"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 4/3; background-color: #A8A4A0;">
+            <img src="images/photo-autres-03.jpg" alt="Corps &amp; Air — 3">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Corps &amp; Air</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="photo-item"
+                data-src="images/photo-autres-04.jpg"
+                data-series="Corps &amp; Air"
+                data-year="2025">
+          <div class="photo-wrap" style="aspect-ratio: 2/3; background-color: #D0CCC4;">
+            <img src="images/photo-autres-04.jpg" alt="Corps &amp; Air — 4">
+            <figcaption class="photo-caption">
+              <span class="caption-series">Corps &amp; Air</span>
+              <span class="caption-year">2025</span>
+            </figcaption>
+          </div>
+        </figure>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-label">Address</p>
+        <address>Angers, France<br>49000</address>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Contact</p>
+        <p><a href="mailto:jeremy@jeremyrambaud.fr">jeremy@jeremyrambaud.fr</a></p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Follow</p>
+        <ul class="footer-social">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Newsletter</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email">
+          <button type="submit">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>©2026 Jérémy Rambaud</span>
+      <span>Art Director, Angers</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

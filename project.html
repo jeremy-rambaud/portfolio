@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Lumière — Jérémy Rambaud</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="cursor"></div>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Jérémy Rambaud</a>
+      <ul class="nav-links">
+        <li><a href="travaux.html" class="active">Travaux</a></li>
+        <li><a href="photographie.html">Photographie</a></li>
+        <li><a href="infos.html">Informations</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="nav-mobile" aria-hidden="true">
+    <a href="travaux.html">Travaux</a>
+    <a href="photographie.html">Photographie</a>
+    <a href="infos.html">Informations</a>
+  </div>
+
+  <main class="project-page">
+
+    <section class="project-header" data-scroll>
+      <div class="project-meta">
+        <span class="project-category">Branding</span>
+        <span class="project-year">2025</span>
+      </div>
+      <h1 class="project-title-large">Studio Lumière —<em> Identity</em></h1>
+      <p class="project-intro">
+        A complete visual identity for a Parisian photography studio exploring the tension between light and shadow.
+      </p>
+    </section>
+
+    <section class="project-hero" data-scroll>
+      <div class="full-image">
+        <img src="images/project-01.jpg" alt="Studio Lumière — Hero">
+      </div>
+    </section>
+
+    <section class="project-body">
+
+      <div class="project-two-col" data-scroll>
+        <div class="project-two-col__img">
+          <img src="images/project-01b.jpg" alt="Studio Lumière — Détail">
+        </div>
+        <div class="project-two-col__text">
+          <h3>Brief</h3>
+          <p>The studio needed a visual identity that could hold the duality at the heart of their practice: rigor and poetry, precision and emotion. The name itself — Lumière — became the starting point for the entire system.</p>
+          <dl class="project-details">
+            <dt>Année</dt>
+            <dd>2025</dd>
+            <dt>Client</dt>
+            <dd>Studio Lumière, Paris</dd>
+            <dt>Services</dt>
+            <dd>Identité visuelle, Direction artistique, Typographie</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-01c.jpg" alt="Studio Lumière — Logotype">
+      </div>
+
+      <div class="project-two-col project-two-col--reverse" data-scroll>
+        <div class="project-two-col__img">
+          <img src="images/project-01d.jpg" alt="Studio Lumière — Application">
+        </div>
+        <div class="project-two-col__text">
+          <h3>Approach</h3>
+          <p>Working with a reduced palette — deep black, warm white, and a single precise accent — the identity leans on the tension between negative space and typographic presence. The logotype uses a classical serif, slightly compressed to suggest precision without coldness.</p>
+        </div>
+      </div>
+
+      <div class="project-image-block project-image-block--split" data-scroll>
+        <img src="images/project-01e.jpg" alt="Studio Lumière — Stationery">
+        <img src="images/project-01f.jpg" alt="Studio Lumière — Application">
+      </div>
+
+      <div class="project-text project-text--center" data-scroll>
+        <div class="text-block">
+          <p class="pullquote">"Light is the beginning of all things. The identity had to carry that weight with lightness."</p>
+        </div>
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-01g.jpg" alt="Studio Lumière — Final">
+      </div>
+
+    </section>
+
+    <section class="project-credits" data-scroll>
+      <h3>Crédits</h3>
+      <div class="credit-row">
+        <span class="credit-role">Direction artistique</span>
+        <span>Jérémy Rambaud</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Photographies studio</span>
+        <span>À compléter</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Photographies lifestyle</span>
+        <span>À compléter</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Impression & fabrication</span>
+        <span>À compléter</span>
+      </div>
+    </section>
+
+    <nav class="project-nav" data-scroll>
+      <a href="index.html" class="back-link">← All works</a>
+      <a href="project.html" class="next-project">Next project →</a>
+    </nav>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-label">Address</p>
+        <address>Angers, France<br>49000</address>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Contact</p>
+        <p><a href="mailto:jeremy@jeremyrambaud.fr">jeremy@jeremyrambaud.fr</a></p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Follow</p>
+        <ul class="footer-social">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Newsletter</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email">
+          <button type="submit">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>©2026 Jérémy Rambaud</span>
+      <span>Art Director, Angers</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
