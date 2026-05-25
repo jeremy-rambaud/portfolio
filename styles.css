@@ -902,10 +902,11 @@ footer {
 
 .travaux-card-title {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2vw, 2rem);
+  font-size: clamp(0.8rem, 1.3vw, 1.2rem);
   font-weight: 300;
   font-style: italic;
   line-height: 1.15;
+  white-space: nowrap;
 }
 
 /* ============================================================
@@ -964,6 +965,13 @@ footer {
 }
 
 .project-details dd {
+  line-height: 1.6;
+}
+
+.project-photo-credit {
+  margin-top: var(--space-sm);
+  font-size: 0.6875rem;
+  color: var(--gray);
   line-height: 1.6;
 }
 

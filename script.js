@@ -109,6 +109,7 @@ if (lightbox) {
     lightbox.removeAttribute('aria-hidden');
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+    document.body.style.cursor = 'auto';
     if (cursor) cursor.style.opacity = '0';
   }
 
@@ -116,6 +117,7 @@ if (lightbox) {
     lightbox.setAttribute('aria-hidden', 'true');
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
+    document.body.style.cursor = '';
     lightboxImg.src = '';
     if (cursor) cursor.style.opacity = '1';
   }

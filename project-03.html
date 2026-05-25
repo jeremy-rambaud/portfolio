@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Paradoxe du progrès — Jérémy Rambaud</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="cursor"></div>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Jérémy Rambaud</a>
+      <ul class="nav-links">
+        <li><a href="travaux.html" class="active">Travaux</a></li>
+        <li><a href="photographie.html">Photographie</a></li>
+        <li><a href="infos.html">Informations</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="nav-mobile" aria-hidden="true">
+    <a href="travaux.html">Travaux</a>
+    <a href="photographie.html">Photographie</a>
+    <a href="infos.html">Informations</a>
+  </div>
+
+  <main class="project-page">
+
+    <section class="project-header" data-scroll>
+      <div class="project-meta">
+        <span class="project-category">DESIGN ÉDITORIAL</span>
+        <span class="project-year">2026</span>
+      </div>
+      <h1 class="project-title-large">Le Paradoxe du progrès —<em> Design éditorial</em></h1>
+      <p class="project-intro">
+        Le Paradoxe du progrès est un objet éditorial conçu intégralement, de l'écriture à la fabrication. À partir d'un sujet imposé — l'intelligence artificielle — le projet explore la tension entre fascination technologique et inquiétude, entre progrès et perte de contrôle.
+      </p>
+    </section>
+
+    <section class="project-hero" data-scroll>
+      <div class="full-image">
+        <img src="images/project-03.jpg" alt="Revue Noire — Hero">
+      </div>
+    </section>
+
+    <section class="project-body">
+
+      <div class="project-two-col" data-scroll>
+        <div class="project-two-col__img">
+          <img src="images/project-03b.jpg" alt="Revue Noire — Détail">
+        </div>
+        <div class="project-two-col__text">
+          <p>Le Paradoxe du progrès est un objet éditorial conçu intégralement, de l'écriture à la fabrication. À partir d'un sujet imposé — l'intelligence artificielle — le projet explore la tension entre fascination technologique et inquiétude, entre progrès et perte de contrôle.</p>
+          <dl class="project-details">
+            <dt>Année</dt>
+            <dd>2026</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-03c.jpg" alt="Revue Noire — Mise en page">
+      </div>
+
+      <div class="project-two-col project-two-col--reverse" data-scroll>
+        <div class="project-two-col__img">
+          <img src="images/project-03d.jpg" alt="Revue Noire — Application">
+        </div>
+        <div class="project-two-col__text">
+          <h3>Approche</h3>
+          <p>Le concept naît d'un affrontement typographique. Le corps de texte, composé dans un serif classique et raisonné, est sans cesse envahi par une typographie grasse, arrondie et anxiogène qui s'immisce dans la page, dévore l'espace et déforme la lecture. Cette contamination visuelle met en scène le sujet lui-même : une raison humaine progressivement débordée par une force qu'elle a créée. L'imagerie, traitée en collage à fort contraste, hérite directement de l'esthétique brute de Dada et du punk.</p>
+        </div>
+      </div>
+
+      <div class="project-image-block project-image-block--split" data-scroll>
+        <img src="images/project-03e.jpg" alt="Revue Noire — Intérieur">
+        <img src="images/project-03f.jpg" alt="Revue Noire — Couverture">
+      </div>
+
+      <div class="project-text project-text--center" data-scroll>
+        <div class="text-block">
+          <p class="pullquote">"À compléter."</p>
+        </div>
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-03g.jpg" alt="Revue Noire — Final">
+      </div>
+
+    </section>
+
+    <section class="project-credits" data-scroll>
+      <h3>Crédits</h3>
+      <div class="credit-row">
+        <span class="credit-role">Direction artistique</span>
+        <span>Jérémy Rambaud</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Impression & fabrication</span>
+        <span>À compléter</span>
+      </div>
+    </section>
+
+    <nav class="project-nav" data-scroll>
+      <a href="travaux.html" class="back-link">← All works</a>
+      <a href="project-04.html" class="next-project">Next project →</a>
+    </nav>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-label">Address</p>
+        <address>Angers, France<br>49000</address>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Contact</p>
+        <p><a href="mailto:jeremy@jeremyrambaud.fr">jeremy@jeremyrambaud.fr</a></p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Follow</p>
+        <ul class="footer-social">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Newsletter</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email">
+          <button type="submit">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>©2026 Jérémy Rambaud</span>
+      <span>Art Director, Angers</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

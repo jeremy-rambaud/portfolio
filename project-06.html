@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fade — Jérémy Rambaud</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="cursor"></div>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Jérémy Rambaud</a>
+      <ul class="nav-links">
+        <li><a href="travaux.html" class="active">Travaux</a></li>
+        <li><a href="photographie.html">Photographie</a></li>
+        <li><a href="infos.html">Informations</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="nav-mobile" aria-hidden="true">
+    <a href="travaux.html">Travaux</a>
+    <a href="photographie.html">Photographie</a>
+    <a href="infos.html">Informations</a>
+  </div>
+
+  <main class="project-page">
+
+    <section class="project-header" data-scroll>
+      <div class="project-meta">
+        <span class="project-category">MOTION DESIGN</span>
+        <span class="project-year">2025</span>
+      </div>
+      <h1 class="project-title-large">Fade —<em> Motion Typography</em></h1>
+      <p class="project-intro">
+        Exploration en motion design autour de la typographie animée et de la disparition progressive de la forme.
+      </p>
+    </section>
+
+    <section class="project-hero" data-scroll>
+      <div class="full-image">
+        <img src="images/project-06.jpg" alt="Fade — Hero">
+      </div>
+    </section>
+
+    <section class="project-body">
+
+      <div class="project-two-col" data-scroll>
+        <div class="project-two-col__img">
+          <img src="images/project-06b.jpg" alt="Fade — Détail">
+        </div>
+        <div class="project-two-col__text">
+          <p>Fade est un projet de motion typography explorant la dissolution progressive des formes typographiques. Le temps, ici, est le matériau principal : chaque lettre apparaît, existe brièvement, puis disparaît.</p>
+          <dl class="project-details">
+            <dt>Année</dt>
+            <dd>2025</dd>
+            <dt>Client</dt>
+            <dd>Projet personnel</dd>
+            <dt>Services</dt>
+            <dd>Motion design, Typographie, Direction artistique</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-06c.jpg" alt="Fade — Storyboard">
+      </div>
+
+      <div class="project-two-col project-two-col--reverse" data-scroll>
+        <div class="project-two-col__img">
+          <img src="images/project-06d.jpg" alt="Fade — Frame">
+        </div>
+        <div class="project-two-col__text">
+          <h3>L'animation</h3>
+          <p>À compléter.</p>
+        </div>
+      </div>
+
+      <div class="project-image-block project-image-block--split" data-scroll>
+        <img src="images/project-06e.jpg" alt="Fade — Frame 1">
+        <img src="images/project-06f.jpg" alt="Fade — Frame 2">
+      </div>
+
+      <div class="project-text project-text--center" data-scroll>
+        <div class="text-block">
+          <p class="pullquote">"À compléter."</p>
+        </div>
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-06g.jpg" alt="Fade — Final">
+      </div>
+
+    </section>
+
+    <section class="project-credits" data-scroll>
+      <h3>Crédits</h3>
+      <div class="credit-row">
+        <span class="credit-role">Direction artistique & motion</span>
+        <span>Jérémy Rambaud</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Son</span>
+        <span>À compléter</span>
+      </div>
+    </section>
+
+    <nav class="project-nav" data-scroll>
+      <a href="travaux.html" class="back-link">← All works</a>
+      <a href="project-07.html" class="next-project">Next project →</a>
+    </nav>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-label">Address</p>
+        <address>Angers, France<br>49000</address>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Contact</p>
+        <p><a href="mailto:jeremy@jeremyrambaud.fr">jeremy@jeremyrambaud.fr</a></p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Follow</p>
+        <ul class="footer-social">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Newsletter</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email">
+          <button type="submit">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>©2026 Jérémy Rambaud</span>
+      <span>Art Director, Angers</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
