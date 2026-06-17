@@ -85,6 +85,9 @@ img {
 ul { list-style: none; }
 address { font-style: normal; }
 
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
 /* ============================================================
    CUSTOM CURSOR
    ============================================================ */
