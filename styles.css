@@ -391,6 +391,13 @@ nav {
   font-style: italic;
 }
 
+.project-title-large--nowrap {
+  white-space: nowrap;
+  hyphens: none;
+  font-size: clamp(1rem, 5.5vw, 5rem);
+  max-width: none;
+}
+
 .project-intro {
   max-width: 520px;
   font-size: 0.9375rem;
