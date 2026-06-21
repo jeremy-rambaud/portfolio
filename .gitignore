@@ -24,5 +24,11 @@ node_modules/
 *.tmp
 *.bak
 
+# Dossier de téléchargements / fichiers de travail lourds
+images/Téléchargements/
+*.psd
+*.acr
+*.ai
+
 # Claude Code (configuration locale, ne pas partager)
 .claude/
