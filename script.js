@@ -39,20 +39,9 @@ const observer = new IntersectionObserver((entries) => {
 scrollElements.forEach(el => observer.observe(el));
 
 // ============================================================
-// HEADER HIDE ON SCROLL DOWN
+// HEADER (toujours visible)
 // ============================================================
 const header = document.querySelector('header');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-  const current = window.scrollY;
-  if (current > lastScroll && current > 120) {
-    header.style.transform = 'translateY(-100%)';
-  } else {
-    header.style.transform = 'translateY(0)';
-  }
-  lastScroll = current;
-}, { passive: true });
 
 // ============================================================
 // BURGER MENU
@@ -155,3 +144,23 @@ if (lightbox) {
     });
   }
 }
+
+// ============================================================
+// ADAPTIVE NAV THEME
+// ============================================================
+(function () {
+  const themed = document.querySelectorAll('[data-nav-theme]');
+  if (!themed.length || !header) return;
+
+  const update = () => {
+    const triggerY = header.offsetHeight;
+    let active = null;
+    for (const el of themed) {
+      if (el.getBoundingClientRect().top <= triggerY) active = el;
+    }
+    header.classList.toggle('header--on-dark', active?.dataset.navTheme === 'dark');
+  };
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();

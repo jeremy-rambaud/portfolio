@@ -19,7 +19,7 @@
       <ul class="nav-links">
         <li><a href="travaux.html" class="active">Travaux</a></li>
         <li><a href="photographie.html">Photographie</a></li>
-        <li><a href="infos.html">Informations</a></li>
+        <li><a href="infos.html">À propos</a></li>
       </ul>
       <button class="burger" aria-label="Menu" aria-expanded="false">
         <span></span>
@@ -31,12 +31,12 @@
   <div class="nav-mobile" aria-hidden="true">
     <a href="travaux.html">Travaux</a>
     <a href="photographie.html">Photographie</a>
-    <a href="infos.html">Informations</a>
+    <a href="infos.html">À propos</a>
   </div>
 
   <main class="project-page">
 
-    <section class="project-header" data-scroll>
+    <section class="project-header" data-scroll data-nav-theme="light">
       <div class="project-meta">
         <span class="project-category">IDENTITÉ</span>
         <span class="project-year">2025</span>
@@ -47,13 +47,13 @@
       </p>
     </section>
 
-    <section class="project-hero" data-scroll>
+    <section class="project-hero" data-scroll data-nav-theme="dark">
       <div class="full-image">
         <img src="images/project-01.jpg" alt="Studio Lumière — Hero">
       </div>
     </section>
 
-    <section class="project-body">
+    <section class="project-body" data-nav-theme="light">
 
       <div class="project-two-col" data-scroll>
         <div class="project-two-col__img">
@@ -120,7 +120,7 @@
 
     </section>
 
-    <section class="project-credits" data-scroll>
+    <section class="project-credits" data-scroll data-nav-theme="light">
       <h3>Crédits</h3>
       <div class="credit-row">
         <span class="credit-role">Direction artistique</span>
@@ -136,14 +136,14 @@
       </div>
     </section>
 
-    <nav class="project-nav" data-scroll>
+    <nav class="project-nav" data-scroll data-nav-theme="light">
       <a href="index.html" class="back-link">← All works</a>
       <a href="project-02.html" class="next-project">Next project →</a>
     </nav>
 
   </main>
 
-  <footer>
+  <footer data-nav-theme="light">
     <div class="footer-grid">
       <div class="footer-col">
         <p class="footer-label">Adresse</p>
@@ -163,7 +163,6 @@
     </div>
     <div class="footer-bottom">
       <span>©2026 Jérémy Rambaud</span>
-      <span>Art Director, Angers</span>
     </div>
   </footer>
 
