@@ -5,8 +5,7 @@ const cursor = document.querySelector('.cursor');
 
 if (cursor) {
   document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
   });
 
   const interactables = document.querySelectorAll('a, button, input');
@@ -141,6 +140,27 @@ if (lightbox) {
      document.querySelector('.lightbox-next')].forEach(btn => {
       btn.addEventListener('mouseenter', () => cursor.classList.add('cursor--hover'));
       btn.addEventListener('mouseleave', () => cursor.classList.remove('cursor--hover'));
+    });
+  }
+}
+
+// ============================================================
+// GSAP — TITLE REVEAL (pages projet)
+// ============================================================
+if (typeof gsap !== 'undefined' && typeof SplitText !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  const titleEl = document.querySelector('.project-title-large');
+  if (titleEl && !titleEl.closest('.project-hero-pin__title')) {
+    const split = new SplitText(titleEl, { type: 'lines' });
+    gsap.from(split.lines, {
+      y: 24,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+      stagger: 0.08,
+      delay: 0.1,
+      clearProps: 'all'
     });
   }
 }

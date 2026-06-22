@@ -8,6 +8,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
+    .project-hero-pin__media { position: absolute; inset: 0; }
+    .project-hero-pin__media img,
+    .project-hero-pin__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-hero-pin__title {
+      position: absolute; bottom: 8vh; left: 0; right: 0;
+      padding: 0 5vw; pointer-events: none;
+    }
+    .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
+  </style>
 </head>
 <body>
 
@@ -36,21 +47,23 @@
 
   <main class="project-page">
 
+    <section class="project-hero-pin" data-nav-theme="dark">
+      <div class="project-hero-pin__media">
+        <img src="images/project-03.jpg" alt="Le Paradoxe du progrès — couverture">
+      </div>
+      <div class="project-hero-pin__title">
+        <h1 class="project-title-large">Le Paradoxe du progrès</h1>
+      </div>
+    </section>
+
     <section class="project-header" data-scroll data-nav-theme="light">
       <div class="project-meta">
         <span class="project-category">DESIGN ÉDITORIAL</span>
         <span class="project-year">2025</span>
       </div>
-      <h1 class="project-title-large">Le Paradoxe du progrès</h1>
       <p class="project-intro">
         Le Paradoxe du progrès est un objet éditorial conçu intégralement, de l'écriture à la fabrication. À partir d'un sujet imposé, l'intelligence artificielle, le projet explore la tension entre fascination technologique et inquiétude, entre progrès et perte de contrôle.
       </p>
-    </section>
-
-    <section class="project-hero" data-scroll data-nav-theme="dark">
-      <div class="full-image">
-        <img src="images/project-03.jpg" alt="Le Paradoxe du progrès — couverture">
-      </div>
     </section>
 
     <section class="project-body" data-nav-theme="light">
@@ -165,6 +178,53 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
   <script src="script.js"></script>
+  <script>
+  (function () {
+    function init() {
+      document.querySelectorAll('.project-body [data-scroll], .project-credits[data-scroll], .project-nav[data-scroll]')
+        .forEach(el => el.classList.add('visible'));
+
+      if (typeof gsap === 'undefined') return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
+        const hero    = document.querySelector('.project-hero-pin');
+        const media   = document.querySelector('.project-hero-pin__media');
+        const overlay = document.querySelector('.project-hero-pin__title');
+        if (!hero || !media || !overlay) return;
+
+        gsap.set(media,   { scale: 1.6 });
+        gsap.set(overlay, { opacity: 0, y: 30 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: hero,
+            start: 'top top',
+            end: '+=100%',
+            pin: true,
+            scrub: true,
+            anticipatePin: 1
+          }
+        });
+
+        tl.to(media,   { scale: 1, ease: 'none', duration: 1 }, 0);
+        tl.to(overlay, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0.45);
+
+        return () => gsap.set([media, overlay], { clearProps: 'all' });
+      });
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', init)
+      : init();
+  })();
+  </script>
 </body>
 </html>

@@ -8,6 +8,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
+    .project-hero-pin__media { position: absolute; inset: 0; }
+    .project-hero-pin__media img,
+    .project-hero-pin__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-hero-pin__title {
+      position: absolute; bottom: 8vh; left: 0; right: 0;
+      padding: 0 5vw; pointer-events: none;
+    }
+    .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
+  </style>
 </head>
 <body>
 
@@ -36,21 +47,23 @@
 
   <main class="project-page">
 
+    <section class="project-hero-pin" data-nav-theme="dark">
+      <div class="project-hero-pin__media">
+        <img src="images/project-04.jpg" alt="Typeset — Hero">
+      </div>
+      <div class="project-hero-pin__title">
+        <h1 class="project-title-large">93<sup>e</sup> Congrès des Assises départementales</h1>
+      </div>
+    </section>
+
     <section class="project-header" data-scroll data-nav-theme="light">
       <div class="project-meta">
         <span class="project-category">SIGNALÉTIQUE</span>
         <span class="project-year">2024</span>
       </div>
-      <h1 class="project-title-large">93<sup>e</sup> Congrès des Assises départementales</h1>
       <p class="project-intro">
         En novembre 2024, le Département de Maine-et-Loire accueillait à Angers le 93e congrès des Assises des Départements de France, un temps fort national réunissant plus de 1 200 participants sur trois jours au Centre de Congrès. Dès mon arrivée au Département, j'ai été intégré à l'organisation de cet événement d'envergure.
       </p>
-    </section>
-
-    <section class="project-hero" data-scroll data-nav-theme="dark">
-      <div class="full-image">
-        <img src="images/project-04.jpg" alt="Typeset — Hero">
-      </div>
     </section>
 
     <section class="project-body" data-nav-theme="light">
@@ -139,6 +152,53 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
   <script src="script.js"></script>
+  <script>
+  (function () {
+    function init() {
+      document.querySelectorAll('.project-body [data-scroll], .project-credits[data-scroll], .project-nav[data-scroll]')
+        .forEach(el => el.classList.add('visible'));
+
+      if (typeof gsap === 'undefined') return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
+        const hero    = document.querySelector('.project-hero-pin');
+        const media   = document.querySelector('.project-hero-pin__media');
+        const overlay = document.querySelector('.project-hero-pin__title');
+        if (!hero || !media || !overlay) return;
+
+        gsap.set(media,   { scale: 1.6 });
+        gsap.set(overlay, { opacity: 0, y: 30 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: hero,
+            start: 'top top',
+            end: '+=100%',
+            pin: true,
+            scrub: true,
+            anticipatePin: 1
+          }
+        });
+
+        tl.to(media,   { scale: 1, ease: 'none', duration: 1 }, 0);
+        tl.to(overlay, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0.45);
+
+        return () => gsap.set([media, overlay], { clearProps: 'all' });
+      });
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', init)
+      : init();
+  })();
+  </script>
 </body>
 </html>
