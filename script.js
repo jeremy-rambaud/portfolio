@@ -19,23 +19,65 @@ if (cursor) {
 }
 
 // ============================================================
-// SCROLL ANIMATIONS
+// GSAP SCROLL REVEAL
 // ============================================================
-const scrollElements = document.querySelectorAll('[data-scroll]');
+(function () {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.08,
-  rootMargin: '0px 0px -40px 0px'
-});
+  // prefers-reduced-motion : on laisse tout visible, aucune animation
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-scrollElements.forEach(el => observer.observe(el));
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Zones exclues : heroes existants, chrome de navigation, ui non-contenu,
+  // images des pages projet (affichées directement, sans animation)
+  const EXCLUDED = '.hero-pin, .project-hero-pin, header, .nav-mobile, #lightbox, .travaux-card, .photo-cat-nav, .project-image-block, .project-logo-block';
+
+  function animatable(el) {
+    // Exclut aussi .project-title-large (animé par SplitText si présent)
+    return !el.closest(EXCLUDED) && !el.classList.contains('project-title-large');
+  }
+
+  function setupReveal(els) {
+    if (!els.length) return;
+
+    // Regrouper par parent direct pour le stagger entre éléments voisins
+    const groups = new Map();
+    els.forEach(el => {
+      const key = el.parentElement;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(el);
+    });
+
+    groups.forEach(batch => {
+      // État initial posé par JS → pas de CSS opacity:0 résiduel sans JS
+      gsap.set(batch, { opacity: 0, y: 24 });
+
+      ScrollTrigger.create({
+        trigger: batch[0],
+        start: 'top 85%',
+        toggleActions: 'play none none none',
+        onEnter() {
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power2.out',
+            stagger: batch.length > 1 ? 0.08 : 0
+          });
+        }
+      });
+    });
+  }
+
+  const headings = [...document.querySelectorAll('h1, h2, h3')].filter(animatable);
+  const paras    = [...document.querySelectorAll('p')].filter(animatable);
+  const imgs     = [...document.querySelectorAll('img:not(#lightbox-img)')].filter(animatable);
+
+  setupReveal(headings);
+  setupReveal(paras);
+  setupReveal(imgs);
+})();
 
 // ============================================================
 // HEADER (toujours visible)

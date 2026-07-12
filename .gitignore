@@ -32,3 +32,4 @@ images/Téléchargements/
 
 # Claude Code (configuration locale, ne pas partager)
 .claude/
+.impeccable/
