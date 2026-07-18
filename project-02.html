@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Les&nbsp;Résonances Saint-Martin — Saison 2025 — Jérémy Rambaud</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <style>
     .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
     .project-hero-pin__media { position: absolute; inset: 0; }
@@ -18,11 +18,15 @@
       padding: 0 5vw; pointer-events: none;
     }
     .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
+
+    .project-text--center {
+      padding-top: var(--space-md);
+    }
   </style>
 </head>
 <body>
 
-  <div class="cursor"></div>
+  <div class="cursor"><div class="cursor-dot"></div></div>
 
   <header>
     <nav>
@@ -130,9 +134,14 @@
       </div>
     </section>
 
+    <section class="project-discover" data-scroll data-nav-theme="light">
+      <h3 class="project-discover-title">Découvrir d'autres projets</h3>
+      <div class="project-discover-grid"></div>
+    </section>
+
     <nav class="project-nav" data-scroll data-nav-theme="light">
-      <a href="travaux.html" class="back-link">← All works</a>
-      <a href="project-03.html" class="next-project">Next project →</a>
+      <a href="travaux.html" class="back-link">← Tous les&nbsp;travaux</a>
+      <a href="project-03.html" class="next-project">Projet suivant →</a>
     </nav>
 
   </main>

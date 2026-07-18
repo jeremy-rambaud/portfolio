@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grapillon — Jérémy Rambaud</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <style>
     .project-hero-pin {
       position: relative;
@@ -36,11 +36,21 @@
       color: #ede8e0;
       margin: 0;
     }
+
+    /* Section "Fleur de vigne" (06g/06h) : format plus horizontal (~45% de
+       hauteur en moins que le 3/4 par défaut), recadré en haut pour garder
+       le texte et les codes couleur du carton visibles sans espace vide. */
+    .project-image-block--split-fleur img {
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: top;
+    }
+
   </style>
 </head>
 <body>
 
-  <div class="cursor"></div>
+  <div class="cursor"><div class="cursor-dot"></div></div>
 
   <header>
     <nav>
@@ -113,18 +123,33 @@
             style="width:100%; height:auto; display:block;"></video>
         </div>
         <div class="project-two-col__text">
-          <h3>La&nbsp;typographie</h3>
-          <p>L'identité&nbsp;repose sur&nbsp;un&nbsp;dialogue typographique entre deux extrêmes. Le&nbsp;logotype, manuscrit, porte la&nbsp;main de&nbsp;la&nbsp;vigneronne&nbsp;: sa&nbsp;signature, son&nbsp;geste, son&nbsp;artisanat. Face à&nbsp;lui, la&nbsp;PP Editorial Old (Pangram Pangram), un&nbsp;serif à&nbsp;fort contraste dont les&nbsp;déliés et&nbsp;empattements fins évoquent les&nbsp;sarments et&nbsp;les&nbsp;vrilles de&nbsp;la&nbsp;vigne. L'un&nbsp;est vivant, personnel, organique&nbsp;; l'autre&nbsp;rigoureux, lisible, intemporel. Ensemble, ils traduisent ce&nbsp;qu'incarne le&nbsp;domaine&nbsp;: un&nbsp;vin bio qui&nbsp;tient autant de&nbsp;la&nbsp;rigueur du&nbsp;terroir que&nbsp;de&nbsp;la&nbsp;sensibilité de&nbsp;celle qui&nbsp;le&nbsp;fait.</p>
+          <div class="text-block">
+            <h3>La&nbsp;Typographie</h3>
+            <p>L'identité&nbsp;repose sur&nbsp;un&nbsp;dialogue entre deux&nbsp;écritures.</p>
+            <p>Le&nbsp;logotype et&nbsp;les&nbsp;titres de&nbsp;chaque cuvée sont manuscrits&nbsp;:<br>
+            Léa Meslet les&nbsp;écrit elle-même, à&nbsp;la&nbsp;main, pour&nbsp;chaque étiquette.<br>
+            Il&nbsp;ne&nbsp;s'agit pas d'une typographie créée à&nbsp;partir de&nbsp;son&nbsp;écriture,<br>
+            mais bien de&nbsp;son&nbsp;geste réel, rejoué à&nbsp;chaque cuvée sa&nbsp;signature,<br>
+            son&nbsp;artisanat, jamais figés dans&nbsp;une&nbsp;police.</p>
+            <p>Face à&nbsp;cette main, la&nbsp;<strong>PP Editorial Old</strong> (<strong>Pangram Pangram</strong>)&nbsp;:<br>
+            un&nbsp;serif à&nbsp;fort contraste dont les&nbsp;déliés et&nbsp;empattements fins<br>
+            évoquent les&nbsp;sarments et&nbsp;les&nbsp;vrilles de&nbsp;la&nbsp;vigne. Rigoureuse,<br>
+            lisible, intemporelle, elle&nbsp;structure le&nbsp;reste du&nbsp;système graphique.</p>
+            <p>L'une&nbsp;est vivante et&nbsp;changeante, l'autre&nbsp;stable et&nbsp;intemporelle&nbsp;;<br>
+            ensemble, elles traduisent ce&nbsp;qu'incarne le&nbsp;domaine&nbsp;:<br>
+            un&nbsp;vin bio qui&nbsp;tient autant de&nbsp;la&nbsp;rigueur du&nbsp;terroir que<br>
+            de&nbsp;la&nbsp;sensibilité de&nbsp;celle qui&nbsp;le&nbsp;fait.</p>
+          </div>
         </div>
       </div>
 
       <div class="project-image-block" data-scroll>
-        <img src="images/project-06e.jpg" alt="Grapillon, couleur Fleur de vigne">
+        <img src="images/project-06e.jpg" alt="Grapillon, titrages manuscrits des cuvées Inflorescence, Fleurs et Les Lianes">
       </div>
 
-      <div class="project-image-block project-image-block--split" data-scroll>
-        <img src="images/project-06g.jpg" alt="Grapillon, illustrations au trait">
-        <img src="images/project-06h.jpg" alt="Grapillon, étiquette Inflorescence">
+      <div class="project-image-block project-image-block--split project-image-block--split-fleur" data-scroll>
+        <img src="images/project-06g.jpg" alt="Grapillon, macrophotographie de fleur de vigne">
+        <img src="images/project-06h.jpg" alt="Grapillon, couleur Fleur de vigne — HEX #fff1a6, RGB 255 241 166, CMJN 2 3 45 0">
       </div>
 
       <div class="project-image-block" data-scroll>
@@ -144,6 +169,10 @@
 
       <div class="project-image-block" data-scroll>
         <img src="images/project-06k.jpg" alt="Grapillon">
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-06f.jpg" alt="Grapillon, macrophotographie de fleur de vigne">
       </div>
 
       <div class="project-image-block" data-scroll>
@@ -170,6 +199,11 @@
         <span class="credit-role">Titrages & logotype</span>
         <span>écrits à&nbsp;la&nbsp;main par&nbsp;Léa Meslet</span>
       </div>
+    </section>
+
+    <section class="project-discover" data-scroll data-nav-theme="light">
+      <h3 class="project-discover-title">Découvrir d'autres projets</h3>
+      <div class="project-discover-grid"></div>
     </section>
 
     <nav class="project-nav" data-scroll data-nav-theme="light">

@@ -6,7 +6,15 @@ const cursor = document.querySelector('.cursor');
 if (cursor) {
   document.addEventListener('mousemove', e => {
     cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    // La couleur du curseur suit le fond réellement sous la souris,
+    // pas le thème du header (qui ne reflète que le haut de l'écran).
+    const themedEl = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-nav-theme]');
+    cursor.classList.toggle('cursor--on-dark', themedEl?.dataset.navTheme === 'dark');
   });
+
+  // Bloque tout drag natif (image, lien, sélection glissée...) qui coupe
+  // mousemove et fait réapparaître le curseur système en plein milieu du geste.
+  document.addEventListener('dragstart', e => e.preventDefault());
 
   const interactables = document.querySelectorAll('a, button, input');
   interactables.forEach(el => {
@@ -14,8 +22,10 @@ if (cursor) {
     el.addEventListener('mouseleave', () => cursor.classList.remove('cursor--hover'));
   });
 
-  document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-  document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+  document.addEventListener('mouseout', e => {
+    if (!e.relatedTarget) cursor.style.opacity = '0';
+  });
+  document.addEventListener('mouseover', () => cursor.style.opacity = '1');
 }
 
 // ============================================================
@@ -30,8 +40,8 @@ if (cursor) {
   gsap.registerPlugin(ScrollTrigger);
 
   // Zones exclues : heroes existants, chrome de navigation, ui non-contenu,
-  // images des pages projet (affichées directement, sans animation)
-  const EXCLUDED = '.hero-pin, .project-hero-pin, header, .nav-mobile, #lightbox, .travaux-card, .photo-cat-nav, .project-image-block, .project-logo-block';
+  // images des pages projet et de la home (affichées directement, sans animation)
+  const EXCLUDED = '.hero-pin, .project-hero-pin, header, .nav-mobile, #lightbox, .travaux-card, .photo-cat-nav, .photo-grid, .project-image-block, .project-logo-block, .project-image';
 
   function animatable(el) {
     // Exclut aussi .project-title-large (animé par SplitText si présent)
@@ -124,8 +134,7 @@ document.querySelectorAll('img:not(#lightbox-img)').forEach(img => {
 const lightbox = document.getElementById('lightbox');
 if (lightbox) {
   const lightboxImg = document.getElementById('lightbox-img');
-  const lightboxSeries = document.getElementById('lightbox-series');
-  const lightboxYear = document.getElementById('lightbox-year');
+  const lightboxCredit = document.getElementById('lightbox-credit');
   const photos = [...document.querySelectorAll('.photo-item')];
   let currentIndex = 0;
 
@@ -134,8 +143,8 @@ if (lightbox) {
     const item = photos[index];
     lightboxImg.src = item.dataset.src || '';
     lightboxImg.alt = item.querySelector('img') ? item.querySelector('img').alt : '';
-    lightboxSeries.textContent = item.dataset.series || '';
-    lightboxYear.textContent = item.dataset.year || '';
+    const credit = item.querySelector('.caption-series');
+    lightboxCredit.innerHTML = credit ? credit.innerHTML : '';
     lightbox.removeAttribute('aria-hidden');
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -220,9 +229,56 @@ if (typeof gsap !== 'undefined' && typeof SplitText !== 'undefined') {
     for (const el of themed) {
       if (el.getBoundingClientRect().top <= triggerY) active = el;
     }
+    // En bas de page, le dernier élément marqué (le footer) peut ne jamais
+    // franchir triggerY s'il est plus court que la fenêtre : on force son thème.
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
+    if (atBottom) active = themed[themed.length - 1];
     header.classList.toggle('header--on-dark', active?.dataset.navTheme === 'dark');
   };
 
   window.addEventListener('scroll', update, { passive: true });
   update();
+})();
+
+// ============================================================
+// DÉCOUVRIR D'AUTRES PROJETS (pages projet)
+// Source unique de l'ordre des projets — reflète travaux.html.
+// Ajouter/retirer/réordonner un projet ici met à jour
+// automatiquement la section sur toutes les pages projet.
+// ============================================================
+const PROJECTS = [
+  { file: 'project.html',    name: 'Malbec Coffee',                                          category: 'IDENTITÉ',             img: 'images/travaux-01.jpg', cardBg: '#DCCFBE', cardText: '#1A1A1A' },
+  { file: 'project-02.html', name: 'Les&nbsp;Résonances Saint-Martin',                        category: 'DIRECTION ARTISTIQUE', img: 'images/travaux-02.jpg', cardBg: '#7952A8', cardText: '#F5EFE6' },
+  { file: 'project-03.html', name: 'Le&nbsp;Paradoxe du&nbsp;progrès',                        category: 'DESIGN ÉDITORIAL',     img: 'images/travaux-03.jpg', cardBg: '#2A2A2A', cardText: '#F5EFE6' },
+  { file: 'project-04.html', name: '93<sup>e</sup> Congrès des&nbsp;Assises départementales', category: 'SIGNALÉTIQUE',         img: 'images/travaux-04.jpg', cardBg: '#9B9180', cardText: '#1A1A1A' },
+  { file: 'project-05.html', name: 'Balenciaga, Demna Gvasalia',                               category: 'DESIGN ÉDITORIAL',     img: 'images/travaux-05.jpg', cardBg: '#8C8C7A', cardText: '#F5EFE6' },
+  { file: 'project-06.html', name: 'Grapillon',                                                category: 'DIRECTION ARTISTIQUE', img: 'images/travaux-06.jpg', cardBg: '#fff1a6', cardText: '#1A1A1A' },
+  { file: 'project-11.html', name: 'Synapse Studio',                                           category: '[CATÉGORIE]',          img: 'images/travaux-11.jpg', cardBg: '#1A1A1A', cardText: '#F5EFE6', extraClass: 'travaux-card--synapse' },
+  { file: 'project-08.html', name: "Arch'ocktail",                                             category: 'Identité visuelle',    img: 'images/travaux-08.jpg', cardBg: '#A8C4D4', cardText: '#1A1A1A' }
+];
+
+(function () {
+  const grid = document.querySelector('.project-discover-grid');
+  if (!grid) return;
+
+  const currentFile = location.pathname.split('/').pop() || 'index.html';
+  const currentIndex = PROJECTS.findIndex(p => p.file === currentFile);
+  if (currentIndex === -1) return;
+
+  const len = PROJECTS.length;
+  const picks = [
+    PROJECTS[(currentIndex - 1 + len) % len],
+    PROJECTS[(currentIndex + 1) % len],
+    PROJECTS[(currentIndex + 2) % len]
+  ];
+
+  grid.innerHTML = picks.map(p => `
+    <a href="${p.file}" class="travaux-card${p.extraClass ? ' ' + p.extraClass : ''}" style="--card-bg: ${p.cardBg}; --card-text: ${p.cardText};">
+      <div class="travaux-img" style="background-image: url('${p.img}');"></div>
+      <div class="travaux-overlay">
+        <span class="travaux-card-cat">${p.category}</span>
+        <span class="travaux-card-title"><span class="project-name">${p.name}</span></span>
+      </div>
+    </a>
+  `).join('');
 })();

@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Palet & Glace — Jérémy Rambaud</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Arch'ocktail — Identité visuelle — Jérémy Rambaud</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <style>
     .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
     .project-hero-pin__media { position: absolute; inset: 0; }
@@ -18,11 +18,78 @@
       padding: 0 5vw; pointer-events: none;
     }
     .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
+
+    .project-typo-heading {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+    .project-typo-heading .text-block h3 {
+      margin-bottom: 24px;
+    }
+    .project-image-block--typo {
+      margin-bottom: var(--space-sm);
+    }
+    .project-image-block--typo > img {
+      aspect-ratio: 21 / 9;
+    }
+    .project-image-block--logo > img {
+      aspect-ratio: 2 / 1;
+      transition: filter 0.4s ease;
+    }
+    .project-image-block--logo:hover > img {
+      filter: invert(1);
+    }
+    .project-image-block > video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--placeholder);
+    }
+
+    .reveal-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: auto;
+      cursor: none;
+    }
+    .reveal-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+      user-select: none;
+      pointer-events: none;
+    }
+    .reveal-photo {
+      position: absolute;
+      inset: 0;
+    }
+    .reveal-sketch {
+      position: relative;
+      -webkit-mask-image: radial-gradient(circle 0px at 50% 50%, transparent 0%, transparent 98%, black 100%);
+              mask-image: radial-gradient(circle 0px at 50% 50%, transparent 0%, transparent 98%, black 100%);
+      transition: -webkit-mask-image 0.15s ease-out, mask-image 0.15s ease-out;
+    }
+    .reveal-container.reveal-no-photo .reveal-sketch {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    @media (pointer: coarse) {
+      .reveal-photo {
+        display: none;
+      }
+      .reveal-sketch {
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="cursor"></div>
+  <div class="cursor"><div class="cursor-dot"></div></div>
 
   <header>
     <nav>
@@ -49,69 +116,112 @@
 
     <section class="project-hero-pin" data-nav-theme="dark">
       <div class="project-hero-pin__media">
-        <img src="images/project-08.jpg" alt="Palet & Glace — Hero">
+        <img src="images/project-08.jpg" alt="Arch'ocktail — Hero">
       </div>
       <div class="project-hero-pin__title">
-        <h1 class="project-title-large">Palet &amp; Glace</h1>
+        <h1 class="project-title-large">Arch'ocktail</h1>
       </div>
     </section>
 
     <section class="project-header" data-scroll>
       <div class="project-meta">
-        <span class="project-category">PHOTOGRAPHIE</span>
+        <span class="project-category">IDENTITÉ VISUELLE</span>
         <span class="project-year">2025</span>
       </div>
-      <p class="project-intro">
-        Série photographique réalisée lors de&nbsp;matchs de&nbsp;hockey sur&nbsp;glace — vitesse, impact et&nbsp;lumière froide.
-      </p>
     </section>
 
     <section class="project-body">
 
       <div class="project-two-col" data-scroll>
         <div class="project-two-col__img">
-          <img src="images/project-08b.jpg" alt="Palet & Glace — Détail">
+          <img src="images/project-08b.jpg" alt="Arch'ocktail — Détail">
         </div>
         <div class="project-two-col__text">
-          <p>Palet & Glace est une&nbsp;série documentaire réalisée dans&nbsp;les&nbsp;patinoires lors de&nbsp;matchs de&nbsp;hockey. La&nbsp;vitesse du&nbsp;jeu impose des&nbsp;contraintes photographiques extrêmes&nbsp;: hautes sensibilités, rafales, anticipation du&nbsp;geste.</p>
+          <p><strong>Arch'ocktail</strong> est un&nbsp;duo de&nbsp;deux frères mixologues.<br>
+          Maison de&nbsp;mixologie et&nbsp;de&nbsp;conseil bar, ils&nbsp;pensent<br>
+          chaque cocktail comme une&nbsp;expérience sensorielle<br>
+          haut de&nbsp;gamme, conçue, dosée, éprouvée.<br><br>
+          Ils&nbsp;se&nbsp;présentent comme des&nbsp;<strong>architectes d'émotions</strong>&nbsp;:<br>
+          leurs recettes sont composées avec la&nbsp;rigueur d'un<br>
+          plan et&nbsp;la&nbsp;précision d'un&nbsp;dessin technique, mais<br>
+          toujours au&nbsp;service d'un&nbsp;ressenti&nbsp;: le&nbsp;geste et&nbsp;la<br>
+          sensation avant la&nbsp;formule.</p>
           <dl class="project-details">
             <dt>Année</dt>
             <dd>2025</dd>
             <dt>Client</dt>
-            <dd>À&nbsp;compléter</dd>
+            <dd>Arch'ocktail</dd>
             <dt>Services</dt>
-            <dd>Photographie sportive, Reportage</dd>
+            <dd>Identité visuelle, Direction artistique, Typographie</dd>
           </dl>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
-        <img src="images/project-08c.jpg" alt="Palet & Glace — Action">
-      </div>
-
       <div class="project-two-col project-two-col--reverse" data-scroll>
         <div class="project-two-col__img">
-          <img src="images/project-08d.jpg" alt="Palet & Glace — Portrait">
+          <img src="images/project-08d.jpg" alt="Arch'ocktail — Application">
         </div>
         <div class="project-two-col__text">
-          <h3>Le&nbsp;mouvement</h3>
-          <p>À&nbsp;compléter.</p>
+          <h3>Architecte d'émotions</h3>
+          <p>La&nbsp;direction artistique fusionne les&nbsp;deux mondes qui<br>
+          donnent son&nbsp;nom à&nbsp;<strong>Arch'ocktail</strong>&nbsp;: celui de&nbsp;l'architecte<br>
+          et&nbsp;celui du&nbsp;mixologue.<br><br>
+          L'identité&nbsp;puise dans&nbsp;le&nbsp;vocabulaire du&nbsp;bâtisseur&nbsp;:<br>
+          cartouches, cotations, échelles, dessins techniques.<br>
+          Chaque cocktail est traité comme un&nbsp;projet&nbsp;: esquissé<br>
+          au&nbsp;trait, coté, équilibré selon quatre axes (force,<br>
+          douceur, amertume, acidité), puis reproduit à&nbsp;l'identique.<br><br>
+          L'émotion se&nbsp;construit à&nbsp;deux niveaux. Dans la&nbsp;trame<br>
+          graphique d'abord&nbsp;: le&nbsp;noir et&nbsp;blanc, la&nbsp;ligne fine et<br>
+          la&nbsp;tache de&nbsp;couleur brute au&nbsp;feutre réintroduisent le<br>
+          geste, la&nbsp;main, l'accident. Dans l'iconographie ensuite&nbsp;:<br>
+          les visuels des&nbsp;cocktails, cadrés serrés sur&nbsp;la&nbsp;matière,<br>
+          la&nbsp;lumière et&nbsp;la&nbsp;texture, font sentir le&nbsp;verre avant de<br>
+          le&nbsp;nommer.<br><br>
+          Un&nbsp;cocktail comme une&nbsp;œuvre&nbsp;: à&nbsp;la&nbsp;fois calculée et&nbsp;sensible.</p>
+        </div>
+      </div>
+
+      <div class="project-typo-heading" data-scroll>
+        <div class="text-block">
+          <h3>La&nbsp;Typographie</h3>
+        </div>
+      </div>
+
+      <div class="project-image-block project-image-block--typo" data-scroll>
+        <img src="images/project-08-typographie.jpg" alt="Système typographique Arch'ocktail&nbsp;: Injurial Regular et&nbsp;Auger Mono" loading="lazy" width="1600" height="900">
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-08g.jpg" alt="Arch'ocktail — Final">
+      </div>
+
+      <div class="project-image-block project-image-block--logo" data-scroll>
+        <img src="images/project-08h.jpg" alt="Arch'ocktail — Logo">
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <div class="reveal-container">
+          <img src="images/project-08i-photo.jpg" class="reveal-photo" alt="Photographies cocktails Arch'ocktail">
+          <img src="images/project-08i.jpg" class="reveal-sketch" alt="Croquis techniques cocktails Arch'ocktail">
         </div>
       </div>
 
       <div class="project-image-block project-image-block--split" data-scroll>
-        <img src="images/project-08e.jpg" alt="Palet & Glace — Détail 1">
-        <img src="images/project-08f.jpg" alt="Palet & Glace — Détail 2">
-      </div>
-
-      <div class="project-text project-text--center" data-scroll>
-        <div class="text-block">
-          <p class="pullquote">"À&nbsp;compléter."</p>
-        </div>
+        <img src="images/project-08j.jpg" alt="Arch'ocktail — Réseaux sociaux 1">
+        <img src="images/project-08k.jpg" alt="Arch'ocktail — Réseaux sociaux 2">
       </div>
 
       <div class="project-image-block" data-scroll>
-        <img src="images/project-08g.jpg" alt="Palet & Glace — Final">
+        <img src="images/project-08l.jpg" alt="Arch'ocktail — Carte de visite">
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-08m.jpg" alt="Arch'ocktail — Site web">
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <video src="images/project-08n.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Arch'ocktail — Vidéo" width="1600" height="900"></video>
       </div>
 
     </section>
@@ -119,18 +229,23 @@
     <section class="project-credits" data-scroll>
       <h3>Crédits</h3>
       <div class="credit-row">
-        <span class="credit-role">Photographie</span>
+        <span class="credit-role">Direction artistique</span>
         <span>Jérémy Rambaud</span>
       </div>
       <div class="credit-row">
-        <span class="credit-role">Club</span>
-        <span>À&nbsp;compléter</span>
+        <span class="credit-role">Client</span>
+        <span>Arch'ocktail</span>
       </div>
     </section>
 
+    <section class="project-discover" data-scroll data-nav-theme="light">
+      <h3 class="project-discover-title">Découvrir d'autres projets</h3>
+      <div class="project-discover-grid"></div>
+    </section>
+
     <nav class="project-nav" data-scroll>
-      <a href="travaux.html" class="back-link">← All works</a>
-      <a href="project-09.html" class="next-project">Next project →</a>
+      <a href="travaux.html" class="back-link">← Tous les&nbsp;travaux</a>
+      <a href="project.html" class="next-project">Projet suivant →</a>
     </nav>
 
   </main>
@@ -204,6 +319,57 @@
     document.readyState === 'loading'
       ? document.addEventListener('DOMContentLoaded', init)
       : init();
+  })();
+  </script>
+  <script>
+  (function () {
+    const container = document.querySelector('.reveal-container');
+    if (!container) return;
+
+    const sketch = container.querySelector('.reveal-sketch');
+    const photo  = container.querySelector('.reveal-photo');
+    if (!sketch || !photo) return;
+
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    photo.addEventListener('error', () => {
+      container.classList.add('reveal-no-photo');
+    });
+
+    const RADIUS = 150;
+    const DEFAULT_MASK = 'radial-gradient(circle 0px at 50% 50%, transparent 0%, transparent 98%, black 100%)';
+    let rafId = null;
+    let pendingEvent = null;
+
+    function applyMask() {
+      rafId = null;
+      if (!pendingEvent) return;
+      const rect = container.getBoundingClientRect();
+      const x = ((pendingEvent.clientX - rect.left) / rect.width) * 100;
+      const y = ((pendingEvent.clientY - rect.top) / rect.height) * 100;
+      const mask = `radial-gradient(circle ${RADIUS}px at ${x}% ${y}%, transparent 0%, transparent 60%, black 100%)`;
+      sketch.style.webkitMaskImage = mask;
+      sketch.style.maskImage = mask;
+    }
+
+    container.addEventListener('mouseenter', () => {
+      if (container.classList.contains('reveal-no-photo')) return;
+      container.classList.add('is-active');
+    });
+
+    container.addEventListener('mouseleave', () => {
+      container.classList.remove('is-active');
+      if (rafId) cancelAnimationFrame(rafId);
+      pendingEvent = null;
+      sketch.style.webkitMaskImage = DEFAULT_MASK;
+      sketch.style.maskImage = DEFAULT_MASK;
+    });
+
+    container.addEventListener('mousemove', e => {
+      if (container.classList.contains('reveal-no-photo')) return;
+      pendingEvent = e;
+      if (!rafId) rafId = requestAnimationFrame(applyMask);
+    });
   })();
   </script>
 </body>

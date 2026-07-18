@@ -39,6 +39,10 @@ typography:
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: "0.12em"
+  emphasis:
+    fontFamily: "Inter, system-ui, sans-serif"
+    fontWeight: 600
+    letterSpacing: "normal"
 rounded:
   none: "0"
 spacing:
@@ -102,22 +106,26 @@ The palette is a press proof, not a mood board. Two values carry all structural 
 ## 3. Typography
 
 **Display Font:** Romie (local `@font-face` — `Romie-Regular-Italic.otf`, `RomieTrial-MediumItalic.otf` for weight 500 italic)
-**Body Font:** Inter (Google Fonts, weight 300 and 400 only)
+**Body Font:** Inter (Google Fonts, weights 300/400/600, `display=swap`)
 
-**Character:** Romie is an editorial italic — not a Garamond revival, not a "refined serif" by reflex. It carries the voice of the system: a single cut, always oblique, weight held light. Inter provides measured functional contrast: geometric, neutral, precise in small sizes. The pair works because it is a pairing of opposites held by shared economy.
+**Character:** Romie is an editorial italic — not a Garamond revival, not a "refined serif" by reflex. It carries the voice of the system: a single cut, always oblique, weight held light. Inter provides measured functional contrast: a neutral grotesque, precise from long-form prose down to label scale, with a weight range wide enough to carry its own internal hierarchy. The pair works because it is a pairing of opposites held by shared economy.
 
 **The Romie-is-Always-Italic Rule.** Romie is never set upright. The italic is not an emphasis state; it is the only state. Using Romie upright breaks the voice.
 
 **The Cross-Contamination Rule.** Romie carries display and voice roles. Inter carries navigation, labels, body prose, and metadata. These roles do not swap. A heading set in Inter or a label set in Romie breaks the system's register. No third typeface is added for any reason.
+
+**The Weight-Carries-Emphasis Rule.** Within Inter, hierarchy is carried by weight, not by introducing color or a new face. Body prose sits at 300 (light). Functional/UI text (labels, nav, metadata) sits at 400 (regular). Strong emphasis — foundry names, typeface names, and other terms that must read as a beat heavier than the surrounding sentence — sits at 600 (semibold), via `<strong>`/`<b>`, styled globally rather than per-instance.
 
 ### Hierarchy
 - **Display** (Romie italic, weight 300, `clamp(2.5rem, 5.5vw, 6.5rem)`, line-height 1.04): Project page hero titles. The ceiling of the type scale.
 - **Page Headline** (Romie italic, weight 300, `clamp(2.5rem, 5–7vw, 6–8rem)`, line-height 1): Section-level page titles — travaux, photo, infos. Scale varies by page.
 - **Intro Text** (Romie italic, weight 300, `clamp(0.875rem, 1.05vw, 1rem)`, line-height 1.8): Homepage introductory statement; photo page intro. A whisper at display scale.
 - **Pullquote** (Romie italic, weight 300, `clamp(1.5rem, 2.5vw, 2.75rem)`, line-height 1.3): Editorial quotes and voice within project pages.
+- **Section Title** (Romie italic, weight 300, `clamp(1.75rem, 2.5vw, 3rem)`, line-height 1.2): Sub-headings inside project bodies ("Le concept", "Approche", "La Typographie"...). Same voice as Display, one register down.
 - **Body** (Inter 300, `1rem`, line-height 1.85): Project descriptions, infos bio, text-block prose. Max width 520px (~65ch). `text-wrap: pretty` to reduce orphans.
-- **Small Body** (Inter 300–400, `0.875–0.9375rem`, line-height 1.5–2.1): CV items, credit rows, footer text.
-- **Label** (Inter 400, `0.6875rem`, letter-spacing `0.10–0.12em`, uppercase): Category eyebrows, section headers, nav links, metadata, back/next links. The annotation voice. `text-wrap: balance` on h1–h3.
+- **Small Body** (Inter 300, `0.875–0.9375rem`, line-height 1.5–2.1): CV items, credit rows, footer text.
+- **Emphasis** (Inter 600): Foundry names, typeface names, and other strong emphasis within running prose (`<strong>`/`<b>`). One deliberate weight step above body, never a color or size change.
+- **Label** (Inter 400, `0.6875rem`, letter-spacing `0.10–0.12em`, uppercase): Category eyebrows, nav links, metadata, back/next links, Crédits/Découvrir headers. The annotation voice. `text-wrap: balance` on h1–h3.
 
 ## 4. Elevation
 
@@ -169,6 +177,7 @@ Full-viewport overlay, `rgba(26, 26, 26, 0.96)`. Image constrained to 88vw × 82
 
 ### Do:
 - **Do** use Romie in italic only, always. Never set it upright; never use it at label or body scale.
+- **Do** carry emphasis within Inter through weight (300 body → 400 label → 600 strong), never through color or a new face. Wrap foundry names, typeface names, and other must-stand-out terms in `<strong>`/`<b>`.
 - **Do** use `text-wrap: balance` on h1–h3 and `text-wrap: pretty` on all body prose.
 - **Do** keep body prose within 520px max-width (~65ch) to preserve reading rhythm.
 - **Do** use full-bleed images edge-to-edge for cinematic staging — the photograph is the design.

@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Studio Lumière — Jérémy Rambaud</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <style>
     .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
     .project-hero-pin__media { position: absolute; inset: 0; }
@@ -17,12 +17,31 @@
       position: absolute; bottom: 8vh; left: 0; right: 0;
       padding: 0 5vw; pointer-events: none;
     }
-    .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
+    .project-hero-pin__title .project-title-large { color: var(--black); margin: 0; }
+
+    .project-typo-copy { color: var(--gray); }
+    .project-typo-copy strong { color: var(--black); }
+
+    .project-image-block--h750 { height: auto; background: #fff; }
+    .project-image-block--h750 > img { aspect-ratio: unset; width: 100%; height: auto; object-fit: contain; margin: 0 auto; display: block; }
+
+    .malbec-logo-invert {
+      background-color: #ffffff;
+      transition: background-color 0.4s ease-out;
+      margin-bottom: calc(var(--space-xl) / 2);
+    }
+    .malbec-logo-invert > img {
+      transition: filter 0.4s ease-out;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .malbec-logo-invert:hover { background-color: #000000; }
+      .malbec-logo-invert:hover > img { filter: invert(1); }
+    }
   </style>
 </head>
 <body>
 
-  <div class="cursor"></div>
+  <div class="cursor"><div class="cursor-dot"></div></div>
 
   <header>
     <nav>
@@ -95,12 +114,31 @@
           <img src="images/project-01d.jpg" alt="Studio Lumière — Application">
         </div>
         <div class="project-two-col__text">
-          <h3>La&nbsp;typographie</h3>
-          <p>L'identité&nbsp;repose sur&nbsp;une&nbsp;typographie créée sur&nbsp;mesure, dessinée puis composée à&nbsp;partir de&nbsp;café moulu. Chaque lettre est façonnée à&nbsp;la&nbsp;main avec la&nbsp;matière même du&nbsp;produit, puis photographiée. Ce&nbsp;parti-pris assume la&nbsp;texture, l'imperfection&nbsp;et&nbsp;le&nbsp;grain&nbsp;: il inscrit le&nbsp;geste artisanal au&nbsp;cœur de&nbsp;la&nbsp;marque et&nbsp;donne à&nbsp;voir une&nbsp;identité vivante, tactile et&nbsp;profondément humaine, là où&nbsp;le&nbsp;café de&nbsp;spécialité est trop souvent réduit à&nbsp;un&nbsp;univers froid et&nbsp;technique.</p>
+          <div class="text-block">
+            <h3>La&nbsp;Typographie</h3>
+            <p><strong>Typographie de titrage</strong></p>
+            <p class="project-typo-copy">Le titrage <strong>Malbec</strong> est un caractère dessiné sur mesure,<br>
+            réalisé au pochoir avec du café moulu.<br>
+            Chaque lettre garde la trace du geste, le grain<br>
+            de la mouture, l'irrégularité de la matière.<br>
+            On y cherche l'aspect texturé, humain, presque<br>
+            artisanal : la main derrière la torréfaction.</p>
+            <p><strong>Typographie de labeur</strong></p>
+            <p class="project-typo-copy">La <strong>Seabirds</strong>, dessinée par <strong>Rosalie Wagner</strong> pour <strong>205TF</strong>,<br>
+            est une linéale contemporaine inspirée des sans-serifs<br>
+            des couvertures Albatross des années 1930.<br>
+            Géométrique par défaut, plus humaniste via ses alternates<br>
+            OpenType, elle allie capitales de proportion romaine et<br>
+            hauteur d'x généreuse, taillées pour la lisibilité en labeur.<br>
+            Elle a servi de base au pochoir du titrage <strong>Malbec</strong>, et revient<br>
+            ici structurer paragraphes et information courante.<br>
+            Un même socle, deux régimes de lecture : la matière pour<br>
+            le titre, la rigueur pour le texte.</p>
+          </div>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block project-image-block--h750 malbec-logo-invert" data-scroll>
         <img src="images/project-01h.jpg" alt="Malbec Coffee, typographie vectorisée">
       </div>
 
@@ -112,6 +150,14 @@
         <img src="images/project-01j.jpg" alt="Malbec Coffee, logotype dessiné au café moulu">
       </div>
 
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-01l.jpg" alt="Malbec Coffee">
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-01m.jpg" alt="Malbec Coffee">
+      </div>
+
       <div class="project-image-block project-image-block--split" data-scroll>
         <img src="images/project-01e.jpg" alt="Studio Lumière — Stationery">
         <img src="images/project-01f.jpg" alt="Studio Lumière — Application">
@@ -121,14 +167,31 @@
         <img src="images/project-01k.jpg" alt="Malbec Coffee">
       </div>
 
-      <div class="project-text project-text--center" data-scroll>
-        <div class="text-block">
-          <p class="pullquote pullquote--large">Aux&nbsp;origines de&nbsp;vos&nbsp;cafés</p>
+      <div class="project-two-col project-two-col--reverse" data-scroll>
+        <div class="project-two-col__img">
+          <img src="images/project-01g.jpg" alt="Malbec Coffee — Le livret">
+        </div>
+        <div class="project-two-col__text">
+          <div class="text-block">
+            <h3>Le&nbsp;livret</h3>
+            <p class="project-typo-copy">Le&nbsp;livret présente Malbec Coffee&nbsp;: son&nbsp;histoire, ses&nbsp;cafés,<br>
+            sa&nbsp;manière de&nbsp;faire.<br>
+            Il&nbsp;se&nbsp;loge dans une&nbsp;pochette de&nbsp;toile de&nbsp;jute, prolongement<br>
+            naturel des&nbsp;sacs de&nbsp;café brut.<br>
+            La&nbsp;pochette porte une&nbsp;fleur de&nbsp;café gravée en&nbsp;linogravure,<br>
+            empreinte manuelle imprimée dans la&nbsp;matière.<br>
+            À&nbsp;l'intérieur, une&nbsp;reliure cousue main et&nbsp;un&nbsp;papier au&nbsp;grain<br>
+            épais, presque textile.</p>
+          </div>
         </div>
       </div>
 
       <div class="project-image-block" data-scroll>
-        <img src="images/project-01g.jpg" alt="Studio Lumière — Final">
+        <img src="images/project-01n.jpg" alt="Malbec Coffee">
+      </div>
+
+      <div class="project-image-block" data-scroll>
+        <img src="images/project-01o.jpg" alt="Malbec Coffee">
       </div>
 
     </section>
@@ -149,9 +212,14 @@
       </div>
     </section>
 
+    <section class="project-discover" data-scroll data-nav-theme="light">
+      <h3 class="project-discover-title">Découvrir d'autres projets</h3>
+      <div class="project-discover-grid"></div>
+    </section>
+
     <nav class="project-nav" data-scroll data-nav-theme="light">
-      <a href="index.html" class="back-link">← All works</a>
-      <a href="project-02.html" class="next-project">Next project →</a>
+      <a href="index.html" class="back-link">← Tous les&nbsp;travaux</a>
+      <a href="project-02.html" class="next-project">Projet suivant →</a>
     </nav>
 
   </main>

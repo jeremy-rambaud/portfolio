@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Le&nbsp;Paradoxe du&nbsp;progrès — Jérémy Rambaud</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <style>
     .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
     .project-hero-pin__media { position: absolute; inset: 0; }
@@ -17,12 +17,12 @@
       position: absolute; bottom: 8vh; left: 0; right: 0;
       padding: 0 5vw; pointer-events: none;
     }
-    .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
+    .project-hero-pin__title .project-title-large { color: var(--black); margin: 0; }
   </style>
 </head>
 <body>
 
-  <div class="cursor"></div>
+  <div class="cursor"><div class="cursor-dot"></div></div>
 
   <header>
     <nav>
@@ -96,7 +96,7 @@
         </div>
         <div class="project-two-col__text">
           <h3>Typographies</h3>
-          <p>Le&nbsp;titre est composé en&nbsp;deux typographies opposées qui&nbsp;traduisent visuellement le&nbsp;propos du&nbsp;livre. La&nbsp;Old Claude (Paul Shaw, LetterPerfect), texturée et&nbsp;imparfaite, évoque l'héritage&nbsp;humaniste, la&nbsp;tradition et&nbsp;la&nbsp;présence de&nbsp;l'humain. En&nbsp;contraste, la&nbsp;DeFonte Plus (Ingo Zimmermann, ingoFonts), plus fluide et&nbsp;organique, rappelle une&nbsp;encre incontrôlable et&nbsp;symbolise l'IA, à&nbsp;la&nbsp;fois fascinante et&nbsp;inquiétante. Leur&nbsp;coexistence crée un&nbsp;choc visuel qui&nbsp;incarne le&nbsp;paradoxe du&nbsp;progrès&nbsp;: entre maîtrise et&nbsp;dérive, tradition et&nbsp;innovation, mais aussi une&nbsp;possible alliance entre l'homme&nbsp;et&nbsp;la&nbsp;machine.</p>
+          <p>Le&nbsp;titre est composé en&nbsp;deux typographies opposées qui&nbsp;traduisent visuellement le&nbsp;propos du&nbsp;livre. La&nbsp;<strong>Old Claude</strong> (<strong>Paul Shaw</strong>, <strong>LetterPerfect</strong>), texturée et&nbsp;imparfaite, évoque l'héritage&nbsp;humaniste, la&nbsp;tradition et&nbsp;la&nbsp;présence de&nbsp;l'humain. En&nbsp;contraste, la&nbsp;<strong>DeFonte Plus</strong> (<strong>Ingo Zimmermann</strong>, <strong>ingoFonts</strong>), plus fluide et&nbsp;organique, rappelle une&nbsp;encre incontrôlable et&nbsp;symbolise l'IA, à&nbsp;la&nbsp;fois fascinante et&nbsp;inquiétante. Leur&nbsp;coexistence crée un&nbsp;choc visuel qui&nbsp;incarne le&nbsp;paradoxe du&nbsp;progrès&nbsp;: entre maîtrise et&nbsp;dérive, tradition et&nbsp;innovation, mais aussi une&nbsp;possible alliance entre l'homme&nbsp;et&nbsp;la&nbsp;machine.</p>
         </div>
       </div>
 
@@ -146,6 +146,11 @@
         <span class="credit-role">Impression & fabrication</span>
         <span>EEGP, Angers, mai 2025</span>
       </div>
+    </section>
+
+    <section class="project-discover" data-scroll data-nav-theme="light">
+      <h3 class="project-discover-title">Découvrir d'autres projets</h3>
+      <div class="project-discover-grid"></div>
     </section>
 
     <nav class="project-nav" data-scroll data-nav-theme="light">
