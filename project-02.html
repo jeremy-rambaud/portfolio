@@ -9,13 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
+    .project-hero-pin { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
     .project-hero-pin__media { position: absolute; inset: 0; }
     .project-hero-pin__media img,
     .project-hero-pin__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .project-hero-pin__title {
       position: absolute; bottom: 8vh; left: 0; right: 0;
       padding: 0 5vw; pointer-events: none;
+    }
+    /* Mobile : le titre superposé au hero disparaît visuellement (le
+       bloc infos juste en dessous, avec ANNÉE/CLIENT/DISCIPLINES,
+       identifie déjà le projet). On garde le <h1> dans le DOM via la
+       technique .sr-only plutôt que display:none, pour ne pas le
+       retirer de l'arbre d'accessibilité ni du contenu indexable. */
+    @media (max-width: 767px) {
+      .project-hero-pin__title {
+        position: absolute;
+        top: auto; left: auto; right: auto; bottom: auto;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
     }
     .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
 
@@ -51,7 +68,7 @@
 
   <main class="project-page">
 
-    <section class="project-hero-pin" data-nav-theme="dark">
+    <section class="project-hero-pin" data-nav-theme="light">
       <div class="project-hero-pin__media">
         <img src="images/project-02.jpg" alt="Les Résonances Saint-Martin — Saison 2025">
       </div>
@@ -61,6 +78,7 @@
     </section>
 
     <section class="project-header" data-scroll data-nav-theme="light">
+      <p class="project-title-mobile">Les&nbsp;Résonances Saint-Martin</p>
       <div class="project-meta">
         <span class="project-category">DIRECTION ARTISTIQUE</span>
         <span class="project-year">2025</span>
@@ -72,7 +90,7 @@
 
     <section class="project-body" data-nav-theme="light">
 
-      <div class="project-two-col" data-scroll>
+      <div class="project-two-col" data-scroll data-nav-theme="dark">
         <div class="project-two-col__img">
           <img src="images/project-02b.jpg" alt="Les Résonances Saint-Martin — Affiche">
         </div>
@@ -90,11 +108,11 @@
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-02c.jpg" alt="Les Résonances Saint-Martin — Logotype">
       </div>
 
-      <div class="project-two-col project-two-col--reverse" data-scroll>
+      <div class="project-two-col project-two-col--reverse" data-scroll data-nav-theme="dark">
         <div class="project-two-col__img">
           <video src="images/project-02d.mp4" autoplay loop muted playsinline aria-label="Animation des figures de Chladni : formes géométriques générées par les fréquences sonores" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
         </div>
@@ -106,18 +124,21 @@
       </div>
 
       <div class="project-image-block project-image-block--split" data-scroll>
-        <img src="images/project-02e.jpg" alt="Les Résonances Saint-Martin — Stationery">
-        <img src="images/project-02f.jpg" alt="Les Résonances Saint-Martin — Application">
+        <img src="images/project-02e.jpg" alt="Les Résonances Saint-Martin — Stationery" data-nav-theme="dark">
+        <img src="images/project-02f.jpg" alt="Les Résonances Saint-Martin — Application" data-nav-theme="dark">
       </div>
 
-      <div class="project-text project-text--center" data-scroll>
+      <div class="project-text project-text--center" data-scroll data-nav-theme="light">
         <div class="text-block">
           <p class="pullquote"><em>Les&nbsp;Résonances Saint-Martin ont été l'un&nbsp;des&nbsp;premiers grands projets qui&nbsp;m'a&nbsp;été confié. Un&nbsp;projet qui&nbsp;m'a&nbsp;beaucoup plu, et&nbsp;qui&nbsp;m'a&nbsp;permis de&nbsp;comprendre de&nbsp;l'intérieur&nbsp;l'organisation&nbsp;d'un&nbsp;projet culturel&nbsp;: les&nbsp;contraintes de&nbsp;l'événementiel, le&nbsp;dialogue avec les&nbsp;équipes, et&nbsp;la&nbsp;rigueur nécessaire pour décliner une&nbsp;identité sur&nbsp;de&nbsp;nombreux supports sans jamais perdre sa&nbsp;justesse.</em></p>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
-        <img src="images/project-02g.jpg" alt="Les Résonances Saint-Martin — Final">
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
+        <picture>
+          <source media="(max-width: 767px)" srcset="images/project-02g-mobile.jpg">
+          <img src="images/project-02g.jpg" alt="Les Résonances Saint-Martin — Final" loading="lazy">
+        </picture>
       </div>
 
     </section>

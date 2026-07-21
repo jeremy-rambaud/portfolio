@@ -12,6 +12,7 @@
     .project-hero-pin {
       position: relative;
       height: 100vh;
+      height: 100dvh;
       overflow: hidden;
     }
     .project-hero-pin__media {
@@ -31,6 +32,28 @@
       right: 0;
       padding: 0 5vw;
       pointer-events: none;
+    }
+    /* Mobile : le titre superposé au hero disparaît visuellement (le
+       bloc infos juste en dessous, avec ANNÉE/CLIENT/DISCIPLINES,
+       identifie déjà le projet). On garde le <h1> dans le DOM via la
+       technique .sr-only plutôt que display:none, pour ne pas le
+       retirer de l'arbre d'accessibilité ni du contenu indexable. */
+    @media (max-width: 767px) {
+      .project-hero-pin__title {
+        position: absolute;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
     }
     .project-hero-pin__title .project-title-large {
       color: #ede8e0;
@@ -85,6 +108,7 @@
     </section>
 
     <section class="project-header" data-scroll data-nav-theme="light">
+      <p class="project-title-mobile">Grapillon</p>
       <div class="project-meta">
         <span class="project-category">DIRECTION ARTISTIQUE</span>
         <span class="project-year">2026</span>
@@ -96,7 +120,7 @@
 
     <section class="project-body" data-nav-theme="light">
 
-      <div class="project-two-col" data-scroll>
+      <div class="project-two-col" data-scroll data-nav-theme="light">
         <div class="project-two-col__img">
           <img src="images/project-06b.jpg" alt="Grapillon, raisins pressés à la main">
         </div>
@@ -107,17 +131,17 @@
             <dd>2026</dd>
             <dt>Client</dt>
             <dd>Grapillon, Léa Meslet</dd>
-            <dt>Services</dt>
+            <dt>Disciplines</dt>
             <dd>Identité visuelle, Direction artistique, Packaging, Photographie</dd>
           </dl>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-06c.jpg" alt="Grapillon, logotype manuscrit">
       </div>
 
-      <div class="project-two-col project-two-col--reverse" data-scroll>
+      <div class="project-two-col project-two-col--reverse" data-scroll data-nav-theme="light">
         <div class="project-two-col__img">
           <video src="images/project-06d.mp4" autoplay loop muted playsinline
             style="width:100%; height:auto; display:block;"></video>
@@ -126,56 +150,48 @@
           <div class="text-block">
             <h3>La&nbsp;Typographie</h3>
             <p>L'identité&nbsp;repose sur&nbsp;un&nbsp;dialogue entre deux&nbsp;écritures.</p>
-            <p>Le&nbsp;logotype et&nbsp;les&nbsp;titres de&nbsp;chaque cuvée sont manuscrits&nbsp;:<br>
-            Léa Meslet les&nbsp;écrit elle-même, à&nbsp;la&nbsp;main, pour&nbsp;chaque étiquette.<br>
-            Il&nbsp;ne&nbsp;s'agit pas d'une typographie créée à&nbsp;partir de&nbsp;son&nbsp;écriture,<br>
-            mais bien de&nbsp;son&nbsp;geste réel, rejoué à&nbsp;chaque cuvée sa&nbsp;signature,<br>
-            son&nbsp;artisanat, jamais figés dans&nbsp;une&nbsp;police.</p>
-            <p>Face à&nbsp;cette main, la&nbsp;<strong>PP Editorial Old</strong> (<strong>Pangram Pangram</strong>)&nbsp;:<br>
-            un&nbsp;serif à&nbsp;fort contraste dont les&nbsp;déliés et&nbsp;empattements fins<br>
-            évoquent les&nbsp;sarments et&nbsp;les&nbsp;vrilles de&nbsp;la&nbsp;vigne. Rigoureuse,<br>
-            lisible, intemporelle, elle&nbsp;structure le&nbsp;reste du&nbsp;système graphique.</p>
-            <p>L'une&nbsp;est vivante et&nbsp;changeante, l'autre&nbsp;stable et&nbsp;intemporelle&nbsp;;<br>
-            ensemble, elles traduisent ce&nbsp;qu'incarne le&nbsp;domaine&nbsp;:<br>
-            un&nbsp;vin bio qui&nbsp;tient autant de&nbsp;la&nbsp;rigueur du&nbsp;terroir que<br>
-            de&nbsp;la&nbsp;sensibilité de&nbsp;celle qui&nbsp;le&nbsp;fait.</p>
+            <p>Le&nbsp;logotype et&nbsp;les&nbsp;titres de&nbsp;chaque cuvée sont manuscrits&nbsp;: Léa Meslet les&nbsp;écrit elle-même, à&nbsp;la&nbsp;main, pour&nbsp;chaque étiquette.</p>
+            <p>Il&nbsp;ne&nbsp;s'agit pas d'une typographie créée à&nbsp;partir de&nbsp;son&nbsp;écriture, mais bien de&nbsp;son&nbsp;geste réel, rejoué à&nbsp;chaque cuvée sa&nbsp;signature, son&nbsp;artisanat, jamais figés dans&nbsp;une&nbsp;police.</p>
+            <p>Face à&nbsp;cette main, la&nbsp;<strong>PP Editorial Old</strong> (<strong>Pangram Pangram</strong>)&nbsp;: un&nbsp;serif à&nbsp;fort contraste dont les&nbsp;déliés et&nbsp;empattements fins évoquent les&nbsp;sarments et&nbsp;les&nbsp;vrilles de&nbsp;la&nbsp;vigne.</p>
+            <p>Rigoureuse, lisible, intemporelle, elle&nbsp;structure le&nbsp;reste du&nbsp;système graphique.</p>
+            <p>L'une&nbsp;est vivante et&nbsp;changeante, l'autre&nbsp;stable et&nbsp;intemporelle&nbsp;; ensemble, elles traduisent ce&nbsp;qu'incarne le&nbsp;domaine&nbsp;: un&nbsp;vin bio qui&nbsp;tient autant de&nbsp;la&nbsp;rigueur du&nbsp;terroir que de&nbsp;la&nbsp;sensibilité de&nbsp;celle qui&nbsp;le&nbsp;fait.</p>
           </div>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <img src="images/project-06e.jpg" alt="Grapillon, titrages manuscrits des cuvées Inflorescence, Fleurs et Les Lianes">
       </div>
 
-      <div class="project-image-block project-image-block--split project-image-block--split-fleur" data-scroll>
+      <div class="project-image-block project-image-block--split project-image-block--split-fleur" data-scroll data-nav-theme="light">
         <img src="images/project-06g.jpg" alt="Grapillon, macrophotographie de fleur de vigne">
         <img src="images/project-06h.jpg" alt="Grapillon, couleur Fleur de vigne — HEX #fff1a6, RGB 255 241 166, CMJN 2 3 45 0">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <img src="images/project-06i.jpg" alt="Grapillon, carte de visite et déclinaisons">
       </div>
 
-      <div class="project-text project-text--flush-top" data-scroll>
+      <div class="project-text project-text--flush-top" data-scroll data-nav-theme="light">
         <div class="text-block">
           <h3>Les&nbsp;illustrations</h3>
           <p>Elles prolongent le&nbsp;geste manuscrit du&nbsp;logotype. Le&nbsp;trait, vif et&nbsp;imparfait, raconte le&nbsp;travail de&nbsp;la&nbsp;main&nbsp;: tailler, récolter, presser, servir. Là où&nbsp;la&nbsp;photographie fige le&nbsp;réel, le&nbsp;dessin en&nbsp;garde le&nbsp;mouvement et&nbsp;la&nbsp;sensibilité. Ces motifs irriguent l'ensemble&nbsp;du&nbsp;système, de&nbsp;l'étiquette&nbsp;au&nbsp;packaging, et&nbsp;inscrivent partout la&nbsp;présence de&nbsp;celle qui&nbsp;fait le&nbsp;vin.</p>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <img src="images/project-06j.jpg" alt="Grapillon, bouteille emballée">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-06k.jpg" alt="Grapillon">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-06f.jpg" alt="Grapillon, macrophotographie de fleur de vigne">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-06l.jpg" alt="Grapillon">
       </div>
 

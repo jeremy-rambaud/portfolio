@@ -3,19 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studio Lumière — Jérémy Rambaud</title>
+  <title>Malbec Coffee — Jérémy Rambaud</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
+    .project-hero-pin { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
     .project-hero-pin__media { position: absolute; inset: 0; }
     .project-hero-pin__media img,
     .project-hero-pin__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .project-hero-pin__title {
       position: absolute; bottom: 8vh; left: 0; right: 0;
       padding: 0 5vw; pointer-events: none;
+    }
+    /* Mobile : le titre superposé au hero disparaît visuellement (le
+       bloc infos juste en dessous, avec ANNÉE/CLIENT/DISCIPLINES,
+       identifie déjà le projet). On garde le <h1> dans le DOM via la
+       technique .sr-only plutôt que display:none, pour ne pas le
+       retirer de l'arbre d'accessibilité ni du contenu indexable. */
+    @media (max-width: 767px) {
+      .project-hero-pin__title {
+        position: absolute;
+        top: auto; left: auto; right: auto; bottom: auto;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
     }
     .project-hero-pin__title .project-title-large { color: var(--black); margin: 0; }
 
@@ -76,6 +93,7 @@
     </section>
 
     <section class="project-header" data-scroll data-nav-theme="light">
+      <p class="project-title-mobile">Malbec Coffee</p>
       <div class="project-meta">
         <span class="project-category">IDENTITÉ</span>
         <span class="project-year">2025</span>
@@ -87,7 +105,7 @@
 
     <section class="project-body" data-nav-theme="light">
 
-      <div class="project-two-col" data-scroll>
+      <div class="project-two-col" data-scroll data-nav-theme="dark">
         <div class="project-two-col__img">
           <img src="images/project-01b.jpg" alt="Studio Lumière — Détail">
         </div>
@@ -99,98 +117,105 @@
             <dd>2026</dd>
             <dt>Client</dt>
             <dd>Malbec Coffee, Valanjou</dd>
-            <dt>Services</dt>
+            <dt>Disciplines</dt>
             <dd>Identité visuelle, Direction artistique, Typographie</dd>
           </dl>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <img src="images/project-01c.jpg" alt="Studio Lumière — Logotype">
       </div>
 
-      <div class="project-two-col project-two-col--reverse" data-scroll>
+      <div class="project-two-col project-two-col--reverse" data-scroll data-nav-theme="light">
         <div class="project-two-col__img">
           <img src="images/project-01d.jpg" alt="Studio Lumière — Application">
         </div>
         <div class="project-two-col__text">
           <div class="text-block">
             <h3>La&nbsp;Typographie</h3>
-            <p><strong>Typographie de titrage</strong></p>
-            <p class="project-typo-copy">Le titrage <strong>Malbec</strong> est un caractère dessiné sur mesure,<br>
-            réalisé au pochoir avec du café moulu.<br>
-            Chaque lettre garde la trace du geste, le grain<br>
-            de la mouture, l'irrégularité de la matière.<br>
-            On y cherche l'aspect texturé, humain, presque<br>
-            artisanal : la main derrière la torréfaction.</p>
-            <p><strong>Typographie de labeur</strong></p>
-            <p class="project-typo-copy">La <strong>Seabirds</strong>, dessinée par <strong>Rosalie Wagner</strong> pour <strong>205TF</strong>,<br>
-            est une linéale contemporaine inspirée des sans-serifs<br>
-            des couvertures Albatross des années 1930.<br>
-            Géométrique par défaut, plus humaniste via ses alternates<br>
-            OpenType, elle allie capitales de proportion romaine et<br>
-            hauteur d'x généreuse, taillées pour la lisibilité en labeur.<br>
-            Elle a servi de base au pochoir du titrage <strong>Malbec</strong>, et revient<br>
-            ici structurer paragraphes et information courante.<br>
-            Un même socle, deux régimes de lecture : la matière pour<br>
-            le titre, la rigueur pour le texte.</p>
+            <div class="text-desktop">
+              <p><strong>Typographie de titrage</strong></p>
+              <p class="project-typo-copy">Le titrage <strong>Malbec</strong> est un caractère dessiné sur mesure, réalisé au pochoir avec du café moulu.</p>
+              <p class="project-typo-copy">Chaque lettre garde la trace du geste, le grain de la mouture, l'irrégularité de la matière.</p>
+              <p class="project-typo-copy">On y cherche l'aspect texturé, humain, presque artisanal : la main derrière la torréfaction.</p>
+            </div>
+            <div class="text-desktop">
+              <p><strong>Typographie de labeur</strong></p>
+              <p class="project-typo-copy">La <strong>Seabirds</strong>, dessinée par <strong>Rosalie Wagner</strong> pour <strong>205TF</strong>, est une linéale contemporaine inspirée des sans-serifs des couvertures Albatross des années 1930.</p>
+              <p class="project-typo-copy">Géométrique par défaut, plus humaniste via ses alternates OpenType, elle allie capitales de proportion romaine et hauteur d'x généreuse, taillées pour la lisibilité en labeur.</p>
+              <p class="project-typo-copy">Elle a servi de base au pochoir du titrage <strong>Malbec</strong>, et revient ici structurer paragraphes et information courante.</p>
+              <p class="project-typo-copy">Un même socle, deux régimes de lecture : la matière pour le titre, la rigueur pour le texte.</p>
+            </div>
+            <div class="text-mobile">
+              <h3>Typographie de titrage</h3>
+              <p class="project-typo-copy">Un titrage dessiné sur mesure, tracé au pochoir avec du café moulu. Chaque lettre garde le grain de la mouture, la trace du geste. Texture, matière, main : la torréfaction avant la lecture.</p>
+              <h3>Typographie de labeur</h3>
+              <p class="project-typo-copy">La <strong>Seabirds</strong>, dessinée par <strong>Rosalie Wagner</strong> pour <strong>205TF</strong>, est une linéale contemporaine, taillée pour la lisibilité. Elle a servi de base au pochoir du titrage <strong>Malbec</strong>, et revient ici en labeur. Un même socle, deux régimes : la matière pour le titre, la rigueur pour le texte.</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="project-image-block project-image-block--h750 malbec-logo-invert" data-scroll>
+      <div class="project-image-block project-image-block--h750 malbec-logo-invert" data-scroll data-nav-theme="light">
         <img src="images/project-01h.jpg" alt="Malbec Coffee, typographie vectorisée">
       </div>
 
-      <div class="project-image-block project-image-block--specimen" data-scroll>
-        <img src="images/project-01i.jpg" alt="Malbec Coffee, spécimen typographique">
+      <div class="project-image-block project-image-block--specimen" data-scroll data-nav-theme="light">
+        <picture>
+          <source media="(max-width: 767px)" srcset="images/project-01i-mobile.jpg">
+          <img src="images/project-01i.jpg" alt="Malbec Coffee, spécimen typographique" loading="lazy">
+        </picture>
       </div>
 
-      <div class="project-image-block project-image-block--crop" data-scroll>
+      <div class="project-image-block project-image-block--crop" data-scroll data-nav-theme="dark">
         <img src="images/project-01j.jpg" alt="Malbec Coffee, logotype dessiné au café moulu">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-01l.jpg" alt="Malbec Coffee">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-01m.jpg" alt="Malbec Coffee">
       </div>
 
-      <div class="project-image-block project-image-block--split" data-scroll>
+      <div class="project-image-block project-image-block--split" data-scroll data-nav-theme="light">
         <img src="images/project-01e.jpg" alt="Studio Lumière — Stationery">
         <img src="images/project-01f.jpg" alt="Studio Lumière — Application">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <img src="images/project-01k.jpg" alt="Malbec Coffee">
       </div>
 
-      <div class="project-two-col project-two-col--reverse" data-scroll>
+      <div class="project-two-col project-two-col--reverse" data-scroll data-nav-theme="light">
         <div class="project-two-col__img">
           <img src="images/project-01g.jpg" alt="Malbec Coffee — Le livret">
         </div>
         <div class="project-two-col__text">
           <div class="text-block">
             <h3>Le&nbsp;livret</h3>
-            <p class="project-typo-copy">Le&nbsp;livret présente Malbec Coffee&nbsp;: son&nbsp;histoire, ses&nbsp;cafés,<br>
-            sa&nbsp;manière de&nbsp;faire.<br>
-            Il&nbsp;se&nbsp;loge dans une&nbsp;pochette de&nbsp;toile de&nbsp;jute, prolongement<br>
-            naturel des&nbsp;sacs de&nbsp;café brut.<br>
-            La&nbsp;pochette porte une&nbsp;fleur de&nbsp;café gravée en&nbsp;linogravure,<br>
-            empreinte manuelle imprimée dans la&nbsp;matière.<br>
-            À&nbsp;l'intérieur, une&nbsp;reliure cousue main et&nbsp;un&nbsp;papier au&nbsp;grain<br>
-            épais, presque textile.</p>
+            <div class="text-desktop">
+              <p class="project-typo-copy">Le&nbsp;livret présente Malbec Coffee&nbsp;: son&nbsp;histoire, ses&nbsp;cafés, sa&nbsp;manière de&nbsp;faire.</p>
+              <p class="project-typo-copy">Il&nbsp;se&nbsp;loge dans une&nbsp;pochette de&nbsp;toile de&nbsp;jute, prolongement naturel des&nbsp;sacs de&nbsp;café brut.</p>
+              <p class="project-typo-copy">La&nbsp;pochette porte une&nbsp;fleur de&nbsp;café gravée en&nbsp;linogravure, empreinte manuelle imprimée dans la&nbsp;matière.</p>
+              <p class="project-typo-copy">À&nbsp;l'intérieur, une&nbsp;reliure cousue main et&nbsp;un&nbsp;papier au&nbsp;grain épais, presque textile.</p>
+            </div>
+            <div class="text-mobile">
+              <p class="project-typo-copy">Un livret présente <strong>Malbec Coffee</strong> : son histoire, ses cafés, sa manière de faire.</p>
+              <p class="project-typo-copy">Il se loge dans une pochette de toile de jute, en écho aux sacs de café brut, ornée d'une fleur de café en linogravure.</p>
+              <p class="project-typo-copy">À l'intérieur : reliure cousue main, papier au grain textile.</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-01n.jpg" alt="Malbec Coffee">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <img src="images/project-01o.jpg" alt="Malbec Coffee">
       </div>
 

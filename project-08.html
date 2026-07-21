@@ -9,13 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
+    .project-hero-pin { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
     .project-hero-pin__media { position: absolute; inset: 0; }
     .project-hero-pin__media img,
     .project-hero-pin__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .project-hero-pin__title {
       position: absolute; bottom: 8vh; left: 0; right: 0;
       padding: 0 5vw; pointer-events: none;
+    }
+    /* Mobile : le titre superposé au hero disparaît visuellement (le
+       bloc infos juste en dessous, avec ANNÉE/CLIENT/DISCIPLINES,
+       identifie déjà le projet). On garde le <h1> dans le DOM via la
+       technique .sr-only plutôt que display:none, pour ne pas le
+       retirer de l'arbre d'accessibilité ni du contenu indexable. */
+    @media (max-width: 767px) {
+      .project-hero-pin__title {
+        position: absolute;
+        top: auto; left: auto; right: auto; bottom: auto;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
     }
     .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
 
@@ -30,15 +47,45 @@
     .project-image-block--typo {
       margin-bottom: var(--space-sm);
     }
-    .project-image-block--typo > img {
+    .project-image-block--typo > picture > img {
       aspect-ratio: 21 / 9;
+      background: var(--placeholder);
     }
-    .project-image-block--logo > img {
+    /* project-08-typographie-mobile.jpg ne doit pas être recadrée comme la
+       version desktop (21/9) : on retire l'aspect-ratio forcé et on laisse
+       l'image à sa hauteur naturelle, pour que les lignes du haut et du bas
+       du spécimen typographique restent visibles. Cette règle doit rester
+       déclarée après la règle desktop ci-dessus (même sélecteur, même
+       spécificité) pour gagner la cascade sur mobile. */
+    @media (max-width: 767px) {
+      .project-image-block--typo > picture > img {
+        aspect-ratio: auto;
+        height: auto;
+      }
+      /* project-08n.mp4 masquée en mobile (poids vidéo inutile sur le
+         réseau mobile) ; preload="none" sur la <video> elle-même évite
+         aussi le téléchargement des métadonnées. */
+      .project-image-block--video-desktop {
+        display: none;
+      }
+    }
+    .project-image-block--logo > picture > img {
       aspect-ratio: 2 / 1;
+      background: var(--placeholder);
       transition: filter 0.4s ease;
     }
-    .project-image-block--logo:hover > img {
+    .project-image-block--logo:hover > picture > img {
       filter: invert(1);
+    }
+    /* project-08h-mobile.jpg est déjà recadrée serré (2400/490), très
+       différente du ratio 2/1 desktop (recadré depuis un 16/9 source) :
+       forcer 2/1 dessus recadrerait le texte. Déclarée après la règle
+       desktop ci-dessus (même sélecteur/spécificité) pour gagner la
+       cascade sur mobile. */
+    @media (max-width: 767px) {
+      .project-image-block--logo > picture > img {
+        aspect-ratio: 2400 / 490;
+      }
     }
     .project-image-block > video {
       display: block;
@@ -123,110 +170,112 @@
       </div>
     </section>
 
-    <section class="project-header" data-scroll>
+    <section class="project-header" data-scroll data-nav-theme="light">
+      <p class="project-title-mobile">Arch'ocktail</p>
       <div class="project-meta">
         <span class="project-category">IDENTITÉ VISUELLE</span>
         <span class="project-year">2025</span>
       </div>
     </section>
 
-    <section class="project-body">
+    <section class="project-body" data-nav-theme="light">
 
-      <div class="project-two-col" data-scroll>
+      <div class="project-two-col" data-scroll data-nav-theme="dark">
         <div class="project-two-col__img">
           <img src="images/project-08b.jpg" alt="Arch'ocktail — Détail">
         </div>
         <div class="project-two-col__text">
-          <p><strong>Arch'ocktail</strong> est un&nbsp;duo de&nbsp;deux frères mixologues.<br>
-          Maison de&nbsp;mixologie et&nbsp;de&nbsp;conseil bar, ils&nbsp;pensent<br>
-          chaque cocktail comme une&nbsp;expérience sensorielle<br>
-          haut de&nbsp;gamme, conçue, dosée, éprouvée.<br><br>
-          Ils&nbsp;se&nbsp;présentent comme des&nbsp;<strong>architectes d'émotions</strong>&nbsp;:<br>
-          leurs recettes sont composées avec la&nbsp;rigueur d'un<br>
-          plan et&nbsp;la&nbsp;précision d'un&nbsp;dessin technique, mais<br>
-          toujours au&nbsp;service d'un&nbsp;ressenti&nbsp;: le&nbsp;geste et&nbsp;la<br>
-          sensation avant la&nbsp;formule.</p>
+          <p><strong>Arch'ocktail</strong> est un&nbsp;duo de&nbsp;deux frères mixologues.</p>
+          <p>Maison de&nbsp;mixologie et&nbsp;de&nbsp;conseil bar, ils&nbsp;pensent chaque cocktail comme une&nbsp;expérience sensorielle haut de&nbsp;gamme, conçue, dosée, éprouvée.</p>
+          <p>Ils&nbsp;se&nbsp;présentent comme des&nbsp;<strong>architectes d'émotions</strong>&nbsp;: leurs recettes sont composées avec la&nbsp;rigueur d'un plan et&nbsp;la&nbsp;précision d'un&nbsp;dessin technique, mais toujours au&nbsp;service d'un&nbsp;ressenti&nbsp;: le&nbsp;geste et&nbsp;la sensation avant la&nbsp;formule.</p>
           <dl class="project-details">
             <dt>Année</dt>
             <dd>2025</dd>
             <dt>Client</dt>
             <dd>Arch'ocktail</dd>
-            <dt>Services</dt>
+            <dt>Disciplines</dt>
             <dd>Identité visuelle, Direction artistique, Typographie</dd>
           </dl>
         </div>
       </div>
 
-      <div class="project-two-col project-two-col--reverse" data-scroll>
+      <div class="project-two-col project-two-col--reverse" data-scroll data-nav-theme="light">
         <div class="project-two-col__img">
           <img src="images/project-08d.jpg" alt="Arch'ocktail — Application">
         </div>
         <div class="project-two-col__text">
           <h3>Architecte d'émotions</h3>
-          <p>La&nbsp;direction artistique fusionne les&nbsp;deux mondes qui<br>
-          donnent son&nbsp;nom à&nbsp;<strong>Arch'ocktail</strong>&nbsp;: celui de&nbsp;l'architecte<br>
-          et&nbsp;celui du&nbsp;mixologue.<br><br>
-          L'identité&nbsp;puise dans&nbsp;le&nbsp;vocabulaire du&nbsp;bâtisseur&nbsp;:<br>
-          cartouches, cotations, échelles, dessins techniques.<br>
-          Chaque cocktail est traité comme un&nbsp;projet&nbsp;: esquissé<br>
-          au&nbsp;trait, coté, équilibré selon quatre axes (force,<br>
-          douceur, amertume, acidité), puis reproduit à&nbsp;l'identique.<br><br>
-          L'émotion se&nbsp;construit à&nbsp;deux niveaux. Dans la&nbsp;trame<br>
-          graphique d'abord&nbsp;: le&nbsp;noir et&nbsp;blanc, la&nbsp;ligne fine et<br>
-          la&nbsp;tache de&nbsp;couleur brute au&nbsp;feutre réintroduisent le<br>
-          geste, la&nbsp;main, l'accident. Dans l'iconographie ensuite&nbsp;:<br>
-          les visuels des&nbsp;cocktails, cadrés serrés sur&nbsp;la&nbsp;matière,<br>
-          la&nbsp;lumière et&nbsp;la&nbsp;texture, font sentir le&nbsp;verre avant de<br>
-          le&nbsp;nommer.<br><br>
-          Un&nbsp;cocktail comme une&nbsp;œuvre&nbsp;: à&nbsp;la&nbsp;fois calculée et&nbsp;sensible.</p>
+          <div class="text-desktop">
+            <p>La&nbsp;direction artistique fusionne les&nbsp;deux mondes qui donnent son&nbsp;nom à&nbsp;<strong>Arch'ocktail</strong>&nbsp;: celui de&nbsp;l'architecte et&nbsp;celui du&nbsp;mixologue.</p>
+            <p>L'identité&nbsp;puise dans&nbsp;le&nbsp;vocabulaire du&nbsp;bâtisseur&nbsp;: cartouches, cotations, échelles, dessins techniques.</p>
+            <p>Chaque cocktail est traité comme un&nbsp;projet&nbsp;: esquissé au&nbsp;trait, coté, équilibré selon quatre axes (force, douceur, amertume, acidité), puis reproduit à&nbsp;l'identique.</p>
+            <p>L'émotion se&nbsp;construit à&nbsp;deux niveaux.</p>
+            <p>Dans la&nbsp;trame graphique d'abord&nbsp;: le&nbsp;noir et&nbsp;blanc, la&nbsp;ligne fine et la&nbsp;tache de&nbsp;couleur brute au&nbsp;feutre réintroduisent le geste, la&nbsp;main, l'accident.</p>
+            <p>Dans l'iconographie ensuite&nbsp;: les visuels des&nbsp;cocktails, cadrés serrés sur&nbsp;la&nbsp;matière, la&nbsp;lumière et&nbsp;la&nbsp;texture, font sentir le&nbsp;verre avant de le&nbsp;nommer.</p>
+            <p>Un&nbsp;cocktail comme une&nbsp;œuvre&nbsp;: à&nbsp;la&nbsp;fois calculée et&nbsp;sensible.</p>
+          </div>
+          <div class="text-mobile">
+            <p>La direction artistique fusionne deux mondes&nbsp;: celui de&nbsp;l'architecte et&nbsp;celui du&nbsp;mixologue. L'identité&nbsp;puise dans&nbsp;le&nbsp;vocabulaire du&nbsp;bâtisseur&nbsp;: cartouches, cotations, échelles, dessins techniques.</p>
+            <p>Chaque cocktail est traité comme un&nbsp;projet, équilibré selon quatre axes (force, douceur, amertume, acidité) puis reproduit à&nbsp;l'identique. Un&nbsp;cocktail comme une&nbsp;œuvre, à&nbsp;la&nbsp;fois calculée et&nbsp;sensible.</p>
+            <p>Deux typographies portent cette tension&nbsp;: l'<strong>Injurial</strong> (<strong>Sandrine Nugue</strong>, <strong>205TF</strong>), lapidaire, aux&nbsp;empattements taillés en&nbsp;pieds de&nbsp;verre, et&nbsp;l'<strong>Auger Mono</strong> (<strong>Signal</strong>), chasse fixe d'atelier. Pierre et&nbsp;plan, geste et&nbsp;trait.</p>
+          </div>
         </div>
       </div>
 
-      <div class="project-typo-heading" data-scroll>
+      <div class="project-typo-heading" data-scroll data-nav-theme="light">
         <div class="text-block">
           <h3>La&nbsp;Typographie</h3>
         </div>
       </div>
 
-      <div class="project-image-block project-image-block--typo" data-scroll>
-        <img src="images/project-08-typographie.jpg" alt="Système typographique Arch'ocktail&nbsp;: Injurial Regular et&nbsp;Auger Mono" loading="lazy" width="1600" height="900">
+      <div class="project-image-block project-image-block--typo" data-scroll data-nav-theme="light">
+        <picture>
+          <source media="(max-width: 767px)" srcset="images/project-08-typographie-mobile.jpg">
+          <img src="images/project-08-typographie.jpg" alt="Système typographique Arch'ocktail&nbsp;: Injurial Regular et&nbsp;Auger Mono" loading="lazy" width="1600" height="900">
+        </picture>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <img src="images/project-08g.jpg" alt="Arch'ocktail — Final">
       </div>
 
-      <div class="project-image-block project-image-block--logo" data-scroll>
-        <img src="images/project-08h.jpg" alt="Arch'ocktail — Logo">
+      <div class="project-image-block project-image-block--logo" data-scroll data-nav-theme="light">
+        <picture>
+          <source media="(max-width: 767px)" srcset="images/project-08h-mobile.jpg">
+          <img src="images/project-08h.jpg" alt="Arch'ocktail — Logo" loading="lazy" width="2400" height="1350">
+        </picture>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <div class="reveal-container">
           <img src="images/project-08i-photo.jpg" class="reveal-photo" alt="Photographies cocktails Arch'ocktail">
-          <img src="images/project-08i.jpg" class="reveal-sketch" alt="Croquis techniques cocktails Arch'ocktail">
+          <picture>
+            <source media="(max-width: 767px)" srcset="images/project-08i-mobile.jpg">
+            <img src="images/project-08i.jpg" class="reveal-sketch" alt="Croquis techniques cocktails Arch'ocktail">
+          </picture>
         </div>
       </div>
 
       <div class="project-image-block project-image-block--split" data-scroll>
-        <img src="images/project-08j.jpg" alt="Arch'ocktail — Réseaux sociaux 1">
-        <img src="images/project-08k.jpg" alt="Arch'ocktail — Réseaux sociaux 2">
+        <img src="images/project-08j.jpg" alt="Arch'ocktail — Réseaux sociaux 1" data-nav-theme="dark">
+        <img src="images/project-08k.jpg" alt="Arch'ocktail — Réseaux sociaux 2" data-nav-theme="light">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-08l.jpg" alt="Arch'ocktail — Carte de visite">
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="light">
         <img src="images/project-08m.jpg" alt="Arch'ocktail — Site web">
       </div>
 
-      <div class="project-image-block" data-scroll>
-        <video src="images/project-08n.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Arch'ocktail — Vidéo" width="1600" height="900"></video>
+      <div class="project-image-block project-image-block--video-desktop" data-scroll data-nav-theme="dark">
+        <video src="images/project-08n.mp4" autoplay muted loop playsinline preload="none" aria-label="Arch'ocktail — Vidéo" width="1600" height="900"></video>
       </div>
 
     </section>
 
-    <section class="project-credits" data-scroll>
+    <section class="project-credits" data-scroll data-nav-theme="light">
       <h3>Crédits</h3>
       <div class="credit-row">
         <span class="credit-role">Direction artistique</span>
@@ -243,7 +292,7 @@
       <div class="project-discover-grid"></div>
     </section>
 
-    <nav class="project-nav" data-scroll>
+    <nav class="project-nav" data-scroll data-nav-theme="light">
       <a href="travaux.html" class="back-link">← Tous les&nbsp;travaux</a>
       <a href="project.html" class="next-project">Projet suivant →</a>
     </nav>

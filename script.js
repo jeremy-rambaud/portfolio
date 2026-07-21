@@ -108,6 +108,14 @@ if (burger && navMobile) {
     navMobile.setAttribute('aria-hidden', String(!isOpen));
     document.body.style.overflow = isOpen ? 'hidden' : '';
     if (isOpen && header) header.style.transform = 'translateY(0)';
+    // Menu ouvert : fond opaque clair (--cream) quel que soit le thème
+    // scrollé en dessous -> on force is-light le temps que le menu est ouvert.
+    if (isOpen && header) {
+      header.classList.remove('is-dark');
+      header.classList.add('is-light');
+    } else {
+      updateHeaderTheme();
+    }
   });
 
   navMobile.querySelectorAll('a').forEach(a => {
@@ -117,6 +125,7 @@ if (burger && navMobile) {
       burger.setAttribute('aria-expanded', 'false');
       navMobile.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      updateHeaderTheme();
     });
   });
 }
@@ -218,27 +227,224 @@ if (typeof gsap !== 'undefined' && typeof SplitText !== 'undefined') {
 
 // ============================================================
 // ADAPTIVE NAV THEME
+// Desktop : pilote header--on-dark (couleur fixe, voir CSS).
+// Mobile (<768px) : pilote is-light / is-dark (voir CSS), aussi
+// réutilisé par le menu burger pour se resynchroniser à la
+// fermeture. rAF-throttled pour éviter un recalcul par event
+// de scroll (le layout .getBoundingClientRect() a un coût).
+//
+// data-nav-theme="light|dark" reste l'attribut lu au scroll, mais sa
+// valeur n'est plus fixée à la main : refreshAutoNavThemes() l'écrase
+// en échantillonnant les pixels réels de l'image/vidéo de chaque bloc
+// (canvas, bande du haut sous le header) et ne retombe sur la valeur
+// HTML d'origine que si aucun média n'est trouvé ou n'a pu être lu
+// (bloc texte, image pas encore chargée, canvas cross-origin...).
+// Ainsi un tag mal posé à la main, ou une image remplacée plus tard,
+// ne peut plus rendre le logo/burger illisibles sur aucune page.
 // ============================================================
-(function () {
-  const themed = document.querySelectorAll('[data-nav-theme]');
-  if (!themed.length || !header) return;
+const themedBlocks = document.querySelectorAll('[data-nav-theme]');
 
-  const update = () => {
-    const triggerY = header.offsetHeight;
-    let active = null;
-    for (const el of themed) {
-      if (el.getBoundingClientRect().top <= triggerY) active = el;
+// DEBUG temporaire : trace chaque bascule de thème du header dans la console
+// (bloc détecté + valeur), pour diagnostiquer une détection incorrecte.
+// À retirer une fois le comportement mobile confirmé stable.
+let lastHeaderThemeLog = null;
+
+function updateHeaderTheme() {
+  if (!themedBlocks.length || !header) return;
+  const triggerY = header.offsetHeight;
+  // Un élément display:none (ex. .project-image-block--video-desktop, masqué
+  // ≤767px pour éviter de charger la vidéo sur mobile) renvoie un
+  // getBoundingClientRect().top à 0, indiscernable d'un bloc réellement
+  // scrollé en haut d'écran. Sans ce filtre, un bloc cible tagué mais
+  // masqué — même situé tout en bas du DOM — peut usurper le thème du
+  // header dès le chargement, avant même le moindre scroll.
+  const rendered = Array.from(themedBlocks).filter(el => el.getClientRects().length > 0);
+  let active = null;
+  for (const el of rendered) {
+    if (el.getBoundingClientRect().top <= triggerY) active = el;
+  }
+  // En bas de page, le dernier élément marqué (le footer) peut ne jamais
+  // franchir triggerY s'il est plus court que la fenêtre : on force son thème.
+  const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
+  if (atBottom && rendered.length) active = rendered[rendered.length - 1];
+  const isDark = active?.dataset.navTheme === 'dark';
+  header.classList.toggle('header--on-dark', isDark);
+  header.classList.toggle('is-dark', isDark);
+  header.classList.toggle('is-light', !isDark);
+
+  const themeLabel = isDark ? 'dark' : 'light';
+  if (themeLabel !== lastHeaderThemeLog) {
+    lastHeaderThemeLog = themeLabel;
+    const blockLabel = active
+      ? (active.alt || active.id || `<${active.tagName.toLowerCase()} class="${active.className}">`)
+      : '(aucun bloc détecté)';
+    console.log(`[header-theme] ${themeLabel} — bloc: ${blockLabel}`);
+  }
+}
+
+// ------------------------------------------------------------
+// Détection automatique de contraste (remplace le tag manuel)
+// ------------------------------------------------------------
+const AUTO_THEME_SAMPLE_H = 90;   // hauteur échantillonnée (header ~74px + marge)
+const AUTO_THEME_THRESHOLD = 140; // luminance 0-255 : en dessous -> fond sombre ("dark")
+
+function averageLuminance(ctx, w, h) {
+  let data;
+  try {
+    data = ctx.getImageData(0, 0, w, h).data;
+  } catch (e) {
+    return null; // canvas "tainted" (image cross-origin) ou zone invalide
+  }
+  let sum = 0;
+  const n = data.length / 4;
+  if (!n) return null;
+  for (let i = 0; i < data.length; i += 4) {
+    sum += 0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
+  }
+  return sum / n;
+}
+
+// Reproduit le rendu réel de l'élément (object-fit cover/contain, fond de
+// lettrage) dans un canvas hors-écran, pour lire la luminance de ce qui
+// est effectivement affiché sous le header — pas l'image brute non recadrée.
+// Volontairement limité aux <img> : une vidéo change de contenu en boucle,
+// un échantillon pris à un instant T (ex. au chargement) n'est pas
+// représentatif de l'ensemble de la boucle et pourrait remplacer un tag
+// manuel correct par une valeur juste pour cette frame-là mais fausse une
+// seconde plus tard. Les héros vidéo (ex. Grapillon) gardent donc leur
+// data-nav-theme posé à la main.
+function sampleMediaTopStrip(media) {
+  const naturalW = media.naturalWidth;
+  const naturalH = media.naturalHeight;
+  const rect = media.getBoundingClientRect();
+  const boxW = Math.round(rect.width);
+  const boxH = Math.round(rect.height);
+  if (!naturalW || !naturalH || boxW < 1 || boxH < 1) return null;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = boxW;
+  canvas.height = Math.min(boxH, AUTO_THEME_SAMPLE_H);
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (!ctx) return null;
+
+  const bg = getComputedStyle(media).backgroundColor;
+  ctx.fillStyle = (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') ? bg : '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const fit = getComputedStyle(media).objectFit || 'fill';
+  const scale = fit === 'contain'
+    ? Math.min(boxW / naturalW, boxH / naturalH)
+    : Math.max(boxW / naturalW, boxH / naturalH);
+  const drawW = naturalW * scale;
+  const drawH = naturalH * scale;
+  const offsetX = (boxW - drawW) / 2;
+  const offsetY = (boxH - drawH) / 2;
+
+  try {
+    ctx.drawImage(media, offsetX, offsetY, drawW, drawH);
+  } catch (e) {
+    return null; // ex : frame vidéo pas encore décodée
+  }
+
+  return averageLuminance(ctx, canvas.width, canvas.height);
+}
+
+function mediaOf(el) {
+  return el.matches('img') ? [el] : Array.from(el.querySelectorAll('img'));
+}
+
+function isMediaVisible(m) {
+  // Exclut les images cachées par défaut et révélées seulement au survol
+  // (ex. le logo Synapse Studio, deux <img> superposées en opacity 0/1) :
+  // les inclure fausserait la moyenne avec un contenu jamais visible au repos.
+  const style = getComputedStyle(m);
+  return style.display !== 'none' && style.visibility !== 'hidden' && parseFloat(style.opacity) > 0;
+}
+
+function isMediaReady(m) {
+  return m.complete && m.naturalWidth > 0 && isMediaVisible(m);
+}
+
+function computeAutoTheme(el) {
+  const media = mediaOf(el).filter(isMediaReady);
+  if (!media.length) return null; // pas de média (ou pas encore chargé) : on garde le tag existant
+
+  const values = media.map(sampleMediaTopStrip).filter(v => v !== null);
+  if (!values.length) return null;
+
+  const avg = values.reduce((a, b) => a + b, 0) / values.length;
+  return avg < AUTO_THEME_THRESHOLD ? 'dark' : 'light';
+}
+
+function refreshAutoNavThemes() {
+  let changed = false;
+  themedBlocks.forEach(el => {
+    const auto = computeAutoTheme(el);
+    if (auto && el.dataset.navTheme !== auto) {
+      el.dataset.navTheme = auto;
+      changed = true;
     }
-    // En bas de page, le dernier élément marqué (le footer) peut ne jamais
-    // franchir triggerY s'il est plus court que la fenêtre : on force son thème.
-    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
-    if (atBottom) active = themed[themed.length - 1];
-    header.classList.toggle('header--on-dark', active?.dataset.navTheme === 'dark');
-  };
+  });
+  if (changed) updateHeaderTheme();
+}
 
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-})();
+// Tant que des images (lazy notamment) n'ont pas fini de charger, la mise en
+// page peut être partiellement effondrée (hauteur pas encore réservée) : un
+// bloc plus bas dans le DOM peut alors sembler être tout en haut de l'écran
+// au moment précis où on lit son getBoundingClientRect(). refreshAutoNavThemes()
+// seul ne suffit pas à corriger ça : si le thème d'une image ne change pas
+// (elle était déjà correctement taguée), son "changed" reste false et
+// updateHeaderTheme() n'est jamais rappelé — le header peut alors rester
+// bloqué sur le mauvais bloc jusqu'au premier scroll de l'utilisateur. On
+// force donc updateHeaderTheme() après chaque chargement d'image, indépendamment
+// de la valeur retournée par refreshAutoNavThemes().
+function resyncAfterLoad() {
+  refreshAutoNavThemes();
+  updateHeaderTheme();
+}
+
+// Recalcule dès qu'une image pas encore prête au premier passage finit de charger
+// (images lazy notamment).
+function scheduleAutoThemeOnLoad() {
+  const seen = new Set();
+  themedBlocks.forEach(el => {
+    mediaOf(el).forEach(m => {
+      if (seen.has(m) || isMediaReady(m)) return;
+      seen.add(m);
+      m.addEventListener('load', resyncAfterLoad, { once: true });
+    });
+  });
+}
+
+if (themedBlocks.length && header) {
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateHeaderTheme();
+      ticking = false;
+    });
+  }, { passive: true });
+
+  refreshAutoNavThemes();
+  scheduleAutoThemeOnLoad();
+  updateHeaderTheme();
+
+  // Filet de sécurité final : une fois la page entièrement chargée (toutes
+  // les images non-lazy, fonts, etc.), la mise en page est nécessairement
+  // stable — on revérifie une dernière fois au cas où le calcul initial
+  // aurait eu lieu pendant une mise en page encore partielle.
+  window.addEventListener('load', resyncAfterLoad);
+
+  // Le crop object-fit change entre mobile empilé et desktop en colonnes :
+  // on ré-échantillonne après un resize (ex. rotation, redimensionnement fenêtre).
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(refreshAutoNavThemes, 200);
+  });
+}
 
 // ============================================================
 // DÉCOUVRIR D'AUTRES PROJETS (pages projet)

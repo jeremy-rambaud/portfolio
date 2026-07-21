@@ -97,6 +97,13 @@ img {
   user-drag: none;
 }
 
+/* <picture> est inline par défaut dans la plupart des navigateurs,
+   ce qui peut interférer avec la résolution des largeurs en % sur
+   l'<img> qu'il contient (ex. project-01i sur project.html). */
+picture {
+  display: block;
+}
+
 ul { list-style: none; }
 address { font-style: normal; }
 
@@ -210,10 +217,20 @@ nav {
 @media (pointer: coarse) {
   .cursor { display: none; }
   body { cursor: auto; }
+  /* Générique : couvre nav, logo, back-link, next-project, see-all-link,
+     footer/infos, photo-cat-nav et les boutons lightbox — tout <a>/<button>
+     hérite sinon du cursor:none global (ligne ~83), sans effet visuel sur
+     tactile mais sémantiquement incorrect. .burger est un <button>, donc
+     déjà couvert ici (son override dédié précédent est redondant). */
+  a,
+  button {
+    cursor: pointer;
+  }
   .newsletter-form input,
   .newsletter-form button,
-  .photo-item { cursor: auto; }
-  .burger { cursor: pointer; }
+  .photo-item {
+    cursor: auto;
+  }
 }
 
 /* ============================================================
@@ -223,11 +240,19 @@ nav {
   display: none;
   flex-direction: column;
   justify-content: center;
+  /* nav utilise align-items: baseline (pour le logo texte) ; sans
+     align-self, un bouton sans baseline propre "hérite" du bord bas
+     de sa margin-box comme repère, ce qui décale tout le bouton
+     vers le bas dès que son padding grandit. On le fixe donc au
+     centre de la ligne, indépendamment de la hauteur du padding. */
+  align-self: center;
   gap: 5px;
   background: none;
   border: none;
   cursor: none;
-  padding: 4px;
+  /* Zone tactile ≥44×44px (recommandation WCAG) : les traits
+     restent 22×1px, seul le padding grandit autour. */
+  padding: 19px 12px;
   flex-shrink: 0;
 }
 
@@ -301,6 +326,33 @@ nav {
 .cursor.cursor--on-dark.cursor--hover .cursor-dot {
   background: transparent;
   border-color: #ffffff;
+}
+
+/* ============================================================
+   MOBILE — HEADER : INVERSION VIA DÉTECTION JS (<768px)
+   Le header est déjà position:fixed à toutes les tailles (voir
+   règle "header" plus haut) : rien à changer côté desktop.
+   is-light / is-dark sont posées par updateHeaderTheme() dans
+   script.js, à partir des data-nav-theme déjà marqués sur les
+   sections/blocs de chaque page (mix-blend-mode retiré : peu
+   fiable sur fonds très clairs).
+   ============================================================ */
+@media (max-width: 767px) {
+  header.is-light {
+    color: #1a1a1a;
+  }
+
+  header.is-light .burger span {
+    background-color: #1a1a1a;
+  }
+
+  header.is-dark {
+    color: #ffffff;
+  }
+
+  header.is-dark .burger span {
+    background-color: #ffffff;
+  }
 }
 
 /* ============================================================
@@ -443,6 +495,23 @@ nav {
   margin-left: auto;
 }
 
+.project-title-mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .project-title-mobile {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    line-height: 1.15;
+    color: #000000;
+    margin: 0 0 var(--space-sm);
+  }
+}
+
 .project-hero {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -490,6 +559,12 @@ nav {
   max-width: 720px;
 }
 
+.project-text--block-centered .text-block {
+  margin: 0 auto;
+  max-width: 900px;
+  text-align: center;
+}
+
 .text-block h3 {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 2.5vw, 3rem);
@@ -508,6 +583,136 @@ nav {
 
 .text-block p + p {
   margin-top: var(--space-sm);
+}
+
+.section-equipe {
+  padding: var(--space-lg) var(--gutter);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Le bloc "L'artisanat comme méthode" (.project-text--block-centered) a
+   déjà sa propre respiration en bas (--space-xl) qui s'ajoute au
+   padding-top de cette section (--space-lg) : la somme des deux crée un
+   espace trop marqué. On retire la moitié de cette somme ici, sans
+   toucher aux deux paddings partagés par d'autres blocs de la page. */
+.project-text--block-centered + .section-equipe {
+  margin-top: calc(-1 * (var(--space-xl) + var(--space-lg)) / 2);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.5vw, 3rem);
+  font-weight: 300;
+  font-style: italic;
+  text-align: left;
+}
+
+.equipe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.equipe-member img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+.equipe-member h3 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.625rem;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.equipe-member p {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .equipe-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .equipe-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+}
+
+/* Paragraphes descriptifs des pages projet non nichés dans .text-block
+   (project-05.html, project-08.html) : même respiration entre <p> que
+   .text-block p + p ci-dessus, pour une cohérence de rythme éditorial
+   sur toutes les pages projet, avec ou sans <br> restructurés en <p>. */
+.project-two-col__text p + p {
+  margin-top: var(--space-sm);
+}
+
+/* ============================================================
+   CONTENU ADAPTATIF DESKTOP / MOBILE
+   Une paire .text-desktop/.text-mobile par bloc de texte : la
+   version longue existante reste inchangée en desktop, une
+   version courte prend le relais sous 768px. Règle unique,
+   réutilisable sur n'importe quelle page projet.
+   ============================================================ */
+.text-mobile { display: none; }
+.text-desktop { display: block; }
+
+/* Comble l'espacement perdu quand l'élément qui précède (le label
+   "<p><strong>...</strong></p>" ou un <h3>) n'est plus directement
+   suivi d'un <p> mais de ce wrapper : .text-block p + p ne peut
+   plus s'appliquer puisque ce n'est plus un <p> qui suit. Le
+   margin-top ci-dessous fusionne avec le margin-bottom du voisin
+   (collapsing standard entre frères adjacents) et reproduit
+   exactement le même espacement qu'avant la restructuration. */
+.text-desktop,
+.text-mobile {
+  margin-top: var(--space-sm);
+}
+
+@media (max-width: 767px) {
+  .text-mobile { display: block; }
+  .text-desktop { display: none; }
+}
+
+/* Malbec Coffee, "La Typographie" mobile : sous-titres <h3> internes à
+   .text-mobile (titrage / labeur), chacun collé à son paragraphe unique.
+   Sans cet override, .text-block h3 s'appliquerait (grande italique de
+   section) — on revient à une taille proche du corps de texte, comme
+   l'ancien <p><strong>. */
+.text-mobile h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: normal;
+  color: inherit;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.text-mobile p {
+  margin: 0;
+}
+
+/* Seul le h3 précédé d'un <p> (donc le second sous-titre, jamais le
+   premier) reçoit la respiration élargie entre les deux sous-blocs :
+   plus spécifique que .text-mobile h3 ci-dessus, l'emporte sur son
+   margin-top: 0 pour ce seul cas. */
+.text-mobile p + h3 {
+  margin-top: 60px;
 }
 
 .pullquote {
@@ -558,7 +763,7 @@ nav {
   background: var(--placeholder);
 }
 
-.project-image-block--specimen > img {
+.project-image-block--specimen > picture > img {
   aspect-ratio: 2400 / 1150;
   object-fit: contain;
   background: transparent;
@@ -572,6 +777,57 @@ nav {
 .project-image-block--crop > img {
   aspect-ratio: unset;
   height: 100%;
+}
+
+/* Mobile uniquement, Malbec Coffee (project.html) :
+   - specimen (project-01i) : le ratio 2400/1150 forcé écrase l'image
+     dans une boîte trop large/plate à l'échelle mobile (object-fit:
+     contain la réduit avec beaucoup de vide). On repasse à son
+     ratio natif, insérée dans la colonne de contenu (pas en bleed).
+   - crop (project-01j) : hauteur fixe 482px + object-fit: cover
+     (hérité de .project-image-block > img) rogne l'image sur les
+     côtés à largeur mobile. On repasse à une hauteur libre. */
+@media (max-width: 767px) {
+  .project-image-block--specimen {
+    width: calc(100vw - 24px);
+    max-width: none;
+    margin-left: calc(-50vw + 50% + 12px);
+    margin-right: calc(-50vw + 50% + 12px);
+  }
+
+  .project-image-block--specimen > picture > img {
+    /* Ratio réel de project-01i-mobile.jpg (7732 × 4792px, mesuré dans
+       le fichier) plutôt que "auto" : réservé dès la mise en page,
+       avant même le chargement de l'image, pour éviter tout saut. */
+    aspect-ratio: 7732 / 4792;
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-width: none;
+  }
+
+  .project-image-block--crop {
+    height: auto;
+  }
+
+  .project-image-block--crop > img {
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+/* Rythme vertical entre blocs image, toutes pages projet (≤767px
+   uniquement). --space-xl vaut 8rem (ou 5rem sous 600px, cf. token
+   réduit en racine) : réduction proportionnelle de ~55%, dans la
+   fourchette demandée, cohérente à travers les deux sous-paliers
+   plutôt qu'une valeur fixe qui figerait le rapport entre eux.
+   .project-logo-block (Synapse Studio) est le même type de bloc
+   plein-cadre — même traitement pour rester cohérent. */
+@media (max-width: 767px) {
+  .project-image-block,
+  .project-logo-block {
+    margin-bottom: calc(var(--space-xl) * 0.45);
+  }
 }
 
 .project-image-block--split {
@@ -854,12 +1110,6 @@ footer {
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 1024px) {
-  .project-info {
-    grid-template-columns: 120px 1fr 1fr;
-  }
-}
-
 @media (max-width: 900px) {
   .project-info {
     gap: 0.375rem;
@@ -920,6 +1170,12 @@ footer {
   max-width: var(--max-width);
   margin: 0 auto;
   text-align: center;
+}
+
+@media (max-width: 767px) {
+  .section-intro {
+    padding-top: calc(var(--space-xl) + 3rem + 80px);
+  }
 }
 
 .section-intro-text {
@@ -1052,6 +1308,116 @@ footer {
   font-style: italic;
   line-height: 1.15;
   white-space: nowrap;
+}
+
+/* Tactile : pas de :hover fiable pour révéler l'overlay des cartes
+   (travaux.html + "Découvrir d'autres projets" injecté par script.js).
+   On l'affiche par défaut, avec un fond dérivé de --card-bg pour
+   garantir le contraste avec --card-text quel que soit le duo de
+   couleurs de la carte (certaines ont un texte foncé, d'autres clair). */
+@media (pointer: coarse) {
+  .travaux-overlay {
+    opacity: 1;
+    background: color-mix(in srgb, var(--card-bg, var(--placeholder)) 88%, transparent);
+  }
+}
+
+/* ============================================================
+   CARTES PROJET — MISE EN PAGE ÉDITORIALE MOBILE (<768px)
+   1 colonne, image pleine largeur, titre/catégorie en flux normal
+   sous l'image (fin de l'overlay coloré). Pattern commun à
+   .travaux-grid (travaux.html) ET .project-discover-grid
+   ("Découvrir d'autres projets", 9 pages projet) — mêmes règles
+   de carte réutilisées via sélecteurs combinés ; seuls le
+   row-gap et le conteneur diffèrent entre les deux grilles.
+   ============================================================ */
+@media (max-width: 767px) {
+  .travaux-page {
+    padding-top: calc(var(--header-h) + 48px);
+  }
+
+  .travaux-header {
+    padding: 0 20px 48px;
+  }
+
+  .travaux-grid {
+    grid-template-columns: 1fr;
+    row-gap: 120px;
+    padding: 0 20px;
+  }
+
+  .project-discover-grid {
+    grid-template-columns: 1fr;
+    row-gap: 90px;
+    max-width: none;
+    padding: 0 20px;
+  }
+
+  .travaux-grid .travaux-card,
+  .project-discover-grid .travaux-card {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+  }
+
+  .travaux-grid .travaux-img,
+  .project-discover-grid .travaux-img {
+    position: static;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+  }
+
+  .travaux-grid .travaux-card:hover .travaux-img,
+  .project-discover-grid .travaux-card:hover .travaux-img {
+    opacity: 1;
+  }
+
+  .travaux-grid .travaux-card--synapse:hover,
+  .project-discover-grid .travaux-card--synapse:hover {
+    background-color: transparent;
+  }
+
+  .travaux-grid .travaux-overlay,
+  .project-discover-grid .travaux-overlay {
+    position: static;
+    opacity: 1;
+    background: none;
+    padding: 20px 0 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    color: var(--black);
+  }
+
+  .travaux-grid .travaux-card--synapse:hover .travaux-overlay,
+  .project-discover-grid .travaux-card--synapse:hover .travaux-overlay {
+    color: var(--black);
+  }
+
+  .travaux-grid .travaux-card-title,
+  .project-discover-grid .travaux-card-title {
+    order: 1;
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .travaux-grid .travaux-card-cat,
+  .project-discover-grid .travaux-card-cat {
+    order: 2;
+    margin: 0.3rem 0 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.9375rem;
+    letter-spacing: normal;
+    text-transform: lowercase;
+    color: rgba(26, 26, 26, 0.65);
+  }
 }
 
 /* ============================================================
@@ -1277,13 +1643,19 @@ footer {
 /* ============================================================
    RESPONSIVE — NEW COMPONENTS
    ============================================================ */
-@media (max-width: 900px) {
-  .travaux-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+/* Tablette desktop (768-900px) uniquement : le mobile éditorial
+   (<768px) est géré plus haut et ne doit jamais repasser à 2
+   colonnes — voir "CARTES PROJET — MISE EN PAGE ÉDITORIALE MOBILE". */
+@media (min-width: 768px) and (max-width: 900px) {
+  .travaux-grid,
   .project-discover-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .travaux-card-title {
+    white-space: normal;
   }
 
   .project-two-col {
@@ -1300,12 +1672,6 @@ footer {
   .project-two-col--reverse .project-two-col__text {
     order: unset;
     padding: 0;
-  }
-}
-
-@media (max-width: 600px) {
-  .travaux-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1397,6 +1763,33 @@ footer {
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+/* Tactile : .photo-caption reste masqué (pas de :hover fiable), mais
+   son contenu (crédit, lien) reste accessible via la lightbox au tap
+   (script.js:openLightbox). Ce badge signale juste qu'un crédit existe. */
+@media (pointer: coarse) {
+  .photo-wrap::after {
+    content: 'i';
+    position: absolute;
+    bottom: 0.625rem;
+    right: 0.625rem;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.55);
+    color: #F5EFE6;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.75rem;
+    line-height: 1;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+  }
 }
 
 /* ============================================================
@@ -1624,13 +2017,23 @@ footer {
 }
 
 /* ============================================================
+   RESPONSIVE — NAV BURGER (≤900px)
+   Auparavant ≤600px : à 768px (tablette portrait) la nav texte
+   desktop ("Travaux / Photographie / À propos") restait affichée
+   à côté du logo. 900px laisse une marge confortable (nav texte
+   ~270px + logo ~100px pour ~830px de largeur disponible à ce
+   point de rupture) sans jamais frôler la collision ou le retour
+   à la ligne.
+   ============================================================ */
+@media (max-width: 900px) {
+  .burger { display: flex; }
+  .nav-links { display: none; }
+}
+
+/* ============================================================
    RESPONSIVE — MOBILE ADDITIONS (≤600px)
    ============================================================ */
 @media (max-width: 600px) {
-  /* Burger visible, nav desktop cachée */
-  .burger { display: flex; }
-  .nav-links { display: none; }
-
   /* Intro home : texte pleine largeur */
   .intro-text {
     max-width: 100%;
@@ -1680,5 +2083,33 @@ footer {
   .photo-cat-nav {
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+/* MOBILE FIXES – <br> neutralisation & credits gap */
+@media (max-width: 767px) {
+  /* Filet de sécurité : les <br> internes aux blocs de texte des pages
+     projet ont été retirés côté HTML (restructuration en <p> séparés),
+     donc cette règle ne devrait plus rien avoir à faire. On la garde
+     pour toute résurgence future. .project-page est la classe commune
+     du <main> des 9 pages projet : cible le même périmètre que "main br"
+     demandé, sans neutraliser au passage l'adresse légitime d'infos.html
+     (elle aussi dans un <main>, via .infos-page). */
+  .project-page br {
+    display: none;
+  }
+
+  /* Crédits : gap label/valeur garanti sur toutes les lignes.
+     justify-content: space-between seul ne garantit aucun espacement
+     minimum — quand le contenu (ex. "Direction artistique" + une
+     longue valeur) remplit presque toute la largeur disponible,
+     l'espace libre à distribuer tend vers zéro et les deux blocs de
+     texte se touchent. gap force un minimum, quoi qu'il arrive. */
+  .credit-row {
+    gap: 20px;
+  }
+
+  .credit-row > span {
+    min-width: 0;
   }
 }

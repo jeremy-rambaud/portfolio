@@ -9,13 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .project-hero-pin { position: relative; height: 100vh; overflow: hidden; }
+    .project-hero-pin { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
     .project-hero-pin__media { position: absolute; inset: 0; }
     .project-hero-pin__media img,
     .project-hero-pin__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .project-hero-pin__title {
       position: absolute; bottom: 8vh; left: 0; right: 0;
       padding: 0 5vw; pointer-events: none;
+    }
+    /* Mobile : le titre superposé au hero disparaît visuellement (le
+       bloc infos juste en dessous, avec ANNÉE/CLIENT/DISCIPLINES,
+       identifie déjà le projet). On garde le <h1> dans le DOM via la
+       technique .sr-only plutôt que display:none, pour ne pas le
+       retirer de l'arbre d'accessibilité ni du contenu indexable. */
+    @media (max-width: 767px) {
+      .project-hero-pin__title {
+        position: absolute;
+        top: auto; left: auto; right: auto; bottom: auto;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
     }
     .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
 
@@ -75,6 +92,7 @@
     </section>
 
     <section class="project-header" data-scroll data-nav-theme="light" style="padding-bottom: var(--space-md);">
+      <p class="project-title-mobile">Balenciaga Demna Gvasalia</p>
       <div class="project-meta" style="margin-bottom: 0;">
         <span class="project-category">DESIGN ÉDITORIAL</span>
         <span class="project-year">2025</span>
@@ -83,7 +101,7 @@
 
     <section class="project-body" data-nav-theme="light">
 
-      <div class="project-two-col" data-scroll>
+      <div class="project-two-col" data-scroll data-nav-theme="dark">
         <div class="project-two-col__img">
           <img src="images/project-05b.jpg" alt="Balenciaga — Demna Gvasalia — Détail" width="1000" height="1333" loading="lazy">
         </div>
@@ -96,44 +114,36 @@
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-05c.jpg" alt="Balenciaga — Demna Gvasalia — Mise en page" width="2400" height="1350" loading="lazy">
       </div>
 
-      <div class="project-two-col project-two-col--reverse" data-scroll>
+      <div class="project-two-col project-two-col--reverse" data-scroll data-nav-theme="light">
         <div class="project-two-col__img">
           <img src="images/project-05d.jpg" alt="Balenciaga — Demna Gvasalia — Application" width="1000" height="1333" loading="lazy">
         </div>
         <div class="project-two-col__text">
           <h3>Le concept</h3>
-          <p>L'objet prend la forme d'un dossier d'archive plutôt que<br>
-          d'un livre : une manière de traiter <strong>Balenciaga</strong> comme un cas<br>
-          d'étude vivant, pas comme une monographie figée.<br><br>
-          La structure éditoriale suit la démonstration : héritage<br>
-          technique de Cristóbal Balenciaga, tournant opéré par <strong>Demna</strong>,<br>
-          esthétique comme discours critique, mode comme communauté<br>
-          interprétative.<br><br>
-          Le système typographique met cette tension en forme : une<br>
-          grasse condensée et frontale pour les titres, un corps sobre<br>
-          pour la lecture, des exergues en caractère monospace.<br><br>
-          Noir et blanc tranché, composition ferme : à la fois<br>
-          patrimonial et subversif, comme le sujet.</p>
+          <p>L'objet prend la forme d'un dossier d'archive plutôt que d'un livre : une manière de traiter <strong>Balenciaga</strong> comme un cas d'étude vivant, pas comme une monographie figée.</p>
+          <p>La structure éditoriale suit la démonstration : héritage technique de Cristóbal Balenciaga, tournant opéré par <strong>Demna</strong>, esthétique comme discours critique, mode comme communauté interprétative.</p>
+          <p>Le système typographique met cette tension en forme : une grasse condensée et frontale pour les titres, un corps sobre pour la lecture, des exergues en caractère monospace.</p>
+          <p>Noir et blanc tranché, composition ferme : à la fois patrimonial et subversif, comme le sujet.</p>
         </div>
       </div>
 
       <div class="project-image-block project-image-block--split" data-scroll>
-        <img src="images/project-05e.jpg" alt="Balenciaga — Demna Gvasalia — Intérieur" width="1600" height="2000" loading="lazy">
-        <img src="images/project-05f.jpg" alt="Balenciaga — Demna Gvasalia — Couverture" width="1600" height="2000" loading="lazy">
+        <img src="images/project-05e.jpg" alt="Balenciaga — Demna Gvasalia — Intérieur" width="1600" height="2000" loading="lazy" data-nav-theme="dark">
+        <img src="images/project-05f.jpg" alt="Balenciaga — Demna Gvasalia — Couverture" width="1600" height="2000" loading="lazy" data-nav-theme="light">
       </div>
 
-      <div class="project-text project-text--center project-text--vcentered" data-scroll>
+      <div class="project-text project-text--center project-text--vcentered" data-scroll data-nav-theme="light">
         <div class="text-block">
           <p class="pullquote pullquote--citation">«&#8239;La&nbsp;mode a, plus que&nbsp;jamais, besoin d'un&nbsp;point de&nbsp;vue. Sinon, elle n'offre&nbsp;rien d'autre&nbsp;que&nbsp;de&nbsp;nous couvrir.&#8239;»</p>
           <p class="pullquote-attribution">Demna, Balenciaga</p>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll>
+      <div class="project-image-block" data-scroll data-nav-theme="dark">
         <img src="images/project-05g.jpg" alt="Balenciaga — Demna Gvasalia — Final" width="4767" height="2990" loading="lazy">
       </div>
 
