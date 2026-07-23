@@ -19,7 +19,8 @@
       position: absolute;
       inset: 0;
     }
-    .project-hero-pin__media video {
+    .project-hero-pin__media video,
+    .project-hero-pin__media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -56,8 +57,19 @@
       }
     }
     .project-hero-pin__title .project-title-large {
-      color: #ede8e0;
+      color: #ffffff;
       margin: 0;
+    }
+
+    /* Pré-état du hero pour matcher l'état initial GSAP (scale 1.6 / opacity 0)
+       et éviter le flash "normal -> caché" pendant le chargement de GSAP. */
+    html.gsap-hero-init .project-hero-pin__media {
+      transform: scale(1.6);
+      transform-origin: center;
+    }
+    html.gsap-hero-init .project-hero-pin__title {
+      opacity: 0;
+      transform: translateY(30px);
     }
 
     /* Section "Fleur de vigne" (06g/06h) : format plus horizontal (~45% de
@@ -70,6 +82,13 @@
     }
 
   </style>
+  <script>
+    (function () {
+      if (window.matchMedia('(min-width: 769px) and (prefers-reduced-motion: no-preference)').matches) {
+        document.documentElement.classList.add('gsap-hero-init');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -100,7 +119,7 @@
 
     <section class="project-hero-pin" data-nav-theme="dark">
       <div class="project-hero-pin__media">
-        <video src="images/project-06.mp4" autoplay loop muted playsinline></video>
+        <img src="images/project-06-hero.jpg" alt="Grapillon" loading="eager">
       </div>
       <div class="project-hero-pin__title">
         <h1 class="project-title-large">Grapillon</h1>
@@ -125,7 +144,7 @@
           <img src="images/project-06b.jpg" alt="Grapillon, raisins pressés à la main">
         </div>
         <div class="project-two-col__text">
-          <p>Fondée par&nbsp;Léa Meslet à&nbsp;Bonnezeaux, Grapillon tient sa&nbsp;singularité de&nbsp;sa&nbsp;démarche&nbsp;: Léa ne&nbsp;cultive pas la&nbsp;vigne mais choisit ses&nbsp;raisins dans&nbsp;des&nbsp;parcelles sélectionnées, puis les&nbsp;vinifie elle-même, cuvée après cuvée. L'identité&nbsp;devait traduire cette approche sensible et&nbsp;libre, à&nbsp;mi-chemin entre l'artisanat&nbsp;et&nbsp;l'instinct&nbsp;: une&nbsp;identité incarnée et&nbsp;poétique, à&nbsp;l'image&nbsp;de&nbsp;celle qui&nbsp;la&nbsp;porte.</p>
+          <p>Fondée par&nbsp;Léa Meslet à&nbsp;Bonnezeaux, Grapillon tient sa&nbsp;singularité de&nbsp;sa&nbsp;démarche&nbsp;: Léa ne&nbsp;cultive pas la&nbsp;vigne mais choisit ses&nbsp;raisins dans&nbsp;des&nbsp;parcelles sélectionnées, puis les&nbsp;vinifie<br class="br-desktop"> elle-même, cuvée après cuvée. L'identité&nbsp;devait traduire cette approche sensible et&nbsp;libre, à&nbsp;mi-chemin entre l'artisanat&nbsp;et&nbsp;l'instinct&nbsp;: une&nbsp;identité incarnée et&nbsp;poétique, à&nbsp;l'image&nbsp;de&nbsp;celle qui&nbsp;la&nbsp;porte.</p>
           <dl class="project-details">
             <dt>Année</dt>
             <dd>2026</dd>
@@ -150,11 +169,11 @@
           <div class="text-block">
             <h3>La&nbsp;Typographie</h3>
             <p>L'identité&nbsp;repose sur&nbsp;un&nbsp;dialogue entre deux&nbsp;écritures.</p>
-            <p>Le&nbsp;logotype et&nbsp;les&nbsp;titres de&nbsp;chaque cuvée sont manuscrits&nbsp;: Léa Meslet les&nbsp;écrit elle-même, à&nbsp;la&nbsp;main, pour&nbsp;chaque étiquette.</p>
+            <p>Le&nbsp;logotype et&nbsp;les&nbsp;titres de&nbsp;chaque cuvée sont manuscrits&nbsp;: <br class="br-desktop">Léa Meslet les&nbsp;écrit elle-même, à&nbsp;la&nbsp;main, pour&nbsp;chaque étiquette.</p>
             <p>Il&nbsp;ne&nbsp;s'agit pas d'une typographie créée à&nbsp;partir de&nbsp;son&nbsp;écriture, mais bien de&nbsp;son&nbsp;geste réel, rejoué à&nbsp;chaque cuvée sa&nbsp;signature, son&nbsp;artisanat, jamais figés dans&nbsp;une&nbsp;police.</p>
-            <p>Face à&nbsp;cette main, la&nbsp;<strong>PP Editorial Old</strong> (<strong>Pangram Pangram</strong>)&nbsp;: un&nbsp;serif à&nbsp;fort contraste dont les&nbsp;déliés et&nbsp;empattements fins évoquent les&nbsp;sarments et&nbsp;les&nbsp;vrilles de&nbsp;la&nbsp;vigne.</p>
+            <p>Face à&nbsp;cette main, la&nbsp;<strong>PP Editorial Old</strong> (<strong>Pangram Pangram</strong>)&nbsp;: <br class="br-desktop">un&nbsp;serif à&nbsp;fort contraste dont les&nbsp;déliés et&nbsp;empattements fins évoquent les&nbsp;sarments et&nbsp;les&nbsp;vrilles de&nbsp;la&nbsp;vigne.</p>
             <p>Rigoureuse, lisible, intemporelle, elle&nbsp;structure le&nbsp;reste du&nbsp;système graphique.</p>
-            <p>L'une&nbsp;est vivante et&nbsp;changeante, l'autre&nbsp;stable et&nbsp;intemporelle&nbsp;; ensemble, elles traduisent ce&nbsp;qu'incarne le&nbsp;domaine&nbsp;: un&nbsp;vin bio qui&nbsp;tient autant de&nbsp;la&nbsp;rigueur du&nbsp;terroir que de&nbsp;la&nbsp;sensibilité de&nbsp;celle qui&nbsp;le&nbsp;fait.</p>
+            <p>L'une&nbsp;est vivante et&nbsp;changeante, l'autre&nbsp;stable et&nbsp;intemporelle&nbsp;; ensemble, elles traduisent ce&nbsp;qu'incarne le&nbsp;domaine&nbsp;: <br class="br-desktop">un&nbsp;vin bio qui&nbsp;tient autant de&nbsp;la&nbsp;rigueur du&nbsp;terroir<br class="br-desktop"> que de&nbsp;la&nbsp;sensibilité de&nbsp;celle qui&nbsp;le&nbsp;fait.</p>
           </div>
         </div>
       </div>
@@ -175,7 +194,7 @@
       <div class="project-text project-text--flush-top" data-scroll data-nav-theme="light">
         <div class="text-block">
           <h3>Les&nbsp;illustrations</h3>
-          <p>Elles prolongent le&nbsp;geste manuscrit du&nbsp;logotype. Le&nbsp;trait, vif et&nbsp;imparfait, raconte le&nbsp;travail de&nbsp;la&nbsp;main&nbsp;: tailler, récolter, presser, servir. Là où&nbsp;la&nbsp;photographie fige le&nbsp;réel, le&nbsp;dessin en&nbsp;garde le&nbsp;mouvement et&nbsp;la&nbsp;sensibilité. Ces motifs irriguent l'ensemble&nbsp;du&nbsp;système, de&nbsp;l'étiquette&nbsp;au&nbsp;packaging, et&nbsp;inscrivent partout la&nbsp;présence de&nbsp;celle qui&nbsp;fait le&nbsp;vin.</p>
+          <p>Elles prolongent le&nbsp;geste manuscrit du&nbsp;logotype. <br class="br-desktop">Le&nbsp;trait, vif et&nbsp;imparfait, raconte le&nbsp;travail de&nbsp;la&nbsp;main&nbsp;:<br class="br-desktop"> tailler, récolter, presser, servir. Là où&nbsp;la&nbsp;photographie fige le&nbsp;réel, le&nbsp;dessin en&nbsp;garde le&nbsp;mouvement et&nbsp;la&nbsp;sensibilité.<br class="br-desktop"> Ces motifs irriguent l'ensemble&nbsp;du&nbsp;système, de&nbsp;l'étiquette&nbsp;au&nbsp;packaging, et&nbsp;inscrivent partout la&nbsp;présence<br class="br-desktop"> de&nbsp;celle qui&nbsp;fait le&nbsp;vin.</p>
         </div>
       </div>
 
@@ -262,41 +281,61 @@
       document.querySelectorAll('.project-body [data-scroll], .project-credits[data-scroll], .project-nav[data-scroll]')
         .forEach(el => el.classList.add('visible'));
 
-      if (typeof gsap === 'undefined') return;
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        // GSAP indisponible (CDN bloqué, etc.) : retire le pré-état CSS pour
+        // ne pas laisser le hero figé zoomé/masqué en permanence.
+        document.documentElement.classList.remove('gsap-hero-init');
+        return;
+      }
 
-      gsap.registerPlugin(ScrollTrigger);
+      try {
+        gsap.registerPlugin(ScrollTrigger);
 
-      const mm = gsap.matchMedia();
+        const mm = gsap.matchMedia();
 
-      // Desktop + pas de préférence de mouvement réduit → hero animé
-      mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
-        const hero    = document.querySelector('.project-hero-pin');
-        const media   = document.querySelector('.project-hero-pin__media');
-        const overlay = document.querySelector('.project-hero-pin__title');
-        if (!hero || !media || !overlay) return;
+        // Desktop + pas de préférence de mouvement réduit → hero animé
+        mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
+          const hero    = document.querySelector('.project-hero-pin');
+          const media   = document.querySelector('.project-hero-pin__media');
+          const overlay = document.querySelector('.project-hero-pin__title');
+          if (!hero || !media || !overlay) return;
 
-        gsap.set(media,   { scale: 1.6 });
-        gsap.set(overlay, { opacity: 0, y: 30 });
+          gsap.set(media,   { scale: 1.6 });
+          gsap.set(overlay, { opacity: 0, y: 30 });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: hero,
-            start: 'top top',
-            end: '+=100%',
-            pin: true,
-            scrub: true,
-            anticipatePin: 1
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: hero,
+              start: 'top top',
+              end: '+=100%',
+              pin: true,
+              scrub: true,
+              anticipatePin: 1
+            }
+          });
+
+          // Dézoom de l'image sur toute la durée du scroll
+          tl.to(media,   { scale: 1, ease: 'none', duration: 1 }, 0);
+          // Titre apparaît à partir de 45 % du scroll, fondu + remontée
+          tl.to(overlay, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0.45);
+
+          // Recalcule le pin une fois le média hero réellement chargé (dimensions
+          // stables), au cas où il ne l'était pas encore à la création du trigger.
+          const heroMedia = media.querySelector('img, video');
+          const heroReady = heroMedia && (heroMedia.tagName === 'IMG' ? heroMedia.complete : heroMedia.readyState >= 1);
+          if (heroMedia && !heroReady) {
+            heroMedia.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
           }
+
+          // Nettoyage au redimensionnement (ex. passage mobile ↔ desktop)
+          return () => gsap.set([media, overlay], { clearProps: 'all' });
         });
-
-        // Dézoom de l'image sur toute la durée du scroll
-        tl.to(media,   { scale: 1, ease: 'none', duration: 1 }, 0);
-        // Titre apparaît à partir de 45 % du scroll, fondu + remontée
-        tl.to(overlay, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0.45);
-
-        // Nettoyage au redimensionnement (ex. passage mobile ↔ desktop)
-        return () => gsap.set([media, overlay], { clearProps: 'all' });
-      });
+      } catch (e) {
+        // Si la mise en place du hero échoue pour une raison quelconque, on ne
+        // laisse jamais le pré-état CSS (zoom/opacité) figé sans que l'animation
+        // n'ait pris le relais : le hero doit rester utilisable, pas bloqué.
+        document.documentElement.classList.remove('gsap-hero-init');
+      }
     }
 
     document.readyState === 'loading'

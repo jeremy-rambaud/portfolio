@@ -34,8 +34,26 @@
         border: 0;
       }
     }
-    .project-hero-pin__title .project-title-large { color: #ede8e0; margin: 0; }
+    .project-hero-pin__title .project-title-large { color: #ffffff; margin: 0; }
+
+    /* Pré-état du hero pour matcher l'état initial GSAP (scale 1.6 / opacity 0)
+       et éviter le flash "normal -> caché" pendant le chargement de GSAP. */
+    html.gsap-hero-init .project-hero-pin__media {
+      transform: scale(1.6);
+      transform-origin: center;
+    }
+    html.gsap-hero-init .project-hero-pin__title {
+      opacity: 0;
+      transform: translateY(30px);
+    }
   </style>
+  <script>
+    (function () {
+      if (window.matchMedia('(min-width: 769px) and (prefers-reduced-motion: no-preference)').matches) {
+        document.documentElement.classList.add('gsap-hero-init');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -80,7 +98,7 @@
         <span class="project-year">2024</span>
       </div>
       <p class="project-intro">
-        En&nbsp;novembre 2024, le&nbsp;Département de&nbsp;Maine-et-Loire accueillait à&nbsp;Angers le&nbsp;93e congrès des&nbsp;Assises des&nbsp;Départements de&nbsp;France, un&nbsp;temps fort national réunissant plus de&nbsp;1 200 participants sur&nbsp;trois jours au&nbsp;Centre de&nbsp;Congrès. Dès mon&nbsp;arrivée au&nbsp;Département, j'ai&nbsp;été intégré à&nbsp;l'organisation&nbsp;de&nbsp;cet événement d'envergure.
+        En&nbsp;novembre 2024, le&nbsp;Département de&nbsp;Maine-et-Loire accueillait à&nbsp;Angers le&nbsp;93e congrès des&nbsp;Assises des&nbsp;Départements de&nbsp;France,<br class="br-desktop"> un&nbsp;temps fort national réunissant plus de&nbsp;1 200 participants sur&nbsp;trois jours au&nbsp;Centre de&nbsp;Congrès. Dès mon&nbsp;arrivée au&nbsp;Département, j'ai&nbsp;été intégré à&nbsp;l'organisation&nbsp;de&nbsp;cet événement d'envergure.
       </p>
     </section>
 
@@ -111,7 +129,7 @@
         </div>
         <div class="project-two-col__text">
           <h3>Approche</h3>
-          <p>Ma&nbsp;mission portait sur&nbsp;la&nbsp;signalétique du&nbsp;congrès. J'ai&nbsp;conçu deux familles de&nbsp;supports complémentaires&nbsp;: des&nbsp;panneaux d'information&nbsp;détaillant le&nbsp;déroulé de&nbsp;chaque journée, pour permettre aux&nbsp;participants de&nbsp;se&nbsp;repérer dans&nbsp;le&nbsp;programme, et&nbsp;un&nbsp;système de&nbsp;jalonnement directionnel plus synthétique, pensé pour guider les&nbsp;flux dans&nbsp;les&nbsp;espaces du&nbsp;Centre de&nbsp;Congrès. J'ai&nbsp;également été mobilisé sur&nbsp;place durant les&nbsp;trois jours de&nbsp;l'événement.</p>
+          <p>Ma&nbsp;mission portait sur&nbsp;la&nbsp;signalétique du&nbsp;congrès.<br class="br-desktop"> J'ai&nbsp;conçu deux familles de&nbsp;supports complémentaires&nbsp;: des&nbsp;panneaux d'information&nbsp;détaillant le&nbsp;déroulé de&nbsp;chaque journée, pour permettre aux&nbsp;participants de&nbsp;se&nbsp;repérer dans&nbsp;le&nbsp;programme, et&nbsp;un&nbsp;système de&nbsp;jalonnement directionnel plus synthétique, pensé pour guider les&nbsp;flux dans&nbsp;les&nbsp;espaces du&nbsp;Centre de&nbsp;Congrès. J'ai&nbsp;également été mobilisé sur&nbsp;place durant les&nbsp;trois jours de&nbsp;l'événement.</p>
         </div>
       </div>
 
@@ -179,37 +197,57 @@
       document.querySelectorAll('.project-body [data-scroll], .project-credits[data-scroll], .project-nav[data-scroll]')
         .forEach(el => el.classList.add('visible'));
 
-      if (typeof gsap === 'undefined') return;
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        // GSAP indisponible (CDN bloqué, etc.) : retire le pré-état CSS pour
+        // ne pas laisser le hero figé zoomé/masqué en permanence.
+        document.documentElement.classList.remove('gsap-hero-init');
+        return;
+      }
 
-      gsap.registerPlugin(ScrollTrigger);
+      try {
+        gsap.registerPlugin(ScrollTrigger);
 
-      const mm = gsap.matchMedia();
+        const mm = gsap.matchMedia();
 
-      mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
-        const hero    = document.querySelector('.project-hero-pin');
-        const media   = document.querySelector('.project-hero-pin__media');
-        const overlay = document.querySelector('.project-hero-pin__title');
-        if (!hero || !media || !overlay) return;
+        mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
+          const hero    = document.querySelector('.project-hero-pin');
+          const media   = document.querySelector('.project-hero-pin__media');
+          const overlay = document.querySelector('.project-hero-pin__title');
+          if (!hero || !media || !overlay) return;
 
-        gsap.set(media,   { scale: 1.6 });
-        gsap.set(overlay, { opacity: 0, y: 30 });
+          gsap.set(media,   { scale: 1.6 });
+          gsap.set(overlay, { opacity: 0, y: 30 });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: hero,
-            start: 'top top',
-            end: '+=100%',
-            pin: true,
-            scrub: true,
-            anticipatePin: 1
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: hero,
+              start: 'top top',
+              end: '+=100%',
+              pin: true,
+              scrub: true,
+              anticipatePin: 1
+            }
+          });
+
+          tl.to(media,   { scale: 1, ease: 'none', duration: 1 }, 0);
+          tl.to(overlay, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0.45);
+
+          // Recalcule le pin une fois le média hero réellement chargé (dimensions
+          // stables), au cas où il ne l'était pas encore à la création du trigger.
+          const heroMedia = media.querySelector('img, video');
+          const heroReady = heroMedia && (heroMedia.tagName === 'IMG' ? heroMedia.complete : heroMedia.readyState >= 1);
+          if (heroMedia && !heroReady) {
+            heroMedia.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
           }
+
+          return () => gsap.set([media, overlay], { clearProps: 'all' });
         });
-
-        tl.to(media,   { scale: 1, ease: 'none', duration: 1 }, 0);
-        tl.to(overlay, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0.45);
-
-        return () => gsap.set([media, overlay], { clearProps: 'all' });
-      });
+      } catch (e) {
+        // Si la mise en place du hero échoue pour une raison quelconque, on ne
+        // laisse jamais le pré-état CSS (zoom/opacité) figé sans que l'animation
+        // n'ait pris le relais : le hero doit rester utilisable, pas bloqué.
+        document.documentElement.classList.remove('gsap-hero-init');
+      }
     }
 
     document.readyState === 'loading'

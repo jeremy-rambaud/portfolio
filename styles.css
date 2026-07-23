@@ -110,6 +110,19 @@ address { font-style: normal; }
 h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
 
+/* Renforce explicitement text-wrap: pretty sur tous les <p> des pages
+   projet, y compris les variantes .text-mobile / .text-desktop (contenu
+   adaptatif) : la règle "p" ci-dessus les couvre déjà, mais le duo
+   hyphens/overflow-wrap ci-dessous sert de filet si pretty ne suffit
+   pas seul sur une colonne étroite. */
+main p,
+main .text-mobile p,
+main .text-desktop p {
+  text-wrap: pretty;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -2112,4 +2125,20 @@ footer {
   .credit-row > span {
     min-width: 0;
   }
+}
+
+/* Retours à la ligne manuels réservés au desktop (ex. Grapillon — Typographie) */
+.br-desktop {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .br-desktop {
+    display: none;
+  }
+}
+
+/* Empêche la coupure d'un mot composé en fin de ligne (ex. "sans-serifs") */
+.nowrap {
+  white-space: nowrap;
 }

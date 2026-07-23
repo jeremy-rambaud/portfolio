@@ -30,6 +30,10 @@ images/Téléchargements/
 *.acr
 *.ai
 
+# Sauvegardes locales avant optimisation images/vidéos
+images-backup/
+videos-backup/
+
 # Claude Code (configuration locale, ne pas partager)
 .claude/
 .impeccable/
