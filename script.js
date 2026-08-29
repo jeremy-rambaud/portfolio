@@ -6,10 +6,6 @@ const cursor = document.querySelector('.cursor');
 if (cursor) {
   document.addEventListener('mousemove', e => {
     cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-    // La couleur du curseur suit le fond réellement sous la souris,
-    // pas le thème du header (qui ne reflète que le haut de l'écran).
-    const themedEl = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-nav-theme]');
-    cursor.classList.toggle('cursor--on-dark', themedEl?.dataset.navTheme === 'dark');
   });
 
   // Bloque tout drag natif (image, lien, sélection glissée...) qui coupe

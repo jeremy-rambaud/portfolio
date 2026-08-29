@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grapillon — Jérémy Rambaud</title>
+  <title>Grapillon&nbsp;—&nbsp;Jérémy Rambaud</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -61,6 +61,15 @@
       margin: 0;
     }
 
+    /* Section "Fleur de vigne" (06g/06h) : format plus horizontal (~45% de
+       hauteur en moins que le 3/4 par défaut), recadré en haut pour garder
+       le texte et les codes couleur du carton visibles sans espace vide. */
+    .project-image-block--split-fleur img {
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: top;
+    }
+
     /* Pré-état du hero pour matcher l'état initial GSAP (scale 1.6 / opacity 0)
        et éviter le flash "normal -> caché" pendant le chargement de GSAP. */
     html.gsap-hero-init .project-hero-pin__media {
@@ -70,15 +79,6 @@
     html.gsap-hero-init .project-hero-pin__title {
       opacity: 0;
       transform: translateY(30px);
-    }
-
-    /* Section "Fleur de vigne" (06g/06h) : format plus horizontal (~45% de
-       hauteur en moins que le 3/4 par défaut), recadré en haut pour garder
-       le texte et les codes couleur du carton visibles sans espace vide. */
-    .project-image-block--split-fleur img {
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      object-position: top;
     }
 
   </style>
@@ -126,7 +126,7 @@
       </div>
     </section>
 
-    <section class="project-header" data-scroll data-nav-theme="light">
+    <section class="project-header" data-nav-theme="light">
       <p class="project-title-mobile">Grapillon</p>
       <div class="project-meta">
         <span class="project-category">DIRECTION ARTISTIQUE</span>
@@ -139,12 +139,12 @@
 
     <section class="project-body" data-nav-theme="light">
 
-      <div class="project-two-col" data-scroll data-nav-theme="light">
+      <div class="project-two-col" data-nav-theme="light">
         <div class="project-two-col__img">
-          <img src="images/project-06b.jpg" alt="Grapillon, raisins pressés à la main">
+          <img src="images/project-06b.jpg" alt="Grapillon, raisins pressés à la main" loading="lazy">
         </div>
         <div class="project-two-col__text">
-          <p>Fondée par&nbsp;Léa Meslet à&nbsp;Bonnezeaux, Grapillon tient sa&nbsp;singularité de&nbsp;sa&nbsp;démarche&nbsp;: Léa ne&nbsp;cultive pas la&nbsp;vigne mais choisit ses&nbsp;raisins dans&nbsp;des&nbsp;parcelles sélectionnées, puis les&nbsp;vinifie<br class="br-desktop"> elle-même, cuvée après cuvée. L'identité&nbsp;devait traduire cette approche sensible et&nbsp;libre, à&nbsp;mi-chemin entre l'artisanat&nbsp;et&nbsp;l'instinct&nbsp;: une&nbsp;identité incarnée et&nbsp;poétique, à&nbsp;l'image&nbsp;de&nbsp;celle qui&nbsp;la&nbsp;porte.</p>
+          <p>Fondée par&nbsp;Léa Meslet à&nbsp;Bonnezeaux, Grapillon tient sa&nbsp;singularité de&nbsp;sa&nbsp;démarche&#8239;: Léa ne&nbsp;cultive pas la&nbsp;vigne mais choisit ses&nbsp;raisins dans&nbsp;des&nbsp;parcelles sélectionnées, puis les&nbsp;vinifie<br class="br-desktop"> elle-même, cuvée après cuvée. L'identité&nbsp;devait traduire cette approche sensible et&nbsp;libre, à&nbsp;mi-chemin entre l'artisanat&nbsp;et&nbsp;l'instinct&#8239;: une&nbsp;identité incarnée et&nbsp;poétique, à&nbsp;l'image&nbsp;de&nbsp;celle qui&nbsp;la&nbsp;porte.</p>
           <dl class="project-details">
             <dt>Année</dt>
             <dd>2026</dd>
@@ -156,67 +156,67 @@
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll data-nav-theme="dark">
-        <img src="images/project-06c.jpg" alt="Grapillon, logotype manuscrit">
+      <div class="project-image-block" data-nav-theme="dark">
+        <img src="images/project-06c.jpg" alt="Grapillon, logotype manuscrit" loading="lazy">
       </div>
 
-      <div class="project-two-col project-two-col--reverse" data-scroll data-nav-theme="light">
+      <div class="project-two-col project-two-col--reverse" data-nav-theme="light">
         <div class="project-two-col__img">
-          <video src="images/project-06d.mp4" autoplay loop muted playsinline
+          <video src="images/project-06d.mp4" autoplay loop muted playsinline loading="lazy"
             style="width:100%; height:auto; display:block;"></video>
         </div>
         <div class="project-two-col__text">
           <div class="text-block">
             <h3>La&nbsp;Typographie</h3>
             <p>L'identité&nbsp;repose sur&nbsp;un&nbsp;dialogue entre deux&nbsp;écritures.</p>
-            <p>Le&nbsp;logotype et&nbsp;les&nbsp;titres de&nbsp;chaque cuvée sont manuscrits&nbsp;: <br class="br-desktop">Léa Meslet les&nbsp;écrit elle-même, à&nbsp;la&nbsp;main, pour&nbsp;chaque étiquette.</p>
+            <p>Le&nbsp;logotype et&nbsp;les&nbsp;titres de&nbsp;chaque cuvée sont manuscrits&#8239;: <br class="br-desktop">Léa Meslet les&nbsp;écrit elle-même, à&nbsp;la&nbsp;main, pour&nbsp;chaque étiquette.</p>
             <p>Il&nbsp;ne&nbsp;s'agit pas d'une typographie créée à&nbsp;partir de&nbsp;son&nbsp;écriture, mais bien de&nbsp;son&nbsp;geste réel, rejoué à&nbsp;chaque cuvée sa&nbsp;signature, son&nbsp;artisanat, jamais figés dans&nbsp;une&nbsp;police.</p>
-            <p>Face à&nbsp;cette main, la&nbsp;<strong>PP Editorial Old</strong> (<strong>Pangram Pangram</strong>)&nbsp;: <br class="br-desktop">un&nbsp;serif à&nbsp;fort contraste dont les&nbsp;déliés et&nbsp;empattements fins évoquent les&nbsp;sarments et&nbsp;les&nbsp;vrilles de&nbsp;la&nbsp;vigne.</p>
+            <p>Face à&nbsp;cette main, la&nbsp;<strong>PP Editorial Old</strong> (<strong>Pangram Pangram</strong>)&#8239;: <br class="br-desktop">un&nbsp;serif à&nbsp;fort contraste dont les&nbsp;déliés et&nbsp;empattements fins évoquent les&nbsp;sarments et&nbsp;les&nbsp;vrilles de&nbsp;la&nbsp;vigne.</p>
             <p>Rigoureuse, lisible, intemporelle, elle&nbsp;structure le&nbsp;reste du&nbsp;système graphique.</p>
-            <p>L'une&nbsp;est vivante et&nbsp;changeante, l'autre&nbsp;stable et&nbsp;intemporelle&nbsp;; ensemble, elles traduisent ce&nbsp;qu'incarne le&nbsp;domaine&nbsp;: <br class="br-desktop">un&nbsp;vin bio qui&nbsp;tient autant de&nbsp;la&nbsp;rigueur du&nbsp;terroir<br class="br-desktop"> que de&nbsp;la&nbsp;sensibilité de&nbsp;celle qui&nbsp;le&nbsp;fait.</p>
+            <p>L'une&nbsp;est vivante et&nbsp;changeante, l'autre&nbsp;stable et&nbsp;intemporelle&#8239;; ensemble, elles traduisent ce&nbsp;qu'incarne le&nbsp;domaine&#8239;: <br class="br-desktop">un&nbsp;vin bio qui&nbsp;tient autant de&nbsp;la&nbsp;rigueur du&nbsp;terroir<br class="br-desktop"> que de&nbsp;la&nbsp;sensibilité de&nbsp;celle qui&nbsp;le&nbsp;fait.</p>
           </div>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll data-nav-theme="light">
-        <img src="images/project-06e.jpg" alt="Grapillon, titrages manuscrits des cuvées Inflorescence, Fleurs et Les Lianes">
+      <div class="project-image-block" data-nav-theme="light">
+        <img src="images/project-06e.jpg" alt="Grapillon, titrages manuscrits des cuvées Inflorescence, Fleurs et Les Lianes" loading="lazy">
       </div>
 
-      <div class="project-image-block project-image-block--split project-image-block--split-fleur" data-scroll data-nav-theme="light">
-        <img src="images/project-06g.jpg" alt="Grapillon, macrophotographie de fleur de vigne">
-        <img src="images/project-06h.jpg" alt="Grapillon, couleur Fleur de vigne — HEX #fff1a6, RGB 255 241 166, CMJN 2 3 45 0">
+      <div class="project-image-block project-image-block--split project-image-block--split-fleur" data-nav-theme="light">
+        <img src="images/project-06g.jpg" alt="Grapillon, macrophotographie de fleur de vigne" loading="lazy">
+        <img src="images/project-06h.jpg" alt="Grapillon, couleur Fleur de vigne — HEX #fff1a6, RGB 255 241 166, CMJN 2 3 45 0" loading="lazy">
       </div>
 
-      <div class="project-image-block" data-scroll data-nav-theme="light">
-        <img src="images/project-06i.jpg" alt="Grapillon, carte de visite et déclinaisons">
+      <div class="project-image-block" data-nav-theme="light">
+        <img src="images/project-06i.jpg" alt="Grapillon, carte de visite et déclinaisons" loading="lazy">
       </div>
 
-      <div class="project-text project-text--flush-top" data-scroll data-nav-theme="light">
+      <div class="project-text project-text--flush-top" data-nav-theme="light">
         <div class="text-block">
           <h3>Les&nbsp;illustrations</h3>
-          <p>Elles prolongent le&nbsp;geste manuscrit du&nbsp;logotype. <br class="br-desktop">Le&nbsp;trait, vif et&nbsp;imparfait, raconte le&nbsp;travail de&nbsp;la&nbsp;main&nbsp;:<br class="br-desktop"> tailler, récolter, presser, servir. Là où&nbsp;la&nbsp;photographie fige le&nbsp;réel, le&nbsp;dessin en&nbsp;garde le&nbsp;mouvement et&nbsp;la&nbsp;sensibilité.<br class="br-desktop"> Ces motifs irriguent l'ensemble&nbsp;du&nbsp;système, de&nbsp;l'étiquette&nbsp;au&nbsp;packaging, et&nbsp;inscrivent partout la&nbsp;présence<br class="br-desktop"> de&nbsp;celle qui&nbsp;fait le&nbsp;vin.</p>
+          <p>Elles prolongent le&nbsp;geste manuscrit du&nbsp;logotype. <br class="br-desktop">Le&nbsp;trait, vif et&nbsp;imparfait, raconte le&nbsp;travail de&nbsp;la&nbsp;main&#8239;:<br class="br-desktop"> tailler, récolter, presser, servir. Là où&nbsp;la&nbsp;photographie fige le&nbsp;réel, le&nbsp;dessin en&nbsp;garde le&nbsp;mouvement et&nbsp;la&nbsp;sensibilité.<br class="br-desktop"> Ces motifs irriguent l'ensemble&nbsp;du&nbsp;système, de&nbsp;l'étiquette&nbsp;au&nbsp;packaging, et&nbsp;inscrivent partout la&nbsp;présence<br class="br-desktop"> de&nbsp;celle qui&nbsp;fait le&nbsp;vin.</p>
         </div>
       </div>
 
-      <div class="project-image-block" data-scroll data-nav-theme="light">
-        <img src="images/project-06j.jpg" alt="Grapillon, bouteille emballée">
+      <div class="project-image-block" data-nav-theme="light">
+        <img src="images/project-06j.jpg" alt="Grapillon, bouteille emballée" loading="lazy">
       </div>
 
-      <div class="project-image-block" data-scroll data-nav-theme="dark">
-        <img src="images/project-06k.jpg" alt="Grapillon">
+      <div class="project-image-block" data-nav-theme="dark">
+        <img src="images/project-06k.jpg" alt="Grapillon" loading="lazy">
       </div>
 
-      <div class="project-image-block" data-scroll data-nav-theme="dark">
-        <img src="images/project-06f.jpg" alt="Grapillon, macrophotographie de fleur de vigne">
+      <div class="project-image-block" data-nav-theme="dark">
+        <img src="images/project-06f.jpg" alt="Grapillon, macrophotographie de fleur de vigne" loading="lazy">
       </div>
 
-      <div class="project-image-block" data-scroll data-nav-theme="dark">
-        <img src="images/project-06l.jpg" alt="Grapillon">
+      <div class="project-image-block" data-nav-theme="dark">
+        <img src="images/project-06l.jpg" alt="Grapillon" loading="lazy">
       </div>
 
     </section>
 
-    <section class="project-credits" data-scroll data-nav-theme="light">
+    <section class="project-credits" data-nav-theme="light">
       <h3>Crédits</h3>
       <div class="credit-row">
         <span class="credit-role">Direction artistique & identité visuelle</span>
@@ -236,12 +236,12 @@
       </div>
     </section>
 
-    <section class="project-discover" data-scroll data-nav-theme="light">
+    <section class="project-discover" data-nav-theme="light">
       <h3 class="project-discover-title">Découvrir d'autres projets</h3>
       <div class="project-discover-grid"></div>
     </section>
 
-    <nav class="project-nav" data-scroll data-nav-theme="light">
+    <nav class="project-nav" data-nav-theme="light">
       <a href="travaux.html" class="back-link">← Tous les&nbsp;travaux</a>
       <a href="project-11.html" class="next-project">Projet suivant →</a>
     </nav>
@@ -266,18 +266,31 @@
         </ul>
       </div>
     </div>
+    <div class="footer-wordmark" aria-hidden="true">
+      <svg viewBox="-3.12 -5.62 1003.12 215.64" preserveAspectRatio="xMidYMid meet">
+        <text x="0" y="160"
+              textLength="1000"
+              lengthAdjust="spacing"
+              font-family="Romie"
+              font-style="italic"
+              font-size="200">Rambaud</text>
+      </svg>
+    </div>
     <div class="footer-bottom">
       <span>©2026 Jérémy Rambaud</span>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
   <script src="script.js"></script>
   <script>
   (function () {
     function init() {
-      // Blocs de contenu visibles immédiatement (bypass data-scroll CSS)
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+
       document.querySelectorAll('.project-body [data-scroll], .project-credits[data-scroll], .project-nav[data-scroll]')
         .forEach(el => el.classList.add('visible'));
 
@@ -293,7 +306,6 @@
 
         const mm = gsap.matchMedia();
 
-        // Desktop + pas de préférence de mouvement réduit → hero animé
         mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
           const hero    = document.querySelector('.project-hero-pin');
           const media   = document.querySelector('.project-hero-pin__media');
@@ -314,9 +326,7 @@
             }
           });
 
-          // Dézoom de l'image sur toute la durée du scroll
           tl.to(media,   { scale: 1, ease: 'none', duration: 1 }, 0);
-          // Titre apparaît à partir de 45 % du scroll, fondu + remontée
           tl.to(overlay, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0.45);
 
           // Recalcule le pin une fois le média hero réellement chargé (dimensions
@@ -327,7 +337,8 @@
             heroMedia.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
           }
 
-          // Nettoyage au redimensionnement (ex. passage mobile ↔ desktop)
+          window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+
           return () => gsap.set([media, overlay], { clearProps: 'all' });
         });
       } catch (e) {
