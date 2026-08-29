@@ -68,6 +68,28 @@
       }
     }
 
+    /* Mobile : cette photo est au format paysage (3:2), on annule le
+       crop portrait générique de styles.css pour l'afficher entière. */
+    @media (max-width: 900px) {
+      #equipe .project-two-col__img {
+        aspect-ratio: auto;
+      }
+      #equipe .project-two-col__img img {
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
+    /* Mobile : logotype agrandi pour occuper ~78% de la largeur d'écran
+       (au lieu de 70vw commun à toutes les tailles). */
+    @media (max-width: 768px) {
+      .project-logo-block__img {
+        width: 78vw;
+        max-width: none;
+        height: auto;
+      }
+    }
+
     /* Réduit l'espace avant la section Naming (photo d'équipe → définition) */
     #equipe {
       margin-bottom: calc(var(--space-xl) / 2);

@@ -35,54 +35,61 @@ if (cursor) {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Zones exclues : heroes existants, chrome de navigation, ui non-contenu,
-  // images des pages projet et de la home (affichées directement, sans animation)
-  const EXCLUDED = '.hero-pin, .project-hero-pin, header, .nav-mobile, #lightbox, .travaux-card, .photo-cat-nav, .photo-grid, .project-image-block, .project-logo-block, .project-image';
+  const mm = gsap.matchMedia();
 
-  function animatable(el) {
-    // Exclut aussi .project-title-large (animé par SplitText si présent)
-    return !el.closest(EXCLUDED) && !el.classList.contains('project-title-large');
-  }
+  // Reveal au scroll réservé au desktop/tablette (>=769px) : sous ce seuil,
+  // gsap.matchMedia() ne crée ni le gsap.set() ni le ScrollTrigger, donc les
+  // éléments restent visibles nativement (jamais d'opacity:0 appliqué).
+  mm.add('(min-width: 769px)', () => {
+    // Zones exclues : heroes existants, chrome de navigation, ui non-contenu,
+    // images des pages projet et de la home (affichées directement, sans animation)
+    const EXCLUDED = '.hero-pin, .project-hero-pin, header, .nav-mobile, #lightbox, .travaux-card, .photo-cat-nav, .photo-grid, .project-image-block, .project-logo-block, .project-image';
 
-  function setupReveal(els) {
-    if (!els.length) return;
+    function animatable(el) {
+      // Exclut aussi .project-title-large (animé par SplitText si présent)
+      return !el.closest(EXCLUDED) && !el.classList.contains('project-title-large');
+    }
 
-    // Regrouper par parent direct pour le stagger entre éléments voisins
-    const groups = new Map();
-    els.forEach(el => {
-      const key = el.parentElement;
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key).push(el);
-    });
+    function setupReveal(els) {
+      if (!els.length) return;
 
-    groups.forEach(batch => {
-      // État initial posé par JS → pas de CSS opacity:0 résiduel sans JS
-      gsap.set(batch, { opacity: 0, y: 24 });
-
-      ScrollTrigger.create({
-        trigger: batch[0],
-        start: 'top 85%',
-        toggleActions: 'play none none none',
-        onEnter() {
-          gsap.to(batch, {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'power2.out',
-            stagger: batch.length > 1 ? 0.08 : 0
-          });
-        }
+      // Regrouper par parent direct pour le stagger entre éléments voisins
+      const groups = new Map();
+      els.forEach(el => {
+        const key = el.parentElement;
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(el);
       });
-    });
-  }
 
-  const headings = [...document.querySelectorAll('h1, h2, h3')].filter(animatable);
-  const paras    = [...document.querySelectorAll('p')].filter(animatable);
-  const imgs     = [...document.querySelectorAll('img:not(#lightbox-img)')].filter(animatable);
+      groups.forEach(batch => {
+        // État initial posé par JS → pas de CSS opacity:0 résiduel sans JS
+        gsap.set(batch, { opacity: 0, y: 24 });
 
-  setupReveal(headings);
-  setupReveal(paras);
-  setupReveal(imgs);
+        ScrollTrigger.create({
+          trigger: batch[0],
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+          onEnter() {
+            gsap.to(batch, {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease: 'power2.out',
+              stagger: batch.length > 1 ? 0.08 : 0
+            });
+          }
+        });
+      });
+    }
+
+    const headings = [...document.querySelectorAll('h1, h2, h3')].filter(animatable);
+    const paras    = [...document.querySelectorAll('p')].filter(animatable);
+    const imgs     = [...document.querySelectorAll('img:not(#lightbox-img)')].filter(animatable);
+
+    setupReveal(headings);
+    setupReveal(paras);
+    setupReveal(imgs);
+  });
 })();
 
 // ============================================================
