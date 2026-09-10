@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1889.18 377.55">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-2 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-3 {
+        letter-spacing: 0em;
+      }
+
+      .cls-4 {
+        fill: #1d1d1b;
+        font-family: Romie-Italic, Romie;
+        font-size: 446.93px;
+        font-style: italic;
+      }
+    </style>
+  </defs>
+  <text class="cls-4" transform="translate(10.29 367.98)"><tspan class="cls-2" x="0" y="0">R</tspan><tspan x="278.44" y="0">amb</tspan><tspan class="cls-3" x="1142.35" y="0">a</tspan><tspan class="cls-1" x="1381.91" y="0">u</tspan><tspan x="1639.79" y="0">d</tspan></text>
+</svg>

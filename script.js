@@ -463,7 +463,8 @@ const PROJECTS = [
   { file: 'project-05.html', name: 'Balenciaga, Demna Gvasalia',                               category: 'DESIGN ÉDITORIAL',     img: 'images/travaux-05.jpg', cardBg: '#8C8C7A', cardText: '#F5EFE6' },
   { file: 'project-06.html', name: 'Grapillon',                                                category: 'DIRECTION ARTISTIQUE', img: 'images/travaux-06.jpg', cardBg: '#fff1a6', cardText: '#1A1A1A' },
   { file: 'project-11.html', name: 'Synapse Studio',                                           category: 'COLLECTIF',            img: 'images/travaux-11.jpg', cardBg: '#1A1A1A', cardText: '#F5EFE6', extraClass: 'travaux-card--synapse' },
-  { file: 'project-08.html', name: "Arch'ocktail",                                             category: 'Identité visuelle',    img: 'images/travaux-08.jpg', cardBg: '#A8C4D4', cardText: '#1A1A1A' }
+  { file: 'project-08.html', name: "Arch'ocktail",                                             category: 'Identité visuelle',    img: 'images/travaux-08.jpg', cardBg: '#A8C4D4', cardText: '#1A1A1A' },
+  { file: 'project-09.html', name: 'Faire signe',                                               category: 'DESIGN ÉDITORIAL',     img: 'images/travaux-09.jpg', cardBg: '#DCCFBE', cardText: '#1A1A1A' }
 ];
 
 (function () {

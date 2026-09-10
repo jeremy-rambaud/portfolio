@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faire signe — Jérémy Rambaud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .project-hero-pin { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
+    .project-hero-pin__media { position: absolute; inset: 0; }
+    .project-hero-pin__media img,
+    .project-hero-pin__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-hero-pin__title {
+      position: absolute; bottom: 8vh; left: 0; right: 0;
+      padding: 0 5vw; pointer-events: none;
+    }
+    /* Mobile : le titre superposé au hero disparaît visuellement (le
+       bloc infos juste en dessous, avec ANNÉE/CLIENT/DISCIPLINES,
+       identifie déjà le projet). On garde le <h1> dans le DOM via la
+       technique .sr-only plutôt que display:none, pour ne pas le
+       retirer de l'arbre d'accessibilité ni du contenu indexable. */
+    @media (max-width: 767px) {
+      .project-hero-pin__title {
+        position: absolute;
+        top: auto; left: auto; right: auto; bottom: auto;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    }
+    .project-hero-pin__title .project-title-large { color: #ffffff; margin: 0; }
+
+    /* Sous-titre du mémoire, affiché sous le titre dans le hero (desktop)
+       et sous le titre mobile dans l'en-tête (mobile). */
+    .project-hero-pin__title .project-hero-subtitle {
+      color: #ffffff;
+      font-style: italic;
+      font-size: clamp(0.9375rem, 1.6vw, 1.25rem);
+      max-width: 640px;
+      margin: var(--space-xs, 0.75rem) 0 0;
+    }
+    /* Bloc Typographies : l'image (project-09e.jpg) est collée au bord
+       gauche de la fenêtre (bleed), à la même hauteur que l'image "d"
+       du bloc Terrain juste au-dessus (colonne .project-two-col__img en
+       aspect-ratio 3/4) — d'où le calcul de hauteur ci-dessous, basé sur
+       la même largeur de colonne (avant bleed) que .project-two-col. */
+    .project-typo-block {
+      --bleed: max(0px, calc((100vw - var(--max-width)) / 2));
+      --content-w: min(100vw, var(--max-width));
+      --col-w: calc((var(--content-w) - 2 * var(--gutter)) / 2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      padding: 0 var(--gutter) 0 0;
+      max-width: var(--max-width);
+      margin: 0 auto var(--space-xl);
+    }
+    .project-typo-block__img {
+      margin-left: calc(-1 * var(--bleed));
+      width: calc(100% + var(--bleed));
+      height: calc(var(--col-w) * 4 / 3);
+      overflow: hidden;
+    }
+    .project-typo-block__img img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .project-typo-block__text {
+      padding: var(--space-md) 0 var(--space-md) var(--space-xl);
+      position: sticky;
+      top: calc(5rem + var(--space-md));
+    }
+    @media (max-width: 900px) {
+      .project-typo-block {
+        display: block;
+        padding: 0;
+        --col-w: calc(var(--content-w) - 2 * var(--gutter));
+      }
+      .project-typo-block__img {
+        margin-left: calc(-1 * var(--bleed));
+        width: calc(100% + var(--bleed) * 2);
+        margin-bottom: var(--space-md);
+      }
+      .project-typo-block__text {
+        padding: 0 var(--gutter);
+        position: static;
+      }
+    }
+
+    /* Bloc Fabrication : image collée aux deux bords de la fenêtre (même
+       technique de bleed que .project-image-block), à son ratio réel
+       2400×1600, non forcé, sans recadrage. Le conteneur .project-fab-block
+       lui-même n'a ni max-width ni padding horizontal : c'est la colonne
+       de texte, seule, qui reste dans la colonne de contenu normale. */
+    .project-fab-block {
+      margin-bottom: var(--space-xl);
+    }
+    .project-fab-block__img {
+      display: block;
+      width: 100vw;
+      max-width: none;
+      height: auto;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      margin-bottom: var(--space-md);
+    }
+    .project-fab-block__text a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    /* Bloc "Une autre hypothèse" : .project-text impose par défaut un
+       padding vertical de var(--space-xl) (8rem), bien plus large que le
+       rythme des autres blocs de texte de la page (Approche, Terrain,
+       Fabrication, tous en var(--space-md)) — on aligne dessus. Hauteur
+       non forcée : uniquement définie par le contenu (h3 + 3 paragraphes). */
+    .project-text--hypothesis {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+    @media (max-width: 767px) {
+      .project-text--hypothesis {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+    }
+    /* Pullquote final : aucun min-height/height forcé ici. Le wrapper est
+       redevenu un .project-text--center strictement identique à celui de
+       project-03.html/project-07.html (aucune classe de padding custom),
+       pour garder exactement le même padding vertical (var(--space-xl),
+       8rem, hérité de .project-text) que les autres pullquotes du site.
+       Le .pullquote nage cependant dans .text-block, où la règle globale
+       .text-block p (font-size: 1rem) est plus spécifique que .pullquote
+       et écrase sa taille sur TOUTES les pages qui suivent ce patron —
+       donc aussi sur project-03/05/07. On restaure ici la taille prévue
+       par .pullquote avec un sélecteur plus spécifique (.text-block
+       .pullquote, deux classes) qui gagne sur .text-block p sans toucher
+       au fichier CSS partagé ni aux autres pages. */
+    .text-block .pullquote {
+      font-size: clamp(1.5rem, 2.5vw, 2.75rem);
+    }
+    /* Encart "Lire le mémoire" : sobre, sans fond coloré — un filet fin
+       au-dessus et en dessous, même couleur de séparateur que les lignes
+       de crédits (.credit-row) ailleurs sur le site. Le lien reprend le
+       traitement déjà utilisé pour .back-link/.next-project (soulignement
+       animé au survol) plutôt qu'un bouton plein. Placé dans la colonne
+       de droite du bloc Approche, juste après le <dl> : aligné à gauche
+       comme le reste de la colonne, pas centré. */
+    .project-callout {
+      margin-top: var(--space-md);
+      padding: var(--space-md) 0;
+      border-top: 1px solid rgba(26, 26, 26, 0.1);
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+    }
+    /* Sans le wrapper .text-block (retiré avec le centrage), le h3 n'hérite
+       plus d'aucun style : on reprend le traitement discret déjà utilisé
+       pour .project-credits h3 (petite légende, pas un titre de section). */
+    .project-callout h3 {
+      font-size: 0.6875rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      font-weight: 400;
+      font-style: normal;
+      margin-bottom: var(--space-sm);
+    }
+    .project-callout p {
+      margin-bottom: var(--space-sm);
+    }
+    .project-callout__link {
+      display: inline-block;
+      font-size: 0.6875rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      position: relative;
+    }
+    .project-callout__link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--black);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.35s var(--ease);
+    }
+    .project-callout__link:hover::after {
+      transform: scaleX(1);
+    }
+    /* project-09i.jpg (juste avant ce bloc) a le margin-bottom: var(--space-xl)
+       hérité de .project-image-block : cumulé au padding-top ci-dessus, l'écart
+       au-dessus du titre valait 8rem + 2rem, contre 2rem seulement sous le
+       dernier paragraphe. On retire ce margin en trop pour égaliser les deux. */
+    .project-image-block--flush-bottom {
+      margin-bottom: 0;
+    }
+    /* Images qui suivent le texte de Fabrication (project-09g/h/i) : même
+       bleed que .project-image-block, mais sans le recadrage 16/9 forcé
+       par défaut sur ses <img> — on garde le ratio réel de chaque photo. */
+    .project-image-block--natural > img {
+      aspect-ratio: auto;
+      height: auto;
+      object-fit: initial;
+    }
+    .project-fab-block__text {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      text-align: center;
+    }
+
+    .project-subtitle-mobile { display: none; }
+    @media (max-width: 767px) {
+      .project-subtitle-mobile {
+        display: block;
+        font-style: italic;
+        color: var(--gray);
+        font-size: 0.9375rem;
+        line-height: 1.4;
+        margin: 0 0 var(--space-sm);
+      }
+    }
+
+    /* Pré-état du hero pour matcher l'état initial GSAP (scale 1.6 / opacity 0)
+       et éviter le flash "normal -> caché" pendant le chargement de GSAP. */
+    html.gsap-hero-init .project-hero-pin__media {
+      transform: scale(1.6);
+      transform-origin: center;
+    }
+    html.gsap-hero-init .project-hero-pin__title {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  </style>
+  <script>
+    (function () {
+      if (window.matchMedia('(min-width: 769px) and (prefers-reduced-motion: no-preference)').matches) {
+        document.documentElement.classList.add('gsap-hero-init');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="cursor"><div class="cursor-dot"></div></div>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Jérémy Rambaud</a>
+      <ul class="nav-links">
+        <li><a href="travaux.html" class="active">Travaux</a></li>
+        <li><a href="photographie.html">Photographie</a></li>
+        <li><a href="infos.html">À propos</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="nav-mobile" aria-hidden="true">
+    <a href="travaux.html">Travaux</a>
+    <a href="photographie.html">Photographie</a>
+    <a href="infos.html">À propos</a>
+  </div>
+
+  <main class="project-page">
+
+    <section class="project-hero-pin" data-nav-theme="dark">
+      <div class="project-hero-pin__media">
+        <img src="images/project-09a.jpg" alt="Faire signe — Hero">
+      </div>
+      <div class="project-hero-pin__title">
+        <h1 class="project-title-large">Faire signe</h1>
+        <p class="project-hero-subtitle">La direction artistique, du vêtement au signe d'appartenance</p>
+      </div>
+    </section>
+
+    <section class="project-header" data-scroll data-nav-theme="light">
+      <p class="project-title-mobile">Faire signe</p>
+      <p class="project-subtitle-mobile">La direction artistique, du vêtement au signe d'appartenance</p>
+      <div class="project-meta">
+        <span class="project-category">DESIGN ÉDITORIAL</span>
+        <span class="project-year">2026</span>
+      </div>
+      <p class="project-intro">
+        La mode me passionne depuis longtemps. J'ai voulu prendre cette passion au sérieux et l'interroger, plutôt que de la subir. De là est née la question qui traverse le mémoire&#8239;: comment la direction artistique a-t-elle fait de la mode, par l'image et la communication, un signe d'appartenance&#8239;?
+      </p>
+    </section>
+
+    <section class="project-body" data-nav-theme="light">
+
+      <div class="project-two-col" data-scroll data-nav-theme="dark">
+        <div class="project-two-col__img">
+          <img src="images/project-09b.jpg" alt="Faire signe — Approche">
+        </div>
+        <div class="project-two-col__text">
+          <h3>Approche</h3>
+          <p>Chercher la réponse m'a fait remonter le fil du vêtement lui-même. Il a d'abord protégé, couvert, tenu chaud. Puis il s'est mis à dire quelque chose de celui qui le porte. Ce déplacement, du purement utilitaire au porteur de sens, ne s'est pas fait tout seul&#8239;: c'est la direction artistique qui l'a rendu possible, en construisant autour du vêtement les images, les récits et les signes qui lui donnent sa valeur.</p>
+          <p>Le mémoire est pensé comme un objet éditorial autant que comme un travail de recherche. La forme n'illustre pas le propos, elle le prolonge&#8239;: le choix des caractères, le rythme des pages et la fabrication du livre relèvent du même geste que l'écriture.</p>
+          <dl class="project-details">
+            <dt>Année</dt>
+            <dd>2026</dd>
+            <dt>Contexte</dt>
+            <dd>Mémoire de Master 2 Direction Artistique, EEGP Angers</dd>
+            <dt>Rôle</dt>
+            <dd>Recherche, écriture, direction artistique, édition</dd>
+          </dl>
+          <div class="project-callout">
+            <h3>Lire le mémoire</h3>
+            <p>La version numérique est consultable en intégralité.</p>
+            <a class="project-callout__link" href="memoire-faire-signe.pdf" target="_blank" rel="noopener">Ouvrir le PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-image-block" data-scroll data-nav-theme="light">
+        <img src="images/project-09c.jpg" alt="Faire signe — Détail">
+      </div>
+
+      <div class="project-two-col project-two-col--reverse" data-scroll data-nav-theme="dark">
+        <div class="project-two-col__img">
+          <img src="images/project-09d.jpg" alt="Faire signe — Terrain">
+        </div>
+        <div class="project-two-col__text">
+          <h3>Terrain</h3>
+          <p>La réflexion part d'un socle théorique, de <em>Système de la mode</em> de Roland Barthes à <em>L'idée de la mode</em> d'Émilie Hammen, prolongé par des références contemporaines. Sur cette base, j'ai analysé le travail de plusieurs directeurs artistiques et la façon dont chacun fait signe, à travers une étude de cas, un corpus iconographique et une frise retraçant la vague de blanding des années 2010.</p>
+          <p>Restait à confronter tout cela au terrain. Trois entretiens avec des professionnels du secteur, <strong>Tiffany Chen</strong> (Dior), <strong>Pierrick Romero</strong> (AMI Paris) et <strong>José Béreaud</strong> (Chanel Beauty), sont venus éprouver ces analyses du côté de ceux qui fabriquent ces images au quotidien.</p>
+        </div>
+      </div>
+
+      <div class="project-typo-block" data-scroll data-nav-theme="light">
+        <div class="project-typo-block__img">
+          <img src="images/project-09e.jpg" alt="Faire signe — Typographies">
+        </div>
+        <div class="project-typo-block__text">
+          <h3>Typographies</h3>
+          <p>Les titrages sont composés en <strong>Romie</strong>, dessinée par <strong>Margot Lévêque</strong> et éditée par sa fonderie <strong>Claude Type</strong>. Le caractère est né de son envie de se rapprocher de l'héritage du Garamond sans en faire un pastiche&#8239;: une romaine de titrage nourrie de calligraphie, dont les détails ne se révèlent vraiment qu'en grand corps. Dessinée en pensant aux serifs que la mode utilisait dans les années 1960, elle tombait juste pour un mémoire qui parle de vêtement, de signes et de ce qui se transmet. Merci à <strong>Margot Lévêque</strong> de m'avoir donné <strong>Romie</strong> pour ce projet.</p>
+          <p>Le corps de texte est composé en <strong>Neue Haas Grotesk Text</strong>, dessinée par <strong>Christian Schwartz</strong> d'après le dessin original de <strong>Max Miedinger</strong>. C'est la version rendue à son état de 1957, avant les simplifications qui ont donné l'Helvetica que tout le monde connaît. Sa neutralité laisse la place au propos et tient la lecture sur la longueur, ce qui compte sur un texte de cette taille.</p>
+        </div>
+      </div>
+
+      <div class="project-fab-block" data-scroll data-nav-theme="dark">
+        <img class="project-fab-block__img" src="images/project-09f.jpg" alt="Faire signe — Fabrication">
+        <div class="project-fab-block__text text-block">
+          <h3>Fabrication</h3>
+          <p>Le mémoire est relié à la main en demi-toile, en quatre exemplaires&#8239;: plats blancs sans débord, dos toilé. Il est protégé par une boîte à chasse en tissu rouge, réalisée avec <a href="https://reliure-artisanale.fr/" target="_blank" rel="noopener">Vincent Botasso</a>, relieur d'art à Nice. L'impression est signée <a href="https://www.copies-express.fr/?utm_source=gmb" target="_blank" rel="noopener">Copies Express</a>, à Angers, en offset sur papier couché.</p>
+          <p>Le choix de la boîte n'est pas décoratif. Un mémoire qui parle de la façon dont la mode transforme un vêtement en signe d'appartenance ne pouvait pas arriver nu&#8239;: dans le luxe, l'écrin fait partie du signe autant que la pièce qu'il contient. La boîte à chasse reprend le geste du coffret que l'on ouvre.</p>
+          <p>Le rouge répond au blanc des plats. Le livre reste sobre, presque muet, et c'est la boîte qui porte la couleur, celle des textiles et des packagings que les maisons emploient pour signaler la valeur. Le contraste des deux matières, toile blanche et tissu rouge, tient tout le propos en un seul objet.</p>
+        </div>
+      </div>
+
+      <div class="project-image-block project-image-block--split project-image-block--natural" data-scroll data-nav-theme="light">
+        <img src="images/project-09g.jpg" alt="Faire signe — Fabrication, détail">
+        <img src="images/project-09h.jpg" alt="Faire signe — Fabrication, détail">
+      </div>
+
+      <div class="project-image-block project-image-block--natural project-image-block--flush-bottom" data-scroll data-nav-theme="dark">
+        <img src="images/project-09i.jpg" alt="Faire signe — Fabrication, vue finale">
+      </div>
+
+      <div class="project-text project-text--center project-text--hypothesis" data-scroll data-nav-theme="light">
+        <div class="text-block">
+          <h3>Une autre hypothèse</h3>
+          <p>En parallèle de la boîte à chasse, j'ai imaginé un second format&#8239;: un étui souple en toile de coton écrue, fermé par un lien que l'on noue. Le livre s'y glisse comme dans une housse, et seul le titre imprimé en rouge dépasse de la bande de tissu qui le retient.</p>
+          <p>L'idée est venue du sujet lui-même. Si le mémoire parle du vêtement, l'objet pouvait en reprendre la logique&#8239;: une matière textile, une couture, un lien qui se noue et se dénoue à chaque lecture. On n'ouvre pas une boîte comme on défait un nœud, le second geste demande du temps et engage la main de celui qui lit.</p>
+          <p>La toile écrue laisse la couleur au seul titre, comme sur la couverture où le rouge de la <strong>Romie</strong> tranche sur le blanc du plat. Les deux formats ne s'annulent pas&#8239;: la boîte protège le livre, l'étui l'accompagne.</p>
+        </div>
+      </div>
+
+      <div class="project-image-block project-image-block--natural" data-scroll data-nav-theme="dark">
+        <img src="images/project-09l.jpg" alt="Faire signe — Étui souple, vue finale">
+      </div>
+
+      <div class="project-image-block project-image-block--split project-image-block--natural" data-scroll data-nav-theme="light">
+        <img src="images/project-09j.jpg" alt="Faire signe — Étui souple, détail">
+        <img src="images/project-09k.jpg" alt="Faire signe — Étui souple, détail">
+      </div>
+
+      <div class="project-text project-text--center" data-scroll data-nav-theme="light">
+        <div class="text-block">
+          <p class="pullquote">Du vêtement au signe d'appartenance</p>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="project-credits" data-scroll data-nav-theme="light">
+      <h3>Crédits</h3>
+      <div class="credit-row">
+        <span class="credit-role">Recherche, écriture et direction artistique</span>
+        <span>Jérémy Rambaud</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Typographies</span>
+        <span>Romie (Margot Lévêque, Claude Type), Neue Haas Grotesk Text (Christian Schwartz d'après Max Miedinger)</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Photographies</span>
+        <span>Jérémy Rambaud</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Reliure et boîte à chasse</span>
+        <span>Jérémy Rambaud, Vincent Botasso</span>
+      </div>
+      <div class="credit-row">
+        <span class="credit-role">Pochette en tissu</span>
+        <span>Maison Ulsha</span>
+      </div>
+    </section>
+
+    <section class="project-discover" data-scroll data-nav-theme="light">
+      <h3 class="project-discover-title">Découvrir d'autres projets</h3>
+      <div class="project-discover-grid"></div>
+    </section>
+
+    <nav class="project-nav" data-scroll data-nav-theme="light">
+      <a href="travaux.html" class="back-link">← Tous les travaux</a>
+      <a href="project.html" class="next-project">Projet suivant →</a>
+    </nav>
+
+  </main>
+
+  <footer data-nav-theme="light">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-label">Adresse</p>
+        <address>Angers, France<br>49000</address>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Contact</p>
+        <p><a href="mailto:jeremy859746@gmail.com">jeremy859746@gmail.com</a></p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-label">Réseaux</p>
+        <ul class="footer-social">
+          <li><a href="https://www.instagram.com/monsieur.rambaud" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/in/jeremy-rambaud-19a707220/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">
+      <svg viewBox="-3.12 -5.62 1003.12 215.64" preserveAspectRatio="xMidYMid meet">
+        <text x="0" y="160"
+              textLength="1000"
+              lengthAdjust="spacing"
+              font-family="Romie"
+              font-style="italic"
+              font-size="200">Rambaud</text>
+      </svg>
+    </div>
+    <div class="footer-bottom">
+      <span>©2026 Jérémy Rambaud</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+  (function () {
+    function init() {
+      document.querySelectorAll('.project-body [data-scroll], .project-credits[data-scroll], .project-nav[data-scroll]')
+        .forEach(el => el.classList.add('visible'));
+
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        // GSAP indisponible (CDN bloqué, etc.) : retire le pré-état CSS pour
+        // ne pas laisser le hero figé zoomé/masqué en permanence.
+        document.documentElement.classList.remove('gsap-hero-init');
+        return;
+      }
+
+      try {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const mm = gsap.matchMedia();
+
+        mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
+          const hero    = document.querySelector('.project-hero-pin');
+          const media   = document.querySelector('.project-hero-pin__media');
+          const overlay = document.querySelector('.project-hero-pin__title');
+          if (!hero || !media || !overlay) return;
+
+          gsap.set(media,   { scale: 1.6 });
+          gsap.set(overlay, { opacity: 0, y: 30 });
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: hero,
+              start: 'top top',
+              end: '+=100%',
+              pin: true,
+              scrub: true,
+              anticipatePin: 1
+            }
+          });
+
+          tl.to(media,   { scale: 1, ease: 'none', duration: 1 }, 0);
+          tl.to(overlay, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0.45);
+
+          // Recalcule le pin une fois le média hero réellement chargé (dimensions
+          // stables), au cas où il ne l'était pas encore à la création du trigger.
+          const heroMedia = media.querySelector('img, video');
+          const heroReady = heroMedia && (heroMedia.tagName === 'IMG' ? heroMedia.complete : heroMedia.readyState >= 1);
+          if (heroMedia && !heroReady) {
+            heroMedia.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+          }
+
+          return () => gsap.set([media, overlay], { clearProps: 'all' });
+        });
+      } catch (e) {
+        // Si la mise en place du hero échoue pour une raison quelconque, on ne
+        // laisse jamais le pré-état CSS (zoom/opacité) figé sans que l'animation
+        // n'ait pris le relais : le hero doit rester utilisable, pas bloqué.
+        document.documentElement.classList.remove('gsap-hero-init');
+      }
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', init)
+      : init();
+  })();
+  </script>
+</body>
+</html>
